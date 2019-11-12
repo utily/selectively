@@ -11,6 +11,9 @@ export class Any extends Base {
 		is(this.value, value)
 	}
 }
-export function any<T>(criteria: Criteria): Base {
-	return new Any(criteria)
+export function any<T>(criteria: Criteria): Base
+export function any<T>(criteria: Criteria, value: any): boolean
+export function any<T>(criteria: Criteria, value?: any): Base | boolean {
+	const result = new Any(criteria)
+	return value ? result.is(value) : result
 }
