@@ -10,6 +10,9 @@ export class Not extends Base {
 		return !this.criteria.is(value)
 	}
 }
-export function not(criteria: Criteria): Not {
-	return new Not(criteria instanceof Base ? criteria : new Is(criteria))
+export function not(criteria: Criteria): Not
+export function not(criteria: Criteria, value: any): boolean
+export function not(criteria: Criteria, value?: any): Not | boolean {
+	const result = new Not(criteria instanceof Base ? criteria : new Is(criteria))
+	return value ? result.is(value) : result
 }

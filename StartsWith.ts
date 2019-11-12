@@ -8,6 +8,9 @@ export class StartsWith extends Base {
 		return typeof(value) == "string" && value.startsWith(this.needle)
 	}
 }
-export function startsWith(needle: string): StartsWith {
-	return new StartsWith(needle)
+export function startsWith(needle: string): StartsWith
+export function startsWith(needle: string, value: any): boolean
+export function startsWith(needle: string, value?: any): StartsWith | boolean {
+	const result = new StartsWith(needle)
+	return value ? result.is(value) : result
 }
