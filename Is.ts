@@ -2,7 +2,7 @@ import { Base } from "./Base"
 import { Criteria } from "./Criteria"
 
 export class Is extends Base {
-	constructor(readonly value: any) {
+	constructor(readonly value: Criteria) {
 		super()
 	}
 	is(value: any): boolean {
