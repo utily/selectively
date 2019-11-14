@@ -1,11 +1,15 @@
 import { Base } from "./Base"
 
 export class EndsWith extends Base {
+	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor(readonly needle: string) {
 		super()
 	}
 	is(value: any): boolean {
 		return typeof(value) == "string" && value.endsWith(this.needle)
+	}
+	toString() {
+		return `*${ this.needle }`
 	}
 }
 export function endsWith(needle: string): EndsWith
