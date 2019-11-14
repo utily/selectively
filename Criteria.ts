@@ -1,7 +1,9 @@
 import { Base } from "./Base"
 
-export type Criteria =
+type Helper =
 	number |
 	string |
 	Base |
-	{ [property: string]: Criteria }
+	{ [property: string]: Helper | Helper[] }
+
+export type Criteria = Helper | Helper[]

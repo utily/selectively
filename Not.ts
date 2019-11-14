@@ -2,7 +2,7 @@ import { Base, create } from "./Base"
 import { Criteria } from "./Criteria"
 
 export class Not extends Base {
-	readonly precedence = 60
+	readonly precedence = 90
 	constructor(readonly criteria: Base) {
 		super()
 	}

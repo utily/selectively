@@ -20,4 +20,4 @@ export function property(name: string, criteria: Criteria, value?: any): Propert
 	const result = new Property(name, create(criteria))
 	return value ? result.is(value) : result
 }
-add(criteria => typeof(criteria) == "object" && !(criteria instanceof Base) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)
+add(criteria => typeof(criteria) == "object" && !(criteria instanceof Base) && !Array.isArray(criteria) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)

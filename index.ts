@@ -13,6 +13,7 @@ import { or } from "./Or"
 import { property } from "./Property"
 import { some } from "./Some"
 import { startsWith } from "./StartsWith"
+import "./Tuple"
 
 function is(criteria: Criteria): Base
 function is(criteria: Criteria, value?: any): boolean
