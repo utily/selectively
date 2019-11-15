@@ -1,11 +1,15 @@
 import { Base } from "./Base"
 
 export class Includes extends Base {
+	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor(readonly needle: string) {
 		super()
 	}
 	is(value: any): boolean {
 		return typeof(value) == "string" && value.includes(this.needle)
+	}
+	toString() {
+		return `*${ this.needle }*`
 	}
 }
 export function includes(needle: string): Includes

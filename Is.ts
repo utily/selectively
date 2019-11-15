@@ -1,23 +1,21 @@
-import { Base } from "./Base"
-import { Criteria } from "./Criteria"
+import { Base, add } from "./Base"
 
 export class Is extends Base {
-	constructor(readonly value: Criteria) {
+	readonly precedence = Number.MAX_SAFE_INTEGER
+	constructor(readonly value: bigint | boolean | number | string) {
 		super()
 	}
 	is(value: any): boolean {
-		return is(this.value, value)
+		return value == this.value
+	}
+	toString(): string {
+		return this.value.toString()
 	}
 }
-export function is(criteria: Criteria, value: any): boolean {
-	const type = typeof(criteria)
-	return criteria instanceof Base ? criteria.is(value) : type == typeof(value) && (
-		(type == "bigint" || type == "boolean" || type == "number" || type == "string") ? criteria === value :
-		Array.isArray(criteria) ? Array.isArray(value) && criteria.length == value.length && criteria.every((element, index) => is(element, value[index])) :
-		typeof(criteria) == "object" ? Object.getOwnPropertyNames(criteria).every(property => is(criteria[property], value[property])) :
-		false
-	)
+export function is(criteria: bigint | boolean | number | string): Is
+export function is(criteria: bigint | boolean | number | string, value?: any): boolean
+export function is(criteria: bigint | boolean | number | string, value?: any): Is | boolean {
+	const result = new Is(criteria)
+	return value ? result.is(value) : result
 }
-export function filter<T>(criteria: Criteria, value: T[]): T[] {
-	return value.filter(element => is(criteria, element))
-}
+add(criteria => typeof(criteria) == "bigint" || typeof(criteria) == "boolean" || typeof(criteria) == "number" || typeof(criteria) == "string" ? new Is(criteria) : undefined)
