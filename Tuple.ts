@@ -1,8 +1,8 @@
-import { Base, create, add } from "./Base"
+import { Rule, create, add } from "./Rule"
 
-export class Tuple extends Base {
+export class Tuple extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
-	constructor(readonly criteria: Base[]) {
+	constructor(readonly criteria: Rule[]) {
 		super()
 	}
 	is(value: any): boolean {

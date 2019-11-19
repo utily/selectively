@@ -1,6 +1,6 @@
-import { Base, add } from "./Base"
+import { Rule, add } from "./Rule"
 
-export class Is extends Base {
+export class Is extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor(readonly value: bigint | boolean | number | string) {
 		super()

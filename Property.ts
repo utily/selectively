@@ -1,10 +1,10 @@
-import { Base, add, create } from "./Base"
+import { Rule, add, create } from "./Rule"
 import { Criteria } from "./Criteria"
 import { and } from "./And"
 
-export class Property extends Base {
+export class Property extends Rule {
 	readonly precedence = 80
-	constructor(readonly name: string, readonly criteria: Base) {
+	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}
 	is(value: any): boolean {
@@ -20,4 +20,4 @@ export function property(name: string, criteria: Criteria, value?: any): Propert
 	const result = new Property(name, create(criteria))
 	return value ? result.is(value) : result
 }
-add(criteria => typeof(criteria) == "object" && !(criteria instanceof Base) && !Array.isArray(criteria) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)
+add(criteria => typeof(criteria) == "object" && !(criteria instanceof Rule) && !Array.isArray(criteria) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)
