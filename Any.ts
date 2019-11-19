@@ -7,7 +7,7 @@ export class Any extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof(value) == "object" && Object.getOwnPropertyNames(value).some(property => this.criteria.is(value[property]) || this.is(value[property]))
+		return value && typeof(value) == "object" && Object.getOwnPropertyNames(value).some(property => this.criteria.is(value[property]) || this.is(value[property]))
 	}
 	toString() {
 		return this.criteria.stringify(this.precedence)
