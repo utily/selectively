@@ -1,6 +1,6 @@
-import { Base, setFallback } from "./Base"
+import { Rule, setFallback } from "./Rule"
 
-export class Always extends Base {
+export class Always extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor() {
 		super()

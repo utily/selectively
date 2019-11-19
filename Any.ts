@@ -1,9 +1,9 @@
-import { Base, create } from "./Base"
+import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
 
-export class Any extends Base {
+export class Any extends Rule {
 	readonly precedence = 50
-	constructor(readonly criteria: Base) {
+	constructor(readonly criteria: Rule) {
 		super()
 	}
 	is(value: any): boolean {
@@ -13,9 +13,9 @@ export class Any extends Base {
 		return this.criteria.stringify(this.precedence)
 	}
 }
-export function any<T>(criteria: Criteria): Base
+export function any<T>(criteria: Criteria): Rule
 export function any<T>(criteria: Criteria, value: any): boolean
-export function any<T>(criteria: Criteria, value?: any): Base | boolean {
+export function any<T>(criteria: Criteria, value?: any): Rule | boolean {
 	const result = new Any(create(criteria))
 	return value ? result.is(value) : result
 }

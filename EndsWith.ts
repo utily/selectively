@@ -1,6 +1,6 @@
-import { Base } from "./Base"
+import { Rule } from "./Rule"
 
-export class EndsWith extends Base {
+export class EndsWith extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor(readonly needle: string) {
 		super()

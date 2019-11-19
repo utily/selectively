@@ -1,6 +1,6 @@
-import { Base } from "./Base"
+import { Rule } from "./Rule"
 
-export class Match extends Base {
+export class Match extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	constructor(readonly criteria: RegExp) {
 		super()

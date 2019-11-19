@@ -1,9 +1,9 @@
-import { Base, create } from "./Base"
+import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
 
-export class Not extends Base {
+export class Not extends Rule {
 	readonly precedence = 90
-	constructor(readonly criteria: Base) {
+	constructor(readonly criteria: Rule) {
 		super()
 	}
 	is(value: any): boolean {

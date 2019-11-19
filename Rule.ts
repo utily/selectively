@@ -1,8 +1,11 @@
 import { Criteria } from "./Criteria"
 
-export abstract class Base {
+export abstract class Rule {
 	abstract readonly precedence: number
 	abstract is(value: any): boolean
+	filter<T>(value: T[]): T[] {
+		return value.filter(element => this.is(element))
+	}
 	abstract toString(): string
 	stringify(precedence: number = 0): string {
 		let result = this.toString()
@@ -11,17 +14,17 @@ export abstract class Base {
 		return result
 	}
 }
-const creators: ((criteria: Criteria) => Base | undefined)[] = [criteria => criteria instanceof Base ? criteria : undefined]
+const creators: ((criteria: Criteria) => Rule | undefined)[] = [criteria => criteria instanceof Rule ? criteria : undefined]
 // tslint:disable-next-line: no-shadowed-variable
-export function add(create: (criteria: Criteria) => Base | undefined) {
+export function add(create: (criteria: Criteria) => Rule | undefined) {
 	creators.push(create)
 }
-let always: Base
-export function setFallback(fallback: Base) {
+let always: Rule
+export function setFallback(fallback: Rule) {
 	always = fallback
 }
-export function create(criteria: Criteria): Base {
-	let result: Base | undefined
+export function create(criteria: Criteria): Rule {
+	let result: Rule | undefined
 	for (const c of creators) {
 		result = c(criteria)
 		if (result)

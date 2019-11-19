@@ -1,9 +1,9 @@
-import { Base } from "./Base"
+import { Rule } from "./Rule"
 
 type Helper =
 	number |
 	string |
-	Base |
+	Rule |
 	{ [property: string]: Helper | Helper[] }
 
 export type Criteria = Helper | Helper[]

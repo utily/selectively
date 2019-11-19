@@ -1,7 +1,7 @@
 import "./Always"
 import { and } from "./And"
 import { any } from "./Any"
-import { Base, create } from "./Base"
+import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
 import { endsWith } from "./EndsWith"
 import { every } from "./Every"
@@ -15,15 +15,15 @@ import { some } from "./Some"
 import { startsWith } from "./StartsWith"
 import "./Tuple"
 
-function is(criteria: Criteria): Base
+function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
-function is(criteria: Criteria, value?: any): Base | boolean {
+function is(criteria: Criteria, value?: any): Rule | boolean {
 	const result = create(criteria)
 	return value ? result.is(value) : result
 }
 function filter<T>(criteria: Criteria, value: T[]): T[] {
 	const c = create(criteria)
-	return value.filter(element => c.is(element))
+	return c.filter(value)
 }
 
 export {
