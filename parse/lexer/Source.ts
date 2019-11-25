@@ -1,8 +1,8 @@
 import { Error, IO } from "@cogneco/mend"
 
 export class Source extends IO.BufferedReader implements Error.Handler {
-	constructor(reader: IO.Reader, private errorHandler: Error.Handler) {
-		super(reader)
+	constructor(reader: IO.Reader | string, private errorHandler?: Error.Handler) {
+		super(typeof(reader) == "string" ? IO.StringReader.create(reader) : reader)
 	}
 	raise(message: Error.Message): void
 	raise(message: string, level?: Error.Level, type?: string, region?: Error.Region): void
@@ -14,7 +14,8 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 				region = this.region
 			message = new Error.Message(message as string, level, type, region)
 		}
-		this.errorHandler.raise(message as Error.Message)
+		if (this.errorHandler)
+			this.errorHandler.raise(message as Error.Message)
 	}
 	requirePrefix(prefix: string | string[]): Source {
 		return new Source(new IO.PrefixReader(this, prefix), this.errorHandler)
@@ -26,7 +27,7 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 		return new Source(IO.UntilReader.create(this, endMark), this.errorHandler)
 	}
 	peekIsSymbol(): boolean {
-		return !!this.peekIs(["!", "(", ")", "[", "]", ":", ".", "|"])
+		return !!this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", "."])
 	}
 	peekIsWhitespace(): boolean {
 		return !!this.peekIs([ " ", "\n", "\t"])

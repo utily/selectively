@@ -14,10 +14,10 @@ export class Property extends Rule {
 		return `${ this.name }:${ this.criteria.stringify(this.precedence) }`
 	}
 }
-export function property(name: string, criteria: Criteria): Property
-export function property(name: string, criteria: Criteria, value: any): boolean
-export function property(name: string, criteria: Criteria, value?: any): Property | boolean {
-	const result = new Property(name, create(criteria))
-	return value ? result.is(value) : result
+export function property(name: string | string[], criteria: Criteria): Property
+export function property(name: string | string[], criteria: Criteria, value: any): boolean
+export function property(name: string | string[], criteria: Criteria, value?: any): Property | boolean {
+	const result = (Array.isArray(name) ? name : [name]).reduceRight((r, p) => new Property(p, r), create(criteria))
+	return value ? result.is(value) : result as Property
 }
 add(criteria => typeof(criteria) == "object" && !(criteria instanceof Rule) && !Array.isArray(criteria) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)

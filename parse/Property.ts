@@ -1,8 +1,13 @@
+import * as selectively from "../index"
+import * as lexer from "./lexer"
 import { add, parse } from "./index"
-import { Not } from "../Not"
 
 add(source => {
-	let length = 0
-	while (source.peek())
-	return  source.peekIs(":") && source.read() && new Not(parse(source))
+	const result: (string)[] = []
+	let fetched: lexer.Token[] | undefined
+	while (fetched = source.fetchIf("identifier", "."))
+		result.push(fetched[0].value)
+	if (fetched = source.fetchIf("identifier", ":"))
+		result.push(fetched[0].value)
+	return result.length > 0 && selectively.property(result, parse(source))
 })

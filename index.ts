@@ -14,6 +14,7 @@ import { property } from "./Property"
 import { some } from "./Some"
 import { startsWith } from "./StartsWith"
 import "./Tuple"
+import { parse } from "./parse"
 
 function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
@@ -39,6 +40,7 @@ export {
 	match,
 	not,
 	or,
+	parse,
 	property,
 	some,
 	startsWith,
