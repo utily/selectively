@@ -2,7 +2,7 @@ import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
 
 export class Not extends Rule {
-	readonly precedence = 90
+	readonly precedence = Not.precedence
 	constructor(readonly criteria: Rule) {
 		super()
 	}
@@ -12,6 +12,7 @@ export class Not extends Rule {
 	toString(): string {
 		return `!${ this.criteria.stringify(this.precedence) }`
 	}
+	static readonly precedence = 90
 }
 export function not(criteria: Criteria): Not
 export function not(criteria: Criteria, value: any): boolean

@@ -1,7 +1,7 @@
-import * as selectively from "../index"
+import { EndsWith} from "../EndsWith"
 import { add } from "./index"
 
 add(source => {
 	const fetched = source.fetchIf("*", "any")
-	return fetched && selectively.endsWith(fetched[1].value)
+	return fetched && new EndsWith(fetched[1].value)
 })

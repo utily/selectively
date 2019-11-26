@@ -3,7 +3,7 @@ import { Criteria } from "./Criteria"
 import { and } from "./And"
 
 export class Property extends Rule {
-	readonly precedence = 80
+	readonly precedence = Property.precedence
 	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}
@@ -13,6 +13,7 @@ export class Property extends Rule {
 	toString(): string {
 		return `${ this.name }:${ this.criteria.stringify(this.precedence) }`
 	}
+	static readonly precedence = 80
 }
 export function property(name: string | string[], criteria: Criteria): Property
 export function property(name: string | string[], criteria: Criteria, value: any): boolean
