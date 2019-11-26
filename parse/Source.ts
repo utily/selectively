@@ -5,6 +5,19 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 	constructor(tokens: lexer.Token[] | Utilities.Enumerator<lexer.Token>, private errorHandler: Error.Handler) {
 		super(Array.isArray(tokens) ? new Utilities.ArrayEnumerator(tokens) : tokens)
 	}
+	clone(): Source {
+		let nestingCount = 0
+		return new Source(new Utilities.Enumerator(() => {
+			let result: lexer.Token | undefined
+			if (this.peekIs("("))
+				nestingCount++
+			else if (this.peekIs(")"))
+				nestingCount--
+			if (nestingCount >= 0)
+				result = this.fetch()
+			return result
+		}), this)
+	}
 	peekIs(...needles: (RegExp | string | (RegExp | string)[])[]): boolean {
 		return needles.every((needle, index) => {
 			const peeked = this.peek(index)

@@ -38,6 +38,8 @@ export function add(parser: (source: Source, previous: Rule | undefined) => Rule
 }
 
 // Order matters
+import "./Every"
+import "./Some"
 import "./group"
 import "./Or"
 import "./Not"
