@@ -1,19 +1,20 @@
 import "./Always"
-import { and } from "./And"
-import { any } from "./Any"
-import { Rule, create } from "./Rule"
+import { and, And } from "./And"
+import { any, Any } from "./Any"
 import { Criteria } from "./Criteria"
-import { endsWith } from "./EndsWith"
-import { every } from "./Every"
-import { includes } from "./Includes"
-import "./Is"
-import { match } from "./Match"
-import { not } from "./Not"
-import { or } from "./Or"
-import { property } from "./Property"
-import { some } from "./Some"
-import { startsWith } from "./StartsWith"
-import "./Tuple"
+import { endsWith, EndsWith } from "./EndsWith"
+import { every, Every } from "./Every"
+import { includes, Includes } from "./Includes"
+import { Is } from "./Is"
+import { match, Match } from "./Match"
+import { not, Not } from "./Not"
+import { or, Or } from "./Or"
+import { property, Property } from "./Property"
+import { Rule, create } from "./Rule"
+import { some, Some } from "./Some"
+import { startsWith, StartsWith } from "./StartsWith"
+import { Tuple } from "./Tuple"
+import { parse } from "./parse"
 
 function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
@@ -27,7 +28,21 @@ function filter<T>(criteria: Criteria, value: T[]): T[] {
 }
 
 export {
+	And,
+	Any,
 	Criteria,
+	EndsWith,
+	Every,
+	Includes,
+	Is,
+	Match,
+	Not,
+	Or,
+	Property,
+	Rule,
+	Some,
+	StartsWith,
+	Tuple,
 	any,
 	and,
 	create,
@@ -39,6 +54,7 @@ export {
 	match,
 	not,
 	or,
+	parse,
 	property,
 	some,
 	startsWith,

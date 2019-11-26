@@ -3,7 +3,7 @@ import { Criteria } from "./Criteria"
 import { and } from "./And"
 
 export class Property extends Rule {
-	readonly precedence = 80
+	readonly precedence = Property.precedence
 	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}
@@ -13,11 +13,12 @@ export class Property extends Rule {
 	toString(): string {
 		return `${ this.name }:${ this.criteria.stringify(this.precedence) }`
 	}
+	static readonly precedence = 80
 }
-export function property(name: string, criteria: Criteria): Property
-export function property(name: string, criteria: Criteria, value: any): boolean
-export function property(name: string, criteria: Criteria, value?: any): Property | boolean {
-	const result = new Property(name, create(criteria))
-	return value ? result.is(value) : result
+export function property(name: string | string[], criteria: Criteria): Property
+export function property(name: string | string[], criteria: Criteria, value: any): boolean
+export function property(name: string | string[], criteria: Criteria, value?: any): Property | boolean {
+	const result = (Array.isArray(name) ? name : [name]).reduceRight((r, p) => new Property(p, r), create(criteria))
+	return value ? result.is(value) : result as Property
 }
 add(criteria => typeof(criteria) == "object" && !(criteria instanceof Rule) && !Array.isArray(criteria) ? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p]))) : undefined)
