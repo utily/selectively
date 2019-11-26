@@ -5,13 +5,15 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 	constructor(tokens: lexer.Token[] | Utilities.Enumerator<lexer.Token>, private errorHandler: Error.Handler) {
 		super(Array.isArray(tokens) ? new Utilities.ArrayEnumerator(tokens) : tokens)
 	}
-	clone(): Source {
+	clone(): Source
+	clone(start: RegExp | string | (RegExp | string)[], end: RegExp | string | (RegExp | string)[]): Source
+	clone(start: RegExp | string | (RegExp | string)[] = "(", end: RegExp | string | (RegExp | string)[] = ")"): Source {
 		let nestingCount = 0
 		return new Source(new Utilities.Enumerator(() => {
 			let result: lexer.Token | undefined
-			if (this.peekIs("("))
+			if (this.peekIs(start))
 				nestingCount++
-			else if (this.peekIs(")"))
+			else if (this.peekIs(end))
 				nestingCount--
 			if (nestingCount >= 0)
 				result = this.fetch()
