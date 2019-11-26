@@ -38,6 +38,7 @@ export function add(parser: (source: Source, previous: Rule | undefined) => Rule
 }
 
 // Order matters
+import "./group"
 import "./Or"
 import "./Not"
 import "./Property"
@@ -45,4 +46,4 @@ import "./Includes"
 import "./StartsWith"
 import "./EndsWith"
 import "./Is"
-import "./Ignore" // Reads every token and throws it away so that parsing is finite
+import "./ignore" // Reads every token and throws it away so that parsing is finite

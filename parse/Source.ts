@@ -2,13 +2,10 @@ import { Error, Utilities } from "@cogneco/mend"
 import * as lexer from "./lexer"
 
 export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements Error.Handler {
-	constructor(tokens: lexer.Token[], private errorHandler: Error.Handler) {
-		super(new Utilities.ArrayEnumerator(tokens))
+	constructor(tokens: lexer.Token[] | Utilities.Enumerator<lexer.Token>, private errorHandler: Error.Handler) {
+		super(Array.isArray(tokens) ? new Utilities.ArrayEnumerator(tokens) : tokens)
 	}
-	clone(): Source {
-		return this
-	}
-	peekIs(...needles: (RegExp | string| (RegExp | string)[])[]): boolean {
+	peekIs(...needles: (RegExp | string | (RegExp | string)[])[]): boolean {
 		return needles.every((needle, index) => {
 			const peeked = this.peek(index)
 			return peeked && peeked.value && Source.is(needle, peeked.value)
@@ -27,8 +24,8 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 	}
 	raise(message: string | Error.Message, level: Error.Level = Error.Level.Critical, type = "gramatical", region?: Error.Region): void {
 		if (typeof message == "string") {
-			if (!region)
-				region = this.last!.region
+			if (!region && this.last)
+				region = this.last.region
 			message = new Error.Message(message as string, level, type, region)
 		}
 		this.errorHandler.raise(message as Error.Message)
