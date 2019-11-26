@@ -37,7 +37,7 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 	mark(): Utilities.Enumerable<lexer.Token> {
 		return Utilities.Enumerable.from(Utilities.Enumerable.empty)
 	}
-	raise(message: string | Error.Message, level: Error.Level = Error.Level.Critical, type = "gramatical", region?: Error.Region): void {
+	raise(message: string | Error.Message, level: Error.Level = Error.Level.Critical, type = "grammatical", region?: Error.Region): void {
 		if (typeof message == "string") {
 			if (!region && this.last)
 				region = this.last.region
