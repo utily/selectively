@@ -44,15 +44,15 @@
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "@cogneco/mend": "^1.7.10"
+  "@cogneco/mend": "^1.7.11"
  },
  "devDependencies": {
   "@types/jest": "^24.0.23",
-  "@types/node": "^12.12.11",
+  "@types/node": "^12.12.14",
   "babel-core": "^6.26.3",
   "babel-jest": "^24.9.0",
   "jest": "^24.9.0",
-  "ts-jest": "^24.1.0",
+  "ts-jest": "^24.2.0",
   "tslint": "^5.20.1",
   "typescript": "^3.7.2",
   "watch": "^1.0.2"
