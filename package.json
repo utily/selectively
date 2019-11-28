@@ -44,7 +44,7 @@
   "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {
-  "@cogneco/mend": "^1.7.14"
+  "@cogneco/mend": "^1.7.15"
  },
  "devDependencies": {
   "@types/jest": "^24.0.23",
