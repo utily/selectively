@@ -1,4 +1,4 @@
-import { add, parse } from "./index"
+import { add, parse } from "./parse"
 
 add(source => {
 	const result = source.fetchIf("(") && parse(source.clone())
