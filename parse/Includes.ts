@@ -1,5 +1,5 @@
 import { Includes } from "../Includes"
-import { add } from "./index"
+import { add } from "./parse"
 
 add(source => {
 	const fetched = source.fetchIf("*", "any", "*")

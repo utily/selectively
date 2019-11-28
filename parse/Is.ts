@@ -1,7 +1,7 @@
-import * as selectively from "../index"
-import { add } from "./index"
+import { Is } from "../Is"
+import { add } from "./parse"
 
 add(source => {
 	const fetched = source.fetchIf("any")
-	return fetched && selectively.is(fetched.value)
+	return fetched && new Is(fetched.value)
 })

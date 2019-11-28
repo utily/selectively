@@ -1,6 +1,6 @@
 import { Property } from "../Property"
 import * as lexer from "./lexer"
-import { add, parseNext } from "./index"
+import { add, parseNext } from "./parse"
 
 add(source => {
 	const result: (string)[] = []
