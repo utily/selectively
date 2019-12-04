@@ -3,6 +3,7 @@ import { Criteria } from "./Criteria"
 
 export class Or extends Rule {
 	readonly precedence = Or.precedence
+	readonly class = "Or"
 	readonly criteria: Rule[]
 	constructor(criterias: Rule[]) {
 		super()

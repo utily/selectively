@@ -2,6 +2,7 @@ import { Rule } from "./Rule"
 
 export class StartsWith extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly class = "StartsWith"
 	constructor(readonly needle: string) {
 		super()
 	}

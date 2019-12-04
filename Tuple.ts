@@ -2,6 +2,7 @@ import { Rule, create, add } from "./Rule"
 
 export class Tuple extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly class = "Tuple"
 	constructor(readonly criteria: Rule[]) {
 		super()
 	}
