@@ -3,6 +3,7 @@ import { Criteria } from "./Criteria"
 
 export class Any extends Rule {
 	readonly precedence = 50
+	readonly class = "Any"
 	constructor(readonly criteria: Rule) {
 		super()
 	}

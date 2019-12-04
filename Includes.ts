@@ -2,6 +2,7 @@ import { Rule } from "./Rule"
 
 export class Includes extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly class = "Includes"
 	constructor(readonly needle: string) {
 		super()
 	}

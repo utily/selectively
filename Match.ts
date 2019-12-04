@@ -2,6 +2,7 @@ import { Rule } from "./Rule"
 
 export class Match extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly class = "Match"
 	constructor(readonly criteria: RegExp) {
 		super()
 	}

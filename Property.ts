@@ -4,6 +4,7 @@ import { and } from "./And"
 
 export class Property extends Rule {
 	readonly precedence = Property.precedence
+	readonly class = "Property"
 	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}

@@ -3,6 +3,7 @@ import { Criteria } from "./Criteria"
 
 export class Every extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly class = "Every"
 	constructor(readonly criteria: Rule) {
 		super()
 	}
