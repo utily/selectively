@@ -1,11 +1,18 @@
 {
  "name": "selectively",
- "version": "0.0.17",
+ "version": "0.0.15",
  "description": "Create selection by filtering a collection.",
  "author": "PayFunc",
  "license": "MIT",
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/payfunc/selectively"
+ },
+ "bugs": {
+  "url": "https://github.com/payfunc/selectively/issues"
+ },
+ "homepage": "https://payfunc.com/open-source/selectively",
  "private": false,
- "repository": "https://github.com/payfunc/template-library",
  "main": "dist/index.js",
  "typings": "dist/index.d.ts",
  "git": {
