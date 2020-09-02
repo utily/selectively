@@ -7,10 +7,10 @@ export class Includes extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof(value) == "string" && value.includes(this.needle)
+		return typeof value == "string" && value.includes(this.needle)
 	}
 	toString() {
-		return `*${ this.needle }*`
+		return `*${this.needle}*`
 	}
 }
 export function includes(needle: string): Includes

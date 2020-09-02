@@ -11,7 +11,7 @@ export class Not extends Rule {
 		return !this.criteria.is(value)
 	}
 	toString(): string {
-		return `!${ this.criteria.stringify(this.precedence) }`
+		return `!${this.criteria.stringify(this.precedence)}`
 	}
 	static readonly precedence = 90
 }

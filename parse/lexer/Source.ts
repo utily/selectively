@@ -2,7 +2,7 @@ import { Error, IO } from "@cogneco/mend"
 
 export class Source extends IO.BufferedReader implements Error.Handler {
 	constructor(reader: IO.Reader | string, private errorHandler?: Error.Handler) {
-		super(typeof(reader) == "string" ? IO.StringReader.create(reader) : reader)
+		super(typeof reader == "string" ? IO.StringReader.create(reader) : reader)
 	}
 	raise(message: Error.Message): void
 	raise(message: string, level?: Error.Level, type?: string, region?: Error.Region): void
@@ -30,6 +30,6 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 		return !!this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", "."])
 	}
 	peekIsWhitespace(): boolean {
-		return !!this.peekIs([ " ", "\n", "\t"])
+		return !!this.peekIs([" ", "\n", "\t"])
 	}
 }

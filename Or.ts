@@ -7,7 +7,7 @@ export class Or extends Rule {
 	readonly criteria: Rule[]
 	constructor(criterias: Rule[]) {
 		super()
-		this.criteria = criterias.reduce<Rule[]>((r, c) => c instanceof Or ? [...r, ...c.criteria] : [...r, c], []) // flatten
+		this.criteria = criterias.reduce<Rule[]>((r, c) => (c instanceof Or ? [...r, ...c.criteria] : [...r, c]), []) // flatten
 	}
 	is(value: any): boolean {
 		return this.criteria.some(c => c.is(value))

@@ -9,7 +9,7 @@ export class And extends Rule {
 	readonly rules: Rule[]
 	constructor(rules: Rule[]) {
 		super()
-		this.rules = rules.reduce<Rule[]>((r, e) => e instanceof And ? [...r, ...e.rules] : [...r, e], [])
+		this.rules = rules.reduce<Rule[]>((r, e) => (e instanceof And ? [...r, ...e.rules] : [...r, e]), [])
 	}
 	is(value: any): boolean {
 		return this.rules.every(c => c.is(value))
@@ -18,7 +18,7 @@ export class And extends Rule {
 		return this.rules.map(c => c.stringify(this.precedence)).join(" ")
 	}
 	generalize(): And {
-		return new And(this.rules.map(r => r instanceof Property ? r : new Any(r)))
+		return new And(this.rules.map(r => (r instanceof Property ? r : new Any(r))))
 	}
 }
 export function and(...criterias: Criteria[]): And {

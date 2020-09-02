@@ -11,7 +11,7 @@ export class Some extends Rule {
 		return Array.isArray(value) && value.some(v => this.criteria.is(v))
 	}
 	toString() {
-		return `some(${ this.criteria.toString() })`
+		return `some(${this.criteria.toString()})`
 	}
 }
 export function some(criteria: Criteria): Some
