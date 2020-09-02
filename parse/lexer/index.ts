@@ -12,7 +12,7 @@ function tokenize(reader: IO.Reader | string, errorHandler?: Error.Handler): Uti
 			if (source.peekIsSymbol())
 				result = { value: source.read() || "", region: source.mark() }
 			else {
-				let value: string = ""
+				let value = ""
 				while (!source.isEmpty && !source.peekIsWhitespace() && !source.peekIsSymbol())
 					value += source.read()
 				if (value)
@@ -23,8 +23,4 @@ function tokenize(reader: IO.Reader | string, errorHandler?: Error.Handler): Uti
 	})
 }
 
-export {
-	Source,
-	Token,
-	tokenize,
-}
+export { Source, Token, tokenize }

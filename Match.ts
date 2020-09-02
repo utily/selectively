@@ -7,10 +7,10 @@ export class Match extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof(value) == "string" && this.criteria.test(value)
+		return typeof value == "string" && this.criteria.test(value)
 	}
 	toString() {
-		return `/${ this.criteria }/`
+		return `/${this.criteria}/`
 	}
 }
 export function match(criteria: RegExp): Match {

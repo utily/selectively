@@ -7,10 +7,10 @@ export class StartsWith extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof(value) == "string" && value.startsWith(this.needle)
+		return typeof value == "string" && value.startsWith(this.needle)
 	}
 	toString() {
-		return `${ this.needle }*`
+		return `${this.needle}*`
 	}
 }
 export function startsWith(needle: string): StartsWith

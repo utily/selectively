@@ -1,4 +1,4 @@
-import { EndsWith} from "../EndsWith"
+import { EndsWith } from "../EndsWith"
 import { add } from "./parse"
 
 add(source => {

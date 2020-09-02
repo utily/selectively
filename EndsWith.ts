@@ -7,10 +7,10 @@ export class EndsWith extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof(value) == "string" && value.endsWith(this.needle)
+		return typeof value == "string" && value.endsWith(this.needle)
 	}
 	toString() {
-		return `*${ this.needle }`
+		return `*${this.needle}`
 	}
 }
 export function endsWith(needle: string): EndsWith

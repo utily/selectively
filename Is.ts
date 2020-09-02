@@ -19,4 +19,11 @@ export function is(criteria: bigint | boolean | number | string, value?: any): I
 	const result = new Is(criteria)
 	return value ? result.is(value) : result
 }
-add(criteria => typeof(criteria) == "bigint" || typeof(criteria) == "boolean" || typeof(criteria) == "number" || typeof(criteria) == "string" ? new Is(criteria) : undefined)
+add(criteria =>
+	typeof criteria == "bigint" ||
+	typeof criteria == "boolean" ||
+	typeof criteria == "number" ||
+	typeof criteria == "string"
+		? new Is(criteria)
+		: undefined
+)
