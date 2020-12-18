@@ -1,4 +1,4 @@
-import { Rule, create, add } from "./Rule"
+import { add, create, Rule } from "./Rule"
 
 export class Tuple extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER

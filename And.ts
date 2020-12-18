@@ -1,7 +1,7 @@
-import { Rule, create } from "./Rule"
+import { Any } from "./Any"
 import { Criteria } from "./Criteria"
 import { Property } from "./Property"
-import { Any } from "./Any"
+import { create, Rule } from "./Rule"
 
 export class And extends Rule {
 	readonly precedence = 40

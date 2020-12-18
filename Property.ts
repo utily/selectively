@@ -1,6 +1,6 @@
-import { Rule, add, create } from "./Rule"
-import { Criteria } from "./Criteria"
 import { and } from "./And"
+import { Criteria } from "./Criteria"
+import { add, create, Rule } from "./Rule"
 
 export class Property extends Rule {
 	readonly precedence = Property.precedence
