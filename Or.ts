@@ -1,5 +1,5 @@
-import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
+import { create, Rule } from "./Rule"
 
 export class Or extends Rule {
 	readonly precedence = Or.precedence

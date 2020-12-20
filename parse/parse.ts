@@ -1,6 +1,6 @@
 import { Error } from "@cogneco/mend"
-import { Rule } from "../Rule"
 import { And } from "../And"
+import { Rule } from "../Rule"
 import * as lexer from "./lexer"
 import { Source } from "./Source"
 

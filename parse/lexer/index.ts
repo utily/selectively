@@ -1,4 +1,4 @@
-import { IO, Error, Utilities } from "@cogneco/mend"
+import { Error, IO, Utilities } from "@cogneco/mend"
 import { Source } from "./Source"
 import { Token } from "./Token"
 

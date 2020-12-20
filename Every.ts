@@ -1,5 +1,5 @@
-import { Rule, create } from "./Rule"
 import { Criteria } from "./Criteria"
+import { create, Rule } from "./Rule"
 
 export class Every extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER

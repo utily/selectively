@@ -63,6 +63,7 @@
   "babel-jest": "^26.0.1",
   "eslint": "7.8.1",
   "eslint-plugin-prettierx": "github:nilssonemma/eslint-plugin-prettierx#master",
+  "eslint-plugin-simple-import-sort": "^7.0.0",
   "jest": "^26.0.1",
   "prettierx": "github:simonmika/prettierx#newline-before-clause",
   "ts-jest": "^26.1.0",

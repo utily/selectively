@@ -1,4 +1,4 @@
-import { Rule, add } from "./Rule"
+import { add, Rule } from "./Rule"
 
 export class Is extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
