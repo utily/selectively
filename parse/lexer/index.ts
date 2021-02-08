@@ -9,6 +9,8 @@ function tokenize(reader: IO.Reader | string, errorHandler?: Error.Handler): Uti
 		if (!source.isEmpty) {
 			while (source.peekIsWhitespace())
 				source.read()
+			// if (source.peekIsDoubleSymbol())
+			// 	result = { value: source.read(2) || "", region: source.mark() }
 			if (source.peekIsSymbol())
 				result = { value: source.read() || "", region: source.mark() }
 			else {
