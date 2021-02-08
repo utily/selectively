@@ -4,8 +4,13 @@ import { Any, any } from "./Any"
 import { Criteria } from "./Criteria"
 import { EndsWith, endsWith } from "./EndsWith"
 import { Every, every } from "./Every"
+import { Exists, exists } from "./Exists"
+import { GreaterThan, greaterThan } from "./GreaterThan"
+import { GreaterThanOrEqual, greaterThanOrEqual } from "./GreaterThanOrEqual"
 import { Includes, includes } from "./Includes"
 import { Is } from "./Is"
+import { LesserThan, lesserThan } from "./LesserThan"
+import { LesserThanOrEqual, lesserThanOrEqual } from "./LesserThanOrEqual"
 import { Match, match } from "./Match"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
@@ -33,6 +38,11 @@ export {
 	Criteria,
 	EndsWith,
 	Every,
+	Exists,
+	GreaterThan,
+	GreaterThanOrEqual,
+	LesserThan,
+	LesserThanOrEqual,
 	Includes,
 	Is,
 	Match,
@@ -48,7 +58,12 @@ export {
 	create,
 	endsWith,
 	every,
+	exists,
 	filter,
+	greaterThan,
+	greaterThanOrEqual,
+	lesserThan,
+	lesserThanOrEqual,
 	includes,
 	is,
 	match,

@@ -27,7 +27,7 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 		return new Source(IO.UntilReader.create(this, endMark), this.errorHandler)
 	}
 	peekIsSymbol(): boolean {
-		return !!this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", "."])
+		return !!this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", ".", "<", "<=", ">", ">="])
 	}
 	peekIsWhitespace(): boolean {
 		return !!this.peekIs([" ", "\n", "\t"])
