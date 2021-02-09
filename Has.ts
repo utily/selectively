@@ -1,8 +1,8 @@
 import { Rule } from "./Rule"
 
-export class Exists extends Rule {
+export class Has extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
-	readonly class = "Exists"
+	readonly class = "Has"
 	constructor(readonly property: string) {
 		super()
 	}
@@ -22,12 +22,12 @@ export class Exists extends Rule {
 			: false
 	}
 	toString(): string {
-		return `exists(${this.property})`
+		return `has(${this.property})`
 	}
 }
-export function exists(criteria: string): Exists
-export function exists(criteria: string, value?: any): boolean
-export function exists(criteria: string, value?: any): Exists | boolean {
-	const result = new Exists(criteria)
+export function has(criteria: string): Has
+export function has(criteria: string, value?: any): boolean
+export function has(criteria: string, value?: any): Has | boolean {
+	const result = new Has(criteria)
 	return value ? result.is(value) : result
 }

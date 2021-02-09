@@ -7,10 +7,10 @@ export class GreaterThanOrEqual extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof value == "number"
-			? typeof this.value == "string"
-				? value >= Number.parseFloat(this.value)
-				: value >= this.value
+		return typeof value == "number" && typeof this.value == "string"
+			? value >= Number.parseFloat(this.value)
+			: typeof value == "number" && typeof this.value == "number"
+			? value >= this.value
 			: value.toString().trim() >= this.value.toString().trim()
 	}
 	toString() {

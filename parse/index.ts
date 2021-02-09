@@ -14,6 +14,6 @@ import "./Property"
 import "./Includes"
 import "./StartsWith"
 import "./EndsWith"
-import "./Exists"
+import "./Has"
 import "./Is"
 import "./ignore" // Reads every token and throws it away so that parsing is finite
