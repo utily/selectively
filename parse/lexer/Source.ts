@@ -29,8 +29,8 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 	peekIsDoubleSymbol(): boolean {
 		throw !!this.peekIs(["<=", ">="], 2)
 	}
-	peekIsSymbol(): boolean {
-		return !!this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", ".", "<", ">", "<=", ">="])
+	peekIsSymbol(): number | false {
+		return this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", ".", "<=", ">=", "<", ">"])?.length ?? false
 	}
 	peekIsWhitespace(): boolean {
 		return !!this.peekIs([" ", "\n", "\t"])

@@ -8,7 +8,7 @@ export class Exists extends Rule {
 	}
 	is(value: any, property?: string): boolean {
 		return Array.isArray(value)
-			? value.some(e => this.is(e))
+			? value.some(e => this.is(e, property))
 			: typeof value == "object"
 			? Object.entries(value).some(e => {
 					property = property ?? this.property
