@@ -6,11 +6,12 @@ function tokenize(reader: IO.Reader | string, errorHandler?: Error.Handler): Uti
 	const source = new Source(reader, errorHandler)
 	return new Utilities.Enumerator<Token>(() => {
 		let result: Token | undefined
+		let peekSymbolLength: number | false = 1
 		if (!source.isEmpty) {
 			while (source.peekIsWhitespace())
 				source.read()
-			if (source.peekIsSymbol())
-				result = { value: source.read() || "", region: source.mark() }
+			if ((peekSymbolLength = source.peekIsSymbol()))
+				result = { value: source.read(peekSymbolLength) || "", region: source.mark() }
 			else {
 				let value = ""
 				while (!source.isEmpty && !source.peekIsWhitespace() && !source.peekIsSymbol())
