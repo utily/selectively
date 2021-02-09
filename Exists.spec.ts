@@ -13,7 +13,7 @@ describe("exists", () => {
 describe("filter", () => {
 	it("simple", () =>
 		expect(
-			selectively.filter("class", [
+			selectively.filter("exists(class)", [
 				{ id: "axb", class: "test" },
 				{ id: "axc", class2: "test" },
 			])

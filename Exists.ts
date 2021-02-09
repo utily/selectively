@@ -22,7 +22,7 @@ export class Exists extends Rule {
 			: false
 	}
 	toString(): string {
-		return `${this.property}`
+		return `exists(${this.property})`
 	}
 }
 export function exists(criteria: string): Exists
