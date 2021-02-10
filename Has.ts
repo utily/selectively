@@ -12,12 +12,14 @@ export class Has extends Rule {
 			: typeof value == "object"
 			? Object.entries(value).some(e => {
 					property = property ?? this.property
-					return typeof e[1] == "object"
+					return e[0] == property
+						? true
+						: typeof e[1] == "object"
 						? this.is(
 								e[1],
 								property.includes(".") && property.split(".")[0] == e[0] ? property.split(".")[1] : undefined
 						  )
-						: e[0] == property
+						: false
 			  })
 			: false
 	}
