@@ -1,7 +1,7 @@
 import { Rule } from "./Rule"
 
 export class Has extends Rule {
-	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly precedence = 70
 	readonly class = "Has"
 	constructor(readonly property: string) {
 		super()
