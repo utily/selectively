@@ -1,25 +1,43 @@
+import { CompareHelper } from "./CompareHelper"
 import { Rule } from "./Rule"
 
 export class LesserThanOrEqual extends Rule {
-	readonly precedence = Number.MAX_SAFE_INTEGER
-	readonly class = "LesserThan"
-	constructor(readonly value: number | string) {
+	readonly precedence = 70
+	readonly class = "LesserThanOrEqual"
+	constructor(readonly value: CompareHelper) {
 		super()
 	}
 	is(value: any): boolean {
-		return typeof value == "number" && typeof this.value == "string"
-			? value <= Number.parseFloat(this.value)
-			: typeof value == "number" && typeof this.value == "number"
-			? value <= this.value
-			: value.toString().trim() <= this.value.toString().trim()
+		let result: boolean
+		value = CompareHelper.adjustInput(this.value, value)
+		if (typeof this.value == "string" || typeof this.value == "number")
+			result =
+				typeof value == "number" && typeof this.value == "string"
+					? value <= Number.parseFloat(this.value)
+					: typeof value == "number" && typeof this.value == "number"
+					? value <= this.value
+					: value.toString().trim() <= this.value.toString().trim()
+		else if (
+			typeof this.value[0] == "object" &&
+			typeof this.value[1] == "object" &&
+			Array.isArray(value) &&
+			value.length == 2
+		)
+			result = lesserThanOrEqual(value[1], value[0])
+		else
+			result = lesserThanOrEqual(
+				typeof this.value[1] == "object" ? value : this.value[1],
+				typeof this.value[0] == "object" ? value : this.value[0]
+			)
+		return result
 	}
 	toString() {
-		return `<=${this.value}`
+		return Array.isArray(this.value) ? `${this.value[0]}<=${this.value[1]}` : `<=${this.value}`
 	}
 }
-export function lesserThanOrEqual(criteria: number | string): LesserThanOrEqual
-export function lesserThanOrEqual(criteria: number | string, value: any): boolean
-export function lesserThanOrEqual(criteria: number | string, value?: any): LesserThanOrEqual | boolean {
+export function lesserThanOrEqual(criteria: CompareHelper): LesserThanOrEqual
+export function lesserThanOrEqual(criteria: CompareHelper, value: any): boolean
+export function lesserThanOrEqual(criteria: CompareHelper, value?: any): LesserThanOrEqual | boolean {
 	const result = new LesserThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
