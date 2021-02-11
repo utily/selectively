@@ -15,11 +15,11 @@ export namespace CompareHelper {
 		return value
 	}
 	export function mapRecursive(input: [string, unknown] | undefined): unknown {
-		return input
-			? input[1] && typeof input[1] == "object"
-				? Object.entries(input[1]).map(mapRecursive)
-				: input[1]
-			: undefined
+		return !input
+			? undefined
+			: input[1] && typeof input[1] == "object"
+			? Object.entries(input[1]).map(mapRecursive)
+			: input[1]
 	}
 	export function adjustInput(value: CompareHelper, input: any): CompareHelper {
 		if (Array.isArray(input))
