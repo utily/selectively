@@ -9,6 +9,8 @@ describe("has", () => {
 		expect(selectively.has("name1", { id: "axb", class: { name1: "test", type: "type" } })).toBeTruthy()
 		expect(selectively.has("name1", { id: "axb", class: { name2: "test", type: "type" } })).toBeFalsy()
 	})
+	it("object", () =>
+		expect(selectively.has("name1", { id: "axb", class: { name1: { test: "test" }, type: "type" } })).toBeTruthy())
 })
 describe("filter", () => {
 	it("simple", () =>
