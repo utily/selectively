@@ -1,6 +1,6 @@
 {
  "name": "selectively",
- "version": "0.0.22",
+ "version": "0.0.23",
  "description": "Create selection by filtering a collection.",
  "author": "PayFunc",
  "license": "MIT",
