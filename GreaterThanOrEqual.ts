@@ -32,7 +32,7 @@ export class GreaterThanOrEqual extends Rule {
 		return result
 	}
 	toString() {
-		return Array.isArray(this.value) ? `${this.value[0]}>=${this.value[1]}` : `>=${this.value}`
+		return CompareHelper.toString(this.value, ">=")
 	}
 }
 export function greaterThanOrEqual(criteria: CompareHelper): GreaterThanOrEqual
