@@ -1,20 +1,20 @@
 export type CompareHelper = [[string, unknown] | number | string, [string, unknown] | number | string] | number | string
 export namespace CompareHelper {
 	export function findValue(key: string, input: any): number | string | undefined {
-		const result: number | string | undefined = !input
-			? undefined
-			: Array.isArray(input)
+		const result: number | string | undefined = Array.isArray(input)
 			? input.find(o => findValue(key, o))
 			: typeof input == "object"
-			? Object.entries(input).reduce<number | string | undefined>((r, c) => {
-					return r
-						? r
-						: (typeof c[1] == "object" && key != c[0]) || (typeof c[1] != "object" && key == c[0])
-						? findValue(key, c[1])
-						: key == c[0] && Array.isArray(c[1])
-						? c[1].find(o => typeof o == "string" || typeof o == "number")
-						: undefined
-			  }, undefined)
+			? Object.entries(input).reduce<number | string | undefined>(
+					(r, c) =>
+						r != undefined
+							? r
+							: (typeof c[1] == "object" && key != c[0]) || (typeof c[1] != "object" && key == c[0])
+							? findValue(key, c[1])
+							: key == c[0] && Array.isArray(c[1])
+							? c[1].find(o => typeof o == "string" || typeof o == "number")
+							: undefined,
+					undefined
+			  )
 			: typeof input == "number" || typeof input == "string"
 			? input
 			: undefined
