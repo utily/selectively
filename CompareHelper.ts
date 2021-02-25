@@ -35,4 +35,11 @@ export namespace CompareHelper {
 	export function convert(value: string): string | number | [string, unknown] {
 		return value.startsWith("$") ? [value.substring(1), "$"] : value
 	}
+	export function toString(value: CompareHelper, operator: ">" | "<" | ">=" | "<=") {
+		return Array.isArray(value)
+			? `(${Array.isArray(value[0]) ? value[0][1] + value[0][0] : value[0]} ${operator} ${
+					Array.isArray(value[1]) ? value[1][1] + value[1][0] : value[1]
+			  })`
+			: `${operator}${value}`
+	}
 }
