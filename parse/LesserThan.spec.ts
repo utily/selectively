@@ -1,6 +1,18 @@
 import * as selectively from "../index"
 
 describe("parse.LesserThan", () => {
+	it("test rules related comparisons", () => {
+		expect(
+			selectively
+				.parse("$amount<$refundable")
+				.is({ testC: 700, refund: { amount: 200 }, testA: 150, statistic: { refundable: 140 } })
+		).toBeFalsy()
+		expect(
+			selectively
+				.parse("$refundable<$amount")
+				.is({ testC: 700, refund: { amount: 200 }, testA: 150, statistic: { refundable: 140 } })
+		).toBeTruthy()
+	})
 	it("test LesserThan parse quick", () => {
 		expect(selectively.parse("$testA<$testB").is({ testC: 700, testB: 200, testA: 150 })).toBeTruthy()
 		expect(selectively.parse("$testA<$testB").is({ testC: 700, testB: 150, testA: 200 })).toBeFalsy()
