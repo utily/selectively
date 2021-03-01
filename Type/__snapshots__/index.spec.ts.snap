@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`selectively.Type Object 1`] = `
+TObject {
+  "class": "object",
+  "properties": Object {
+    "name": String {
+      "class": "string",
+    },
+  },
+}
+`;
