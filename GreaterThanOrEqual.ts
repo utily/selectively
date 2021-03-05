@@ -1,5 +1,6 @@
 import { CompareHelper } from "./CompareHelper"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class GreaterThanOrEqual extends Rule {
 	readonly precedence = 70
@@ -41,3 +42,6 @@ export function greaterThanOrEqual(criteria: CompareHelper, value?: any): Greate
 	const result = new GreaterThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
+Type.String.add({ value: ">=" })
+Type.Number.add({ value: ">=" })
+

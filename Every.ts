@@ -1,6 +1,6 @@
 import { Criteria } from "./Criteria"
 import { create, Rule } from "./Rule"
-
+import { Type } from "./Type"
 export class Every extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	readonly class = "Every"
@@ -20,3 +20,5 @@ export function every(criteria: Criteria, value?: any): Every | boolean {
 	const result = new Every(create(criteria))
 	return value ? result.is(value) : result
 }
+Type.Array.add({ value: "every()", cursor: 6 })
+Type.String.add({ value: "every()", cursor: 6 })

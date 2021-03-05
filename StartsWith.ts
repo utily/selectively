@@ -1,4 +1,5 @@
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class StartsWith extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -19,3 +20,4 @@ export function startsWith(needle: string, value?: any): StartsWith | boolean {
 	const result = new StartsWith(needle)
 	return value ? result.is(value) : result
 }
+Type.String.add({ value: "*", cursor: 0 })

@@ -1,5 +1,6 @@
 import { CompareHelper } from "./CompareHelper"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class LesserThanOrEqual extends Rule {
 	readonly precedence = 70
@@ -41,3 +42,6 @@ export function lesserThanOrEqual(criteria: CompareHelper, value?: any): LesserT
 	const result = new LesserThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
+
+Type.Number.add({ value: "<=" })
+Type.String.add({ value: "<=" })

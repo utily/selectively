@@ -1,4 +1,5 @@
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class Includes extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -19,3 +20,5 @@ export function includes(needle: string, value?: any): Includes | boolean {
 	const result = new Includes(needle)
 	return value ? result.is(value) : result
 }
+
+Type.String.add({ value: "**", cursor: 1 })

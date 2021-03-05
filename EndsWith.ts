@@ -1,4 +1,5 @@
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class EndsWith extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -19,3 +20,4 @@ export function endsWith(needle: string, value?: any): EndsWith | boolean {
 	const result = new EndsWith(needle)
 	return value ? result.is(value) : result
 }
+Type.String.add({ value: "*" })
