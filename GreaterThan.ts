@@ -47,4 +47,3 @@ export function greaterThan(criteria: CompareHelper, value?: any): GreaterThan |
 }
 Type.String.add({ value: ">" })
 Type.Number.add({ value: ">" })
-

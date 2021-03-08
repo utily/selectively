@@ -1,5 +1,5 @@
-import { Property } from "../Property"
 import * as lexer from "../lexer"
+import { Property } from "../Property"
 import { add, parseNext } from "./parse"
 
 add(source => {

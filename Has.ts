@@ -45,5 +45,5 @@ function complete(tokens: Token[], object: Type.Object): Completion[] {
 				object.completions.filter(c => c.value.startsWith(tokens[0].value != ")" ? tokens[0].value : "")),
 				")"
 		  )
-		: Completion.prepend("", object.completions, ")") //Completion.prepend("", [...object.completions, { value: ")", cursor: 0 }]) 
+		: Completion.prepend("", object.completions, ")") //Completion.prepend("", [...object.completions, { value: ")", cursor: 0 }])
 }

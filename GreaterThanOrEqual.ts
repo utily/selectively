@@ -44,4 +44,3 @@ export function greaterThanOrEqual(criteria: CompareHelper, value?: any): Greate
 }
 Type.String.add({ value: ">=" })
 Type.Number.add({ value: ">=" })
-
