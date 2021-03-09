@@ -23,7 +23,7 @@ export function endsWith(needle: string, value?: any): EndsWith | boolean {
 	return value ? result.is(value) : result
 }
 
-Type.String.add({ value: "*", complete })
+Type.String.add({ complete })
 
 function complete(tokens: Token[], string: Type.String): Completion[] {
 	let result: Completion[]
@@ -46,7 +46,7 @@ function complete(tokens: Token[], string: Type.String): Completion[] {
 			break
 		case 3:
 			if (tokens[0].value == ":" && tokens[1].value == "*")
-				result = string.completion.value.endsWith(tokens[2].value)
+				result = string.completion.value?.endsWith(tokens[2].value)
 					? [Completion.prepend(":" + "*", { value: string.value })]
 					: []
 			else

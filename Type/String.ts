@@ -20,7 +20,8 @@ export class String extends SType {
 				[]
 			)
 			.reduce<Completion[]>(
-				(result, element) => (result.some(p => p.value == element.value) ? result : [...result, element]),
+				(result, element) =>
+					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
 				[]
 			)
 	}

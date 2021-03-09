@@ -11,7 +11,7 @@ function t(data: string): Token[] {
 describe("selectively.Type", () => {
 	it("Tokenizer", () => {
 		expect(t("object.has()")).toMatchSnapshot()
-		expect(t("**")).toMatchSnapshot()
+		expect(t("<=")).toMatchSnapshot()
 	})
 
 	it("Object", () => {
@@ -43,9 +43,9 @@ describe("selectively.Type", () => {
 		})
 
 		expect(object.complete(t(""))).toMatchSnapshot()
-		expect(object.complete(t("has()"))).toMatchSnapshot()
+		expect(object.complete(t("has(false)"))).toMatchSnapshot()
 		expect(object.complete(t("has(i)"))).toMatchSnapshot()
-		expect(object.complete(t("has("))).toMatchSnapshot()
+		expect(object.complete(t("ha"))).toMatchSnapshot()
 		expect(object.complete(t("has(id"))).toMatchSnapshot()
 		expect(object.complete(t("id"))).toMatchSnapshot()
 		expect(object.complete(t("id."))).toMatchSnapshot()
@@ -59,6 +59,11 @@ describe("selectively.Type", () => {
 		expect(object.complete(t("id.first:*e*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:*o*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:*st"))).toMatchSnapshot()
-		expect(object.complete(t("id.has().prop"))).toMatchSnapshot()
+		//---------------------------------------------------------//
+		expect(object.complete(t("status.statusArray"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray."))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray.ev"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray.every("))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray.every()"))).toMatchSnapshot()
 	})
 })

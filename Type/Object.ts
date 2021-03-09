@@ -33,7 +33,7 @@ export class TObject extends SType {
 					else if (tokens.length == 2)
 						result = Completion.prepend(
 							".",
-							this.completions.filter(c => c.value.startsWith(tokens[1].value))
+							this.completions.filter(c => c.value?.startsWith(tokens[1].value))
 						)
 					else
 						result = []
@@ -47,6 +47,11 @@ export class TObject extends SType {
 				.reduce<Completion[]>(
 					(result, element) =>
 						Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+					[]
+				)
+				.reduce<Completion[]>(
+					(result, element) =>
+						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
 					[]
 				),
 		]

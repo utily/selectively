@@ -1,6 +1,8 @@
 import { CompareHelper } from "./CompareHelper"
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
 import { Type } from "./Type"
+import { Completion } from "./Type/Completion"
 
 export class GreaterThan extends Rule {
 	readonly precedence = 70
@@ -47,3 +49,29 @@ export function greaterThan(criteria: CompareHelper, value?: any): GreaterThan |
 }
 
 Type.Number.add({ value: ">" })
+Type.String.add({ complete })
+
+function complete(tokens: Token[], string: Type.String): Completion[] | Completion {
+	let result
+	const completion: Completion = { value: ">" }
+	switch (tokens.length) {
+		case 0:
+			result = completion
+			break
+		case 1:
+			if (tokens[0].value == completion.value)
+				//TODO implement completions to the function.
+				result = { value: completion.value + "TODO" }
+			else
+				result = []
+			break
+		case 2:
+			//TODO implement completions to the function.
+			result = []
+			break
+		default:
+			result = []
+			break
+	}
+	return result
+}

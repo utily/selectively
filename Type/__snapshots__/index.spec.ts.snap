@@ -15,10 +15,6 @@ Array [
     "cursor": 7,
     "value": ".every()",
   },
-  Object {
-    "cursor": 6,
-    "value": ".some()",
-  },
 ]
 `;
 
@@ -99,10 +95,7 @@ Array [
     "value": ".",
   },
   Object {
-    "value": "*",
-  },
-  Object {
-    "value": "*",
+    "value": "<=",
   },
 ]
 `;
@@ -124,23 +117,12 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 2`] = `
-Array [
-  Object {
-    "cursor": undefined,
-    "value": ".has(id)",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".has(status)",
-  },
-]
-`;
+exports[`selectively.Type complete 2`] = `Array []`;
 
 exports[`selectively.Type complete 3`] = `
 Array [
   Object {
-    "cursor": undefined,
+    "cursor": 7,
     "value": ".has(id)",
   },
 ]
@@ -158,7 +140,7 @@ Array [
 exports[`selectively.Type complete 5`] = `
 Array [
   Object {
-    "cursor": undefined,
+    "cursor": 7,
     "value": ".has(id)",
   },
 ]
@@ -207,6 +189,22 @@ Array [
     "cursor": undefined,
     "value": ".id.first:",
   },
+  Object {
+    "cursor": undefined,
+    "value": ".id.first>",
+  },
+  Object {
+    "cursor": undefined,
+    "value": ".id.first>=",
+  },
+  Object {
+    "cursor": undefined,
+    "value": ".id.first<",
+  },
+  Object {
+    "cursor": undefined,
+    "value": ".id.first<=",
+  },
 ]
 `;
 
@@ -219,6 +217,10 @@ Array [
   Object {
     "cursor": 11,
     "value": ".id.first:**",
+  },
+  Object {
+    "cursor": 10,
+    "value": ".id.first:*",
   },
 ]
 `;
@@ -234,7 +236,7 @@ Array [
     "value": ".id.first:**",
   },
   Object {
-    "cursor": undefined,
+    "cursor": 14,
     "value": ".id.first:test*",
   },
 ]
@@ -243,7 +245,7 @@ Array [
 exports[`selectively.Type complete 13`] = `
 Array [
   Object {
-    "cursor": undefined,
+    "cursor": 14,
     "value": ".id.first:test*",
   },
 ]
@@ -254,7 +256,7 @@ exports[`selectively.Type complete 14`] = `Array []`;
 exports[`selectively.Type complete 15`] = `
 Array [
   Object {
-    "cursor": undefined,
+    "cursor": 15,
     "value": ".id.first:*test*",
   },
 ]
@@ -271,4 +273,47 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 18`] = `Array []`;
+exports[`selectively.Type complete 18`] = `
+Array [
+  Object {
+    "cursor": undefined,
+    "value": ".status.statusArray.",
+  },
+]
+`;
+
+exports[`selectively.Type complete 19`] = `
+Array [
+  Object {
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 20`] = `
+Array [
+  Object {
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 21`] = `
+Array [
+  Object {
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 22`] = `
+Array [
+  Object {
+    "cursor": 30,
+    "value": ".status.statusArray.every(TODO)",
+  },
+]
+`;

@@ -37,23 +37,23 @@ export function has(criteria: string, value?: any): Has | boolean {
 	return value ? result.is(value) : result
 }
 
-Type.Object.add({ value: "has()", cursor: 4, complete })
+Type.Object.add({ complete })
 
-function complete(tokens: Token[], object: Type.Object): Completion[] {
-	let result: Completion[]
-	const completion: Completion[] = [{ value: "has()", cursor: 4 }]
+function complete(tokens: Token[], object: Type.Object): Completion[] | Completion {
+	let result: Completion[] | Completion
+	const completion: Completion = { value: "has()", cursor: 4 }
 	switch (tokens.length) {
 		case 0:
-			result = [{ value: "." }]
+			result = { value: "." }
 			break
 		case 1:
 			if (tokens[0].value == ".")
-				result = Completion.prepend(".", completion)
+				result = [Completion.prepend(".", completion)]
 			else
 				result = []
 			break
 		case 2:
-			if (tokens[0].value == "." && tokens[1].value == "has")
+			if (tokens[0].value == "." && completion.value?.startsWith(tokens[1].value))
 				result = Completion.prepend(".", completion)
 			else
 				result = []
@@ -67,11 +67,13 @@ function complete(tokens: Token[], object: Type.Object): Completion[] {
 		case 4:
 			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(")
 				if (tokens[3].value == ")")
-					result = Completion.prepend("." + completion[0].value.substring(0, 4), object.completions, ")")
+					result = Completion.prepend("." + completion.value?.substring(0, 4), object.completions, ")")
 				else
 					result = Completion.prepend(
-						"." + completion[0].value.substring(0, 4),
-						object.completions.filter(c => c.value.startsWith(tokens[3].value)),
+						"." + completion.value?.substring(0, 4),
+						object.completions
+							.filter(c => c.value?.startsWith(tokens[3].value))
+							.map(c => (c.value ? { value: c.value, cursor: c.value.length } : c)),
 						")"
 					)
 			else
@@ -80,8 +82,10 @@ function complete(tokens: Token[], object: Type.Object): Completion[] {
 		case 5:
 			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(" && tokens[4].value == ")")
 				result = Completion.prepend(
-					"." + completion[0].value.substring(0, 4),
-					object.completions.filter(c => c.value.startsWith(tokens[3].value)),
+					"." + completion.value?.substring(0, 4),
+					object.completions
+						.filter(c => c.value?.startsWith(tokens[3].value))
+						.map(c => (c.value ? { value: c.value, cursor: c.value.length } : c)),
 					")"
 				)
 			else

@@ -1,4 +1,4 @@
-import { Array as TArray } from "./Array"
+import { TArray } from "./Array"
 import { Base } from "./Base"
 import { Boolean as TBoolean } from "./Boolean"
 import { Number as TNumber } from "./Number"

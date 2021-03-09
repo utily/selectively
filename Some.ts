@@ -1,6 +1,5 @@
 import { Criteria } from "./Criteria"
 import { create, Rule } from "./Rule"
-import { Type } from "./Type"
 
 export class Some extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -21,5 +20,3 @@ export function some(criteria: Criteria, value?: any): Some | boolean {
 	const result = new Some(create(criteria))
 	return value ? result.is(value) : result
 }
-
-Type.Array.add({ value: "some()", cursor: 5 })

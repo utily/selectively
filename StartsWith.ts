@@ -23,7 +23,7 @@ export function startsWith(needle: string, value?: any): StartsWith | boolean {
 	return value ? result.is(value) : result
 }
 
-Type.String.add({ value: "*", cursor: 0, complete })
+Type.String.add({ complete })
 
 function complete(tokens: Token[], string: Type.String): Completion[] {
 	let result: Completion[]
@@ -40,14 +40,14 @@ function complete(tokens: Token[], string: Type.String): Completion[] {
 			break
 		case 2:
 			if (tokens[0].value == ":" && tokens[1].value == "*")
-				result = [Completion.prepend(":", { value: string.value }, "*")]
+				result = [Completion.prepend(":", { value: string.value, cursor: string.value.length }, "*")]
 			else
 				result = []
 			break
 		case 3:
 			if (tokens[0].value == ":" && tokens[2].value == "*")
-				result = string.completion.value.startsWith(tokens[1].value)
-					? [Completion.prepend(":", { value: string.value }, "*")]
+				result = string.completion.value?.startsWith(tokens[1].value)
+					? [Completion.prepend(":", { value: string.value, cursor: string.value.length }, "*")]
 					: []
 			else
 				result = []

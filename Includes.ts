@@ -23,10 +23,10 @@ export function includes(needle: string, value?: any): Includes | boolean {
 	return value ? result.is(value) : result
 }
 
-Type.String.add({ value: "**", cursor: 1, complete })
+Type.String.add({ complete })
 
-function complete(tokens: Token[], string: Type.String): Completion | undefined {
-	let result
+function complete(tokens: Token[], string: Type.String): Completion[] | Completion {
+	let result: Completion[] | Completion
 	const completion: Completion = { value: "**", cursor: 1 }
 	switch (tokens.length) {
 		case 0:
@@ -36,30 +36,30 @@ function complete(tokens: Token[], string: Type.String): Completion | undefined 
 			if (tokens[0].value == ":")
 				result = Completion.prepend(":", completion)
 			else
-				result = undefined
+				result = []
 			break
 		case 2:
 			if (tokens[0].value == ":" && tokens[1].value == "*")
 				result = Completion.prepend(":", completion)
 			else
-				result = undefined
+				result = []
 			break
 		case 3:
 			if (tokens[0].value == ":" && tokens[1].value == "*" && tokens[2].value == "*")
-				result = Completion.prepend(":" + "*", { value: string.value }, "*")
+				result = Completion.prepend(":" + "*", { value: string.value, cursor: string.value.length }, "*")
 			else
-				result = undefined
+				result = []
 			break
 		case 4:
 			if (tokens[0].value == ":" && tokens[1].value == "*" && tokens[3].value == "*") {
-				result = string.completion.value.includes(tokens[2].value)
-					? Completion.prepend(":" + "*", { value: string.value }, "*")
-					: undefined
+				result = string.completion.value?.includes(tokens[2].value)
+					? Completion.prepend(":" + "*", { value: string.value, cursor: string.value.length }, "*")
+					: []
 			} else
-				result = undefined
+				result = []
 			break
 		default:
-			result = undefined
+			result = []
 	}
 	return result
 }
