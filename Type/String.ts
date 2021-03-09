@@ -12,7 +12,17 @@ export class String extends SType {
 	}
 
 	complete(tokens: Token[]): Completion[] {
-		return String.patterns.map(p => p.complete(tokens, this)).reduce((r, l) => r.concat(l), [])
+		return String.patterns
+			.map(p => p.complete(tokens, this))
+			.reduce<Completion[]>(
+				(result, element) =>
+					Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+				[]
+			)
+			.reduce<Completion[]>(
+				(result, element) => (result.some(p => p.value == element.value) ? result : [...result, element]),
+				[]
+			)
 	}
 
 	private static readonly patterns: Pattern[] = []

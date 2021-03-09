@@ -40,7 +40,16 @@ export class TObject extends SType {
 					break
 				}
 		}
-		result = [...result, ...TObject.patterns.map(p => p.complete(tokens, this)).reduce((r, l) => r.concat(l), [])]
+		result = [
+			...result,
+			...TObject.patterns
+				.map(p => p.complete(tokens, this))
+				.reduce<Completion[]>(
+					(result, element) =>
+						Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+					[]
+				),
+		]
 		return result
 	}
 

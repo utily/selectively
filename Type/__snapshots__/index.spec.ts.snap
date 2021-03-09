@@ -207,14 +207,6 @@ Array [
     "cursor": undefined,
     "value": ".id.first:",
   },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first:",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first:",
-  },
 ]
 `;
 
@@ -227,10 +219,6 @@ Array [
   Object {
     "cursor": 11,
     "value": ".id.first:**",
-  },
-  Object {
-    "cursor": 10,
-    "value": ".id.first:*",
   },
 ]
 `;

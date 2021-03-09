@@ -56,7 +56,7 @@ describe("selectively.Type", () => {
 		expect(object.complete(t("id.first:*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:t*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:e*"))).toMatchSnapshot()
-		expect(object.complete(t("id.first:*s*"))).toMatchSnapshot()
+		expect(object.complete(t("id.first:*e*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:*o*"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:*st"))).toMatchSnapshot()
 		expect(object.complete(t("id.has().prop"))).toMatchSnapshot()
