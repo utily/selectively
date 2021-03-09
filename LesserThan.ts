@@ -44,4 +44,3 @@ export function lesserThan(criteria: CompareHelper, value?: any): LesserThan | b
 }
 
 Type.Number.add({ value: "<" })
-Type.String.add({ value: "<" })

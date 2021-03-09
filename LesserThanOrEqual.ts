@@ -44,4 +44,3 @@ export function lesserThanOrEqual(criteria: CompareHelper, value?: any): LesserT
 }
 
 Type.Number.add({ value: "<=" })
-Type.String.add({ value: "<=" })

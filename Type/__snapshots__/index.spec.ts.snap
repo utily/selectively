@@ -61,6 +61,10 @@ TObject {
   "properties": Object {
     "name": String {
       "class": "string",
+      "completion": Object {
+        "value": "",
+      },
+      "value": "",
     },
   },
 }
@@ -95,66 +99,29 @@ Array [
     "value": ".",
   },
   Object {
-    "value": "if",
+    "value": "*",
+  },
+  Object {
+    "value": "*",
   },
 ]
 `;
 
 exports[`selectively.Type complete 1`] = `
-TObject {
-  "class": "object",
-  "completions": Array [
-    Object {
-      "value": "id",
-    },
-    Object {
-      "value": "status",
-    },
-  ],
-  "properties": Object {
-    "id": TObject {
-      "class": "object",
-      "completions": Array [
-        Object {
-          "value": "first",
-        },
-        Object {
-          "value": "second",
-        },
-      ],
-      "properties": Object {
-        "first": String {
-          "class": "string",
-        },
-        "second": String {
-          "class": "string",
-        },
-      },
-    },
-    "status": TObject {
-      "class": "object",
-      "completions": Array [
-        Object {
-          "value": "statusArray",
-        },
-        Object {
-          "value": "statusString",
-        },
-      ],
-      "properties": Object {
-        "statusArray": Array {
-          "class": "array",
-          "type": String {
-            "class": "string",
-          },
-        },
-        "statusString": String {
-          "class": "string",
-        },
-      },
-    },
+Array [
+  Object {
+    "cursor": undefined,
+    "value": ".id",
   },
-}
+  Object {
+    "cursor": undefined,
+    "value": ".status",
+  },
+  Object {
+    "cursor": 5,
+    "value": ".has()",
+  },
+]
 `;
 
 exports[`selectively.Type complete 2`] = `
@@ -182,12 +149,8 @@ Array [
 exports[`selectively.Type complete 4`] = `
 Array [
   Object {
-    "cursor": undefined,
-    "value": ".has(id)",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".has(status)",
+    "cursor": 5,
+    "value": ".has()",
   },
 ]
 `;
@@ -204,16 +167,8 @@ Array [
 exports[`selectively.Type complete 6`] = `
 Array [
   Object {
-    "cursor": 12,
-    "value": ".status.has()",
-  },
-  Object {
     "cursor": undefined,
-    "value": ".status.statusArray",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".status.statusString",
+    "value": ".id.",
   },
 ]
 `;
@@ -222,29 +177,26 @@ exports[`selectively.Type complete 7`] = `
 Array [
   Object {
     "cursor": undefined,
-    "value": ".status.statusArray.",
+    "value": ".id.first",
+  },
+  Object {
+    "cursor": undefined,
+    "value": ".id.second",
+  },
+  Object {
+    "cursor": 8,
+    "value": ".id.has()",
   },
 ]
 `;
 
-exports[`selectively.Type complete 8`] = `
-Array [
-  Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
-  },
-  Object {
-    "cursor": 25,
-    "value": ".status.statusArray.some()",
-  },
-]
-`;
+exports[`selectively.Type complete 8`] = `Array []`;
 
 exports[`selectively.Type complete 9`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": undefined,
+    "value": ".id.first",
   },
 ]
 `;
@@ -252,16 +204,16 @@ Array [
 exports[`selectively.Type complete 10`] = `
 Array [
   Object {
-    "cursor": 8,
-    "value": ".id.has()",
+    "cursor": undefined,
+    "value": ".id.first:",
   },
   Object {
     "cursor": undefined,
-    "value": ".id.first",
+    "value": ".id.first:",
   },
   Object {
     "cursor": undefined,
-    "value": ".id.second",
+    "value": ".id.first:",
   },
 ]
 `;
@@ -270,7 +222,15 @@ exports[`selectively.Type complete 11`] = `
 Array [
   Object {
     "cursor": undefined,
-    "value": ".id.first",
+    "value": ".id.first:*",
+  },
+  Object {
+    "cursor": 11,
+    "value": ".id.first:**",
+  },
+  Object {
+    "cursor": 10,
+    "value": ".id.first:*",
   },
 ]
 `;
@@ -279,43 +239,15 @@ exports[`selectively.Type complete 12`] = `
 Array [
   Object {
     "cursor": undefined,
-    "value": ".id.first.",
+    "value": ".id.first:*test",
+  },
+  Object {
+    "cursor": 11,
+    "value": ".id.first:**",
   },
   Object {
     "cursor": undefined,
-    "value": ".id.first:",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first*",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first>",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first>=",
-  },
-  Object {
-    "cursor": 10,
-    "value": ".id.first**",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first<",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first<=",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first!",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".id.first*",
+    "value": ".id.first:test*",
   },
 ]
 `;
@@ -323,110 +255,32 @@ Array [
 exports[`selectively.Type complete 13`] = `
 Array [
   Object {
-    "cursor": 16,
-    "value": ".id.first.every()",
+    "cursor": undefined,
+    "value": ".id.first:test*",
   },
 ]
 `;
 
-exports[`selectively.Type complete 14`] = `
-Array [
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every().",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every():",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()*",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()>",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()>=",
-  },
-  Object {
-    "cursor": 18,
-    "value": ".id.first.every()**",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()<",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()<=",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first.every()!",
-  },
-  Object {
-    "cursor": 17,
-    "value": ".id.first.every()*",
-  },
-]
-`;
+exports[`selectively.Type complete 14`] = `Array []`;
 
 exports[`selectively.Type complete 15`] = `
 Array [
   Object {
     "cursor": undefined,
-    "value": ".id.first<",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.first<=",
+    "value": ".id.first:*test*",
   },
 ]
 `;
 
-exports[`selectively.Type complete 16`] = `
-Array [
-  Object {
-    "cursor": undefined,
-    "value": ".id.first<=",
-  },
-]
-`;
+exports[`selectively.Type complete 16`] = `Array []`;
 
 exports[`selectively.Type complete 17`] = `
 Array [
   Object {
-    "cursor": 8,
-    "value": ".id.has()",
+    "cursor": undefined,
+    "value": ".id.first:*test",
   },
 ]
 `;
 
-exports[`selectively.Type complete 18`] = `
-Array [
-  Object {
-    "cursor": undefined,
-    "value": ".id.has(first)",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.has(second)",
-  },
-]
-`;
-
-exports[`selectively.Type complete 19`] = `
-Array [
-  Object {
-    "cursor": undefined,
-    "value": ".id.has(first)",
-  },
-  Object {
-    "cursor": undefined,
-    "value": ".id.has(second)",
-  },
-]
-`;
+exports[`selectively.Type complete 18`] = `Array []`;

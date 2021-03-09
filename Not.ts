@@ -22,6 +22,6 @@ export function not(criteria: Criteria, value?: any): Not | boolean {
 	const result = new Not(create(criteria))
 	return value ? result.is(value) : result
 }
+
 Type.Number.add({ value: "!" })
-Type.String.add({ value: "!" })
 Type.Boolean.add({ value: "!" })

@@ -42,5 +42,5 @@ export function greaterThanOrEqual(criteria: CompareHelper, value?: any): Greate
 	const result = new GreaterThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
-Type.String.add({ value: ">=" })
+
 Type.Number.add({ value: ">=" })

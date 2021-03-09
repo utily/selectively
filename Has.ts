@@ -36,14 +36,60 @@ export function has(criteria: string, value?: any): Has | boolean {
 	const result = new Has(criteria)
 	return value ? result.is(value) : result
 }
+
 Type.Object.add({ value: "has()", cursor: 4, complete })
 
 function complete(tokens: Token[], object: Type.Object): Completion[] {
-	return tokens.length > 0
-		? Completion.prepend(
-				"",
-				object.completions.filter(c => c.value.startsWith(tokens[0].value != ")" ? tokens[0].value : "")),
-				")"
-		  )
-		: Completion.prepend("", object.completions, ")") //Completion.prepend("", [...object.completions, { value: ")", cursor: 0 }])
+	let result: Completion[]
+	const completion: Completion[] = [{ value: "has()", cursor: 4 }]
+	switch (tokens.length) {
+		case 0:
+			result = [{ value: "." }]
+			break
+		case 1:
+			if (tokens[0].value == ".")
+				result = Completion.prepend(".", completion)
+			else
+				result = []
+			break
+		case 2:
+			if (tokens[0].value == "." && tokens[1].value == "has")
+				result = Completion.prepend(".", completion)
+			else
+				result = []
+			break
+		case 3:
+			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(")
+				result = Completion.prepend(".", completion)
+			else
+				result = []
+			break
+		case 4:
+			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(")
+				if (tokens[3].value == ")")
+					result = Completion.prepend("." + completion[0].value.substring(0, 4), object.completions, ")")
+				else
+					result = Completion.prepend(
+						"." + completion[0].value.substring(0, 4),
+						object.completions.filter(c => c.value.startsWith(tokens[3].value)),
+						")"
+					)
+			else
+				result = []
+			break
+		case 5:
+			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(" && tokens[4].value == ")")
+				result = Completion.prepend(
+					"." + completion[0].value.substring(0, 4),
+					object.completions.filter(c => c.value.startsWith(tokens[3].value)),
+					")"
+				)
+			else
+				result = []
+			break
+		default:
+			result = []
+			break
+	}
+	return result
 }

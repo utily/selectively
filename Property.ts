@@ -1,7 +1,7 @@
 import { and } from "./And"
 import { Criteria } from "./Criteria"
 import { add, create, Rule } from "./Rule"
-import { Type } from "./Type"
+
 export class Property extends Rule {
 	readonly precedence = Property.precedence
 	readonly class = "Property"
@@ -27,4 +27,3 @@ add(criteria =>
 		? and(...Object.getOwnPropertyNames(criteria).map(p => property(p, criteria[p])))
 		: undefined
 )
-Type.String.add({ value: ":" })

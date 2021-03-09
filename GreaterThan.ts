@@ -45,5 +45,5 @@ export function greaterThan(criteria: CompareHelper, value?: any): GreaterThan |
 	const result = new GreaterThan(criteria)
 	return value ? result.is(value) : result
 }
-Type.String.add({ value: ">" })
+
 Type.Number.add({ value: ">" })
