@@ -40,10 +40,7 @@ export class Boolean extends SType {
 				else {
 					const pattern = Boolean.patterns.find(c => c.value == tokens[1].value)
 					if (pattern)
-						// complete pattern
-						// TODO: complete from pattern
 						result = Completion.prepend("." + tokens[1].value, this.complete(tokens.slice(2)))
-					// not complete
 					else if (tokens.length == 2)
 						result = Completion.prepend(
 							".",
@@ -56,9 +53,7 @@ export class Boolean extends SType {
 		}
 		return result
 	}
-	// complete(tokens: Token[]): Completion[] {
-	// 	return Boolean.patterns.filter(v => v.value.startsWith(tokens[0]?.value ?? ""))
-	// }
+
 	private static readonly patterns: Completion[] = [{ value: "true" }, { value: "false" }]
 	static add(...pattern: Completion[]) {
 		this.patterns.push(...pattern)

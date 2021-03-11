@@ -49,7 +49,7 @@ export function greaterThan(criteria: CompareHelper, value?: any): GreaterThan |
 }
 
 Type.Number.add({ value: ">" })
-Type.String.add({ complete })
+Type.String.add(complete)
 
 function complete(tokens: Token[], string: Type.String): Completion[] | Completion {
 	let result

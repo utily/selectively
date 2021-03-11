@@ -1,7 +1,7 @@
 import { Token } from "../lexer"
 import { Base as SType } from "./Base"
 import { Completion } from "./Completion"
-import { Pattern } from "./Pattern"
+import { Completor } from "./Completor"
 
 export class TObject extends SType {
 	readonly class = "object"
@@ -33,7 +33,7 @@ export class TObject extends SType {
 					else if (tokens.length == 2)
 						result = Completion.prepend(
 							".",
-							this.completions.filter(c => c.value?.startsWith(tokens[1].value))
+							this.completions.filter(c => c.value.startsWith(tokens[1].value))
 						)
 					else
 						result = []
@@ -42,8 +42,8 @@ export class TObject extends SType {
 		}
 		result = [
 			...result,
-			...TObject.patterns
-				.map(p => p.complete(tokens, this))
+			...TObject.completor
+				.map(p => p(tokens, this))
 				.reduce<Completion[]>(
 					(result, element) =>
 						Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
@@ -57,9 +57,8 @@ export class TObject extends SType {
 		]
 		return result
 	}
-
-	private static readonly patterns: Pattern[] = []
-	static add(...pattern: Pattern[]) {
-		this.patterns.push(...pattern)
+	private static readonly completor: Completor<TObject>[] = []
+	static add(...completor: Completor<TObject>[]) {
+		this.completor.push(...completor)
 	}
 }

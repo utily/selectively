@@ -46,7 +46,7 @@ export function greaterThanOrEqual(criteria: CompareHelper, value?: any): Greate
 }
 
 Type.Number.add({ value: ">=" })
-Type.String.add({ complete })
+Type.String.add(complete)
 
 function complete(tokens: Token[], string: Type.String): Completion[] | Completion {
 	let result: Completion[] | Completion

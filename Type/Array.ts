@@ -1,7 +1,7 @@
 import { Token } from "../lexer"
 import { Base as SType } from "./Base"
 import { Completion } from "./Completion"
-import { Pattern } from "./Pattern"
+import { Completor } from "./Completor"
 
 export class TArray extends SType {
 	readonly class = "array"
@@ -10,8 +10,8 @@ export class TArray extends SType {
 	}
 
 	complete(tokens: Token[]): Completion[] {
-		return TArray.patterns
-			.map(p => p.complete(tokens, this))
+		return TArray.completor
+			.map(p => p(tokens, this))
 			.reduce<Completion[]>(
 				(result, element) =>
 					Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
@@ -24,8 +24,8 @@ export class TArray extends SType {
 			)
 	}
 
-	private static readonly patterns: Pattern[] = []
-	static add(...pattern: Pattern[]) {
-		this.patterns.push(...pattern)
+	private static readonly completor: Completor<TArray>[] = []
+	static add(...pattern: Completor<TArray>[]) {
+		this.completor.push(...pattern)
 	}
 }

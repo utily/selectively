@@ -1,7 +1,7 @@
 import { Cursor } from "./Cursor"
 
 export interface Completion {
-	value?: string
+	value: string
 	cursor?: Cursor | number
 }
 export namespace Completion {
@@ -21,7 +21,7 @@ export namespace Completion {
 							? completion?.cursor + prefix.length
 							: typeof completion?.cursor == "object"
 							? { start: completion.cursor.start + prefix.length, end: completion.cursor.end + prefix.length }
-							: undefined,
+							: completion.value.length + prefix.length,
 			  }
 	}
 }

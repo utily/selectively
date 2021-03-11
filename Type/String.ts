@@ -1,19 +1,20 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Token } from "../lexer"
 import { Base as SType } from "./Base"
 import { Completion } from "./Completion"
-import { Pattern } from "./Pattern"
+import { Completor } from "./Completor"
 
 export class String extends SType {
 	readonly class = "string"
 	readonly completion: Completion
 	constructor(readonly value: Readonly<string>) {
 		super()
-		this.completion = { value: value }
+		this.completion = { value }
 	}
 
 	complete(tokens: Token[]): Completion[] {
-		return String.patterns
-			.map(p => p.complete(tokens, this))
+		return String.completor
+			.map(p => p(tokens, this))
 			.reduce<Completion[]>(
 				(result, element) =>
 					Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
@@ -26,8 +27,8 @@ export class String extends SType {
 			)
 	}
 
-	private static readonly patterns: Pattern[] = []
-	static add(...pattern: Pattern[]) {
-		this.patterns.push(...pattern)
+	private static readonly completor: Completor<String>[] = []
+	static add(...pattern: Completor<String>[]) {
+		this.completor.push(...pattern)
 	}
 }

@@ -2,6 +2,7 @@ import { Token } from "./lexer"
 import { Rule } from "./Rule"
 import { Type } from "./Type"
 import { Completion } from "./Type/Completion"
+import { Completor } from "./Type/Completor"
 
 export class Has extends Rule {
 	readonly precedence = 70
@@ -37,63 +38,12 @@ export function has(criteria: string, value?: any): Has | boolean {
 	return value ? result.is(value) : result
 }
 
-Type.Object.add({ complete })
-
 function complete(tokens: Token[], object: Type.Object): Completion[] | Completion {
-	let result: Completion[] | Completion
-	const completion: Completion = { value: "has()", cursor: 4 }
-	switch (tokens.length) {
-		case 0:
-			result = { value: "." }
-			break
-		case 1:
-			if (tokens[0].value == ".")
-				result = [Completion.prepend(".", completion)]
-			else
-				result = []
-			break
-		case 2:
-			if (tokens[0].value == "." && completion.value?.startsWith(tokens[1].value))
-				result = Completion.prepend(".", completion)
-			else
-				result = []
-			break
-		case 3:
-			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(")
-				result = Completion.prepend(".", completion)
-			else
-				result = []
-			break
-		case 4:
-			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(")
-				if (tokens[3].value == ")")
-					result = Completion.prepend("." + completion.value?.substring(0, 4), object.completions, ")")
-				else
-					result = Completion.prepend(
-						"." + completion.value?.substring(0, 4),
-						object.completions
-							.filter(c => c.value?.startsWith(tokens[3].value))
-							.map(c => (c.value ? { value: c.value, cursor: c.value.length } : c)),
-						")"
-					)
-			else
-				result = []
-			break
-		case 5:
-			if (tokens[0].value == "." && tokens[1].value == "has" && tokens[2].value == "(" && tokens[4].value == ")")
-				result = Completion.prepend(
-					"." + completion.value?.substring(0, 4),
-					object.completions
-						.filter(c => c.value?.startsWith(tokens[3].value))
-						.map(c => (c.value ? { value: c.value, cursor: c.value.length } : c)),
-					")"
-				)
-			else
-				result = []
-			break
-		default:
-			result = []
-			break
-	}
-	return result
+	return Completor.functions(
+		tokens,
+		(token?: Token) => object.completions.filter(c => c.value.startsWith(token ? token.value : "")),
+		{ value: "has()", cursor: 4 }
+	)
 }
+
+Type.Object.add(complete)
