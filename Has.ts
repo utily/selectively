@@ -40,18 +40,7 @@ export function has(criteria: string, value?: any): Has | boolean {
 function complete(tokens: Token[], object: Type.Object): Type.Completion[] | Type.Completion {
 	return Completor.functions(
 		tokens,
-		(tokens?: Token[]) =>
-			!tokens
-				? object.completions
-				: tokens.length == 1 && object.completions.filter(c => c.value.startsWith(tokens[0].value))
-				? object.completions.filter(c => c.value.startsWith(tokens[0].value))
-				: Object.keys(object.properties)
-						.map(p => new Type.String(p).complete([{ value: ":" }, ...tokens]))
-						.reduce<Type.Completion[]>(
-							(result, element) =>
-								Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-							[]
-						),
+		(tokens?: Token[]) => object.completions.filter(c => c.value.startsWith(tokens ? tokens[0].value : "")),
 		{
 			value: "has()",
 			cursor: 4,

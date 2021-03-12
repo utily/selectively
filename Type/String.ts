@@ -7,7 +7,7 @@ import { Completor } from "./Completor"
 export class String extends SType {
 	readonly class = "string"
 	readonly value: string
-	constructor(readonly input?: Readonly<string>) {
+	constructor(readonly input?: string) {
 		super()
 		if (input)
 			this.value = input
@@ -16,11 +16,7 @@ export class String extends SType {
 	complete(tokens: Token[]): Completion[] {
 		return String.completor
 			.map(p => p(tokens, this))
-			.reduce<Completion[]>(
-				(result, element) =>
-					Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-				[]
-			)
+			.reduce<Completion[]>((result, element) => result.concat(element), [])
 			.reduce<Completion[]>(
 				(result, element) =>
 					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],

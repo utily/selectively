@@ -12,11 +12,7 @@ export class Array extends SType {
 	complete(tokens: Token[]): Completion[] {
 		return Array.completor
 			.map(p => p(tokens, this))
-			.reduce<Completion[]>(
-				(result, element) =>
-					global.Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-				[]
-			)
+			.reduce<Completion[]>((result, element) => result.concat(element), [])
 			.reduce<Completion[]>(
 				(result, element) =>
 					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],

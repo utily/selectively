@@ -16,7 +16,8 @@ describe("selectively.Type", () => {
 	})
 
 	it("Object", () => {
-		const type = new selectively.Type.Object({ name: new selectively.Type.String("") })
+		// const type = selectively.Type.create({ name: { class: "string", value: "" } })
+		const type = new selectively.Type.Object({ name: new selectively.Type.String() })
 		expect(type).toMatchSnapshot()
 	})
 	it("Array", () => {
@@ -38,8 +39,8 @@ describe("selectively.Type", () => {
 				second: new selectively.Type.Number(),
 			}),
 			status: new selectively.Type.Object({
-				statusArray: new selectively.Type.Array(new selectively.Type.String("")),
-				statusString: new selectively.Type.String(""),
+				statusArray: new selectively.Type.Array(new selectively.Type.String()),
+				statusString: new selectively.Type.String(),
 			}),
 			kaktus: new selectively.Type.String(),
 		})
@@ -50,6 +51,7 @@ describe("selectively.Type", () => {
 		expect(object.complete(t("ha"))).toMatchSnapshot()
 		expect(object.complete(t("has("))).toMatchSnapshot()
 		expect(object.complete(t("has(*us)"))).toMatchSnapshot()
+		expect(object.complete(t("has(*tu*)"))).toMatchSnapshot()
 		expect(object.complete(t("id"))).toMatchSnapshot()
 		expect(object.complete(t("id."))).toMatchSnapshot()
 		expect(object.complete(t("id.has()"))).toMatchSnapshot()

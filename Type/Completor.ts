@@ -28,14 +28,6 @@ export namespace Completor {
 					argument(tokens.slice(3, tokens.length - 1)),
 					")"
 			  )
-			: tokens.length > 5 //&&
-			? // tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[tokens.length - 1] ==
-			  // 	"." + completion.value
-			  Completion.prepend(
-					"." + completion.value.substring(0, completion.value.length - 1),
-					argument(tokens.slice(3, tokens.length - 1)),
-					")"
-			  )
 			: []
 	}
 
@@ -58,10 +50,9 @@ export namespace Completor {
 		argument: (tokens?: Token[]) => Completion[],
 		completion: Completion
 	): Completion[] | Completion {
-		return tokens.length >= 1 && tokens[0].value == completion.value // Complete
+		return tokens.length >= 1 && tokens[0].value == completion.value
 			? Completion.prepend(completion.value, argument(tokens.slice(1)))
-			: tokens.length == 0 /*Nothing*/ ||
-			  (tokens.length == 1 && completion.value.startsWith(tokens[0].value)) /*Incomplete*/
+			: tokens.length == 0 || (tokens.length == 1 && completion.value.startsWith(tokens[0].value))
 			? completion
 			: []
 	}

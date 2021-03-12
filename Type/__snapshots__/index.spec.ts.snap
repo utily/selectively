@@ -39,7 +39,7 @@ TObject {
   "properties": Object {
     "name": String {
       "class": "string",
-      "input": "",
+      "input": undefined,
     },
   },
 }
@@ -151,20 +151,11 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 6`] = `
-Array [
-  Object {
-    "cursor": 13,
-    "value": ".has(:*status)",
-  },
-  Object {
-    "cursor": 13,
-    "value": ".has(:*kaktus)",
-  },
-]
-`;
+exports[`selectively.Type complete 6`] = `Array []`;
 
-exports[`selectively.Type complete 7`] = `
+exports[`selectively.Type complete 7`] = `Array []`;
+
+exports[`selectively.Type complete 8`] = `
 Array [
   Object {
     "cursor": 4,
@@ -173,7 +164,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 8`] = `
+exports[`selectively.Type complete 9`] = `
 Array [
   Object {
     "cursor": 9,
@@ -190,7 +181,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 9`] = `
+exports[`selectively.Type complete 10`] = `
 Array [
   Object {
     "cursor": 13,
@@ -203,7 +194,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 10`] = `
+exports[`selectively.Type complete 11`] = `
 Array [
   Object {
     "cursor": 9,
@@ -212,7 +203,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 11`] = `
+exports[`selectively.Type complete 12`] = `
 Array [
   Object {
     "cursor": 10,
@@ -237,7 +228,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 12`] = `
+exports[`selectively.Type complete 13`] = `
 Array [
   Object {
     "cursor": 11,
@@ -246,9 +237,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 13`] = `Array []`;
+exports[`selectively.Type complete 14`] = `Array []`;
 
-exports[`selectively.Type complete 14`] = `
+exports[`selectively.Type complete 15`] = `
 Array [
   Object {
     "cursor": 11,
@@ -269,7 +260,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 15`] = `
+exports[`selectively.Type complete 16`] = `
 Array [
   Object {
     "cursor": 15,
@@ -286,7 +277,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 16`] = `
+exports[`selectively.Type complete 17`] = `
 Array [
   Object {
     "cursor": 15,
@@ -295,7 +286,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 17`] = `
+exports[`selectively.Type complete 18`] = `
 Array [
   Object {
     "cursor": 14,
@@ -304,9 +295,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 18`] = `Array []`;
+exports[`selectively.Type complete 19`] = `Array []`;
 
-exports[`selectively.Type complete 19`] = `
+exports[`selectively.Type complete 20`] = `
 Array [
   Object {
     "cursor": 15,
@@ -315,9 +306,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 20`] = `Array []`;
+exports[`selectively.Type complete 21`] = `Array []`;
 
-exports[`selectively.Type complete 21`] = `
+exports[`selectively.Type complete 22`] = `
 Array [
   Object {
     "cursor": 15,
@@ -326,9 +317,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 22`] = `Array []`;
+exports[`selectively.Type complete 23`] = `Array []`;
 
-exports[`selectively.Type complete 23`] = `
+exports[`selectively.Type complete 24`] = `
 Array [
   Object {
     "cursor": 11,
@@ -353,7 +344,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 24`] = `
+exports[`selectively.Type complete 25`] = `
 Array [
   Object {
     "cursor": 12,
@@ -362,7 +353,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 25`] = `
+exports[`selectively.Type complete 26`] = `
 Array [
   Object {
     "cursor": 15,
@@ -371,7 +362,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 26`] = `
+exports[`selectively.Type complete 27`] = `
 Array [
   Object {
     "cursor": 12,
@@ -380,20 +371,11 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 27`] = `
+exports[`selectively.Type complete 28`] = `
 Array [
   Object {
     "cursor": 19,
     "value": ".status.statusArray",
-  },
-]
-`;
-
-exports[`selectively.Type complete 28`] = `
-Array [
-  Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
   },
 ]
 `;
@@ -417,6 +399,15 @@ Array [
 `;
 
 exports[`selectively.Type complete 31`] = `
+Array [
+  Object {
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 32`] = `
 Array [
   Object {
     "cursor": 26,

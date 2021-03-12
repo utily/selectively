@@ -44,11 +44,7 @@ export class TObject extends SType {
 			...result,
 			...TObject.completor
 				.map(p => p(tokens, this))
-				.reduce<Completion[]>(
-					(result, element) =>
-						Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-					[]
-				)
+				.reduce<Completion[]>((result, element) => result.concat(element), [])
 				.reduce<Completion[]>(
 					(result, element) =>
 						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
@@ -63,14 +59,3 @@ export class TObject extends SType {
 		this.completor.push(...completor)
 	}
 }
-
-/*
-object1 = {id, status}
-object2 = {id, hej_då}
-protperty(nummer) => property
------------------------
-object1.has(object2.property(1))
-------------------------------
-.object.id.
-object.has()
-*/
