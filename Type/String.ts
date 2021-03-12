@@ -7,9 +7,10 @@ import { Completor } from "./Completor"
 export class String extends SType {
 	readonly class = "string"
 	readonly value: string
-	constructor(readonly input: Readonly<string>) {
+	constructor(readonly input?: Readonly<string>) {
 		super()
-		this.value = input
+		if (input)
+			this.value = input
 	}
 
 	complete(tokens: Token[]): Completion[] {

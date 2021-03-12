@@ -40,7 +40,6 @@ TObject {
     "name": String {
       "class": "string",
       "input": "",
-      "value": "",
     },
   },
 }
@@ -106,6 +105,10 @@ Array [
     "value": ".status",
   },
   Object {
+    "cursor": 7,
+    "value": ".kaktus",
+  },
+  Object {
     "cursor": 5,
     "value": ".has()",
   },
@@ -118,18 +121,14 @@ Array [
     "cursor": 7,
     "value": ".has(id)",
   },
-  Object {
-    "cursor": 11,
-    "value": ".has(status)",
-  },
 ]
 `;
 
 exports[`selectively.Type complete 3`] = `
 Array [
   Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
+    "cursor": 7,
+    "value": ".has(id)",
   },
 ]
 `;
@@ -155,13 +154,26 @@ Array [
 exports[`selectively.Type complete 6`] = `
 Array [
   Object {
+    "cursor": 13,
+    "value": ".has(:*status)",
+  },
+  Object {
+    "cursor": 13,
+    "value": ".has(:*kaktus)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 7`] = `
+Array [
+  Object {
     "cursor": 4,
     "value": ".id.",
   },
 ]
 `;
 
-exports[`selectively.Type complete 7`] = `
+exports[`selectively.Type complete 8`] = `
 Array [
   Object {
     "cursor": 9,
@@ -178,7 +190,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 8`] = `
+exports[`selectively.Type complete 9`] = `
 Array [
   Object {
     "cursor": 13,
@@ -188,14 +200,10 @@ Array [
     "cursor": 14,
     "value": ".id.has(second)",
   },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
 ]
 `;
 
-exports[`selectively.Type complete 9`] = `
+exports[`selectively.Type complete 10`] = `
 Array [
   Object {
     "cursor": 9,
@@ -204,7 +212,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 10`] = `
+exports[`selectively.Type complete 11`] = `
 Array [
   Object {
     "cursor": 10,
@@ -229,7 +237,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 11`] = `
+exports[`selectively.Type complete 12`] = `
 Array [
   Object {
     "cursor": 11,
@@ -238,9 +246,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 12`] = `Array []`;
+exports[`selectively.Type complete 13`] = `Array []`;
 
-exports[`selectively.Type complete 13`] = `
+exports[`selectively.Type complete 14`] = `
 Array [
   Object {
     "cursor": 11,
@@ -261,7 +269,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 14`] = `
+exports[`selectively.Type complete 15`] = `
 Array [
   Object {
     "cursor": 15,
@@ -275,35 +283,14 @@ Array [
     "cursor": 14,
     "value": ".id.first:test*",
   },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
-]
-`;
-
-exports[`selectively.Type complete 15`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test*",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
 ]
 `;
 
 exports[`selectively.Type complete 16`] = `
 Array [
   Object {
-    "cursor": 14,
-    "value": ".id.first:test*",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
+    "cursor": 15,
+    "value": ".id.first:*test*",
   },
 ]
 `;
@@ -311,65 +298,37 @@ Array [
 exports[`selectively.Type complete 17`] = `
 Array [
   Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
+    "cursor": 14,
+    "value": ".id.first:test*",
   },
 ]
 `;
 
-exports[`selectively.Type complete 18`] = `
+exports[`selectively.Type complete 18`] = `Array []`;
+
+exports[`selectively.Type complete 19`] = `
 Array [
   Object {
     "cursor": 15,
     "value": ".id.first:*test*",
   },
-  Object {
-    "cursor": 12,
-    "value": ".id.has(TODO)",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
 ]
 `;
 
-exports[`selectively.Type complete 19`] = `
-Array [
-  Object {
-    "cursor": 12,
-    "value": ".id.has(TODO)",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
-]
-`;
+exports[`selectively.Type complete 20`] = `Array []`;
 
-exports[`selectively.Type complete 20`] = `
+exports[`selectively.Type complete 21`] = `
 Array [
   Object {
     "cursor": 15,
     "value": ".id.first:*test",
   },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
 ]
 `;
 
-exports[`selectively.Type complete 21`] = `
-Array [
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
-]
-`;
+exports[`selectively.Type complete 22`] = `Array []`;
 
-exports[`selectively.Type complete 22`] = `
+exports[`selectively.Type complete 23`] = `
 Array [
   Object {
     "cursor": 11,
@@ -394,24 +353,11 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 23`] = `
+exports[`selectively.Type complete 24`] = `
 Array [
   Object {
     "cursor": 12,
     "value": ".id.second:!",
-  },
-]
-`;
-
-exports[`selectively.Type complete 24`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:!test",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
   },
 ]
 `;
@@ -419,12 +365,8 @@ Array [
 exports[`selectively.Type complete 25`] = `
 Array [
   Object {
-    "cursor": 12,
-    "value": ".id.second:!",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
+    "cursor": 15,
+    "value": ".id.first:!test",
   },
 ]
 `;
@@ -432,8 +374,8 @@ Array [
 exports[`selectively.Type complete 26`] = `
 Array [
   Object {
-    "cursor": 19,
-    "value": ".status.statusArray",
+    "cursor": 12,
+    "value": ".id.second:!",
   },
 ]
 `;
@@ -441,8 +383,8 @@ Array [
 exports[`selectively.Type complete 27`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": 19,
+    "value": ".status.statusArray",
   },
 ]
 `;
@@ -453,10 +395,6 @@ Array [
     "cursor": 26,
     "value": ".status.statusArray.every()",
   },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
-  },
 ]
 `;
 
@@ -465,10 +403,6 @@ Array [
   Object {
     "cursor": 26,
     "value": ".status.statusArray.every()",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
   },
 ]
 `;
@@ -479,13 +413,14 @@ Array [
     "cursor": 26,
     "value": ".status.statusArray.every()",
   },
+]
+`;
+
+exports[`selectively.Type complete 31`] = `
+Array [
   Object {
-    "cursor": 16,
-    "value": ".status.has(TODO)",
-  },
-  Object {
-    "cursor": 9,
-    "value": ".has(TODO)",
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
   },
 ]
 `;

@@ -41,13 +41,15 @@ describe("selectively.Type", () => {
 				statusArray: new selectively.Type.Array(new selectively.Type.String("")),
 				statusString: new selectively.Type.String(""),
 			}),
+			kaktus: new selectively.Type.String(),
 		})
 
 		expect(object.complete(t(""))).toMatchSnapshot()
 		expect(object.complete(t("has(i)"))).toMatchSnapshot()
-		expect(object.complete(t("has(*us)"))).toMatchSnapshot()
+		expect(object.complete(t("has(id)"))).toMatchSnapshot()
 		expect(object.complete(t("ha"))).toMatchSnapshot()
 		expect(object.complete(t("has("))).toMatchSnapshot()
+		expect(object.complete(t("has(*us)"))).toMatchSnapshot()
 		expect(object.complete(t("id"))).toMatchSnapshot()
 		expect(object.complete(t("id."))).toMatchSnapshot()
 		expect(object.complete(t("id.has()"))).toMatchSnapshot()
