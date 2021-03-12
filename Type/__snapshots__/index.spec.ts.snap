@@ -118,18 +118,18 @@ Array [
     "cursor": 7,
     "value": ".has(id)",
   },
+  Object {
+    "cursor": 11,
+    "value": ".has(status)",
+  },
 ]
 `;
 
 exports[`selectively.Type complete 3`] = `
 Array [
   Object {
-    "cursor": 7,
-    "value": ".has(id)",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".has(status)",
+    "cursor": 9,
+    "value": ".has(TODO)",
   },
 ]
 `;
@@ -187,6 +187,10 @@ Array [
   Object {
     "cursor": 14,
     "value": ".id.has(second)",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
   },
 ]
 `;
@@ -271,6 +275,10 @@ Array [
     "cursor": 14,
     "value": ".id.first:test*",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
@@ -279,6 +287,10 @@ Array [
   Object {
     "cursor": 15,
     "value": ".id.first:*test*",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
   },
 ]
 `;
@@ -289,10 +301,21 @@ Array [
     "cursor": 14,
     "value": ".id.first:test*",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
-exports[`selectively.Type complete 17`] = `Array []`;
+exports[`selectively.Type complete 17`] = `
+Array [
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
+]
+`;
 
 exports[`selectively.Type complete 18`] = `
 Array [
@@ -300,10 +323,29 @@ Array [
     "cursor": 15,
     "value": ".id.first:*test*",
   },
+  Object {
+    "cursor": 12,
+    "value": ".id.has(TODO)",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
-exports[`selectively.Type complete 19`] = `Array []`;
+exports[`selectively.Type complete 19`] = `
+Array [
+  Object {
+    "cursor": 12,
+    "value": ".id.has(TODO)",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
+]
+`;
 
 exports[`selectively.Type complete 20`] = `
 Array [
@@ -311,13 +353,40 @@ Array [
     "cursor": 15,
     "value": ".id.first:*test",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
-exports[`selectively.Type complete 21`] = `Array []`;
+exports[`selectively.Type complete 21`] = `
+Array [
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
+]
+`;
 
 exports[`selectively.Type complete 22`] = `
 Array [
+  Object {
+    "cursor": 11,
+    "value": ".id.second>",
+  },
+  Object {
+    "cursor": 12,
+    "value": ".id.second>=",
+  },
+  Object {
+    "cursor": 11,
+    "value": ".id.second<",
+  },
+  Object {
+    "cursor": 12,
+    "value": ".id.second<=",
+  },
   Object {
     "cursor": 11,
     "value": ".id.second:",
@@ -340,6 +409,10 @@ Array [
     "cursor": 15,
     "value": ".id.first:!test",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
@@ -348,6 +421,10 @@ Array [
   Object {
     "cursor": 12,
     "value": ".id.second:!",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
   },
 ]
 `;
@@ -376,6 +453,10 @@ Array [
     "cursor": 26,
     "value": ".status.statusArray.every()",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
@@ -385,6 +466,10 @@ Array [
     "cursor": 26,
     "value": ".status.statusArray.every()",
   },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
+  },
 ]
 `;
 
@@ -393,6 +478,14 @@ Array [
   Object {
     "cursor": 26,
     "value": ".status.statusArray.every()",
+  },
+  Object {
+    "cursor": 16,
+    "value": ".status.has(TODO)",
+  },
+  Object {
+    "cursor": 9,
+    "value": ".has(TODO)",
   },
 ]
 `;

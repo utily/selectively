@@ -27,8 +27,8 @@ export function every(criteria: Criteria, value?: any): Every | boolean {
 function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.Completion {
 	return Completor.functions(
 		tokens,
-		(token?: Token) =>
-			token
+		(tokens?: Token[]) =>
+			tokens
 				? [
 						{ value: "" },
 						/*{ value: "TODO: implement argument completions" }*/

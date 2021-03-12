@@ -7,7 +7,7 @@ export type Completor<T extends Base> = (tokens: Token[], data: T) => Completion
 export namespace Completor {
 	export function functions(
 		tokens: Token[],
-		completor: (token?: Token) => Completion[],
+		argument: (tokens?: Token[]) => Completion[],
 		completion: Completion
 	): Completion[] | Completion {
 		return tokens.length == 0
@@ -19,17 +19,29 @@ export namespace Completor {
 			? Completion.prepend(".", completion)
 			: tokens.length <= 4 &&
 			  tokens.slice(0, 4).reduce((string, token) => string + token.value, "") == "." + completion.value
-			? Completion.prepend("." + completion.value.substring(0, completion.value.length - 1), completor(), ")")
+			? Completion.prepend("." + completion.value.substring(0, completion.value.length - 1), argument(), ")")
 			: tokens.length == 5 &&
 			  tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[4].value ==
 					"." + completion.value
-			? Completion.prepend("." + completion.value.substring(0, completion.value.length - 1), completor(tokens[3]), ")")
+			? Completion.prepend(
+					"." + completion.value.substring(0, completion.value.length - 1),
+					argument(tokens.slice(3, tokens.length - 1)),
+					")"
+			  )
+			: tokens.length > 5 //&&
+			? // tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[tokens.length - 1] ==
+			  // 	"." + completion.value
+			  Completion.prepend(
+					"." + completion.value.substring(0, completion.value.length - 1),
+					argument(tokens.slice(3, tokens.length - 1)),
+					")"
+			  )
 			: []
 	}
 
 	export function expressions(
 		tokens: Token[],
-		completor: (tokens?: Token[]) => Completion[],
+		argument: (tokens?: Token[]) => Completion[],
 		completion: Completion
 	): Completion[] | Completion {
 		return tokens.length == 0
@@ -38,16 +50,16 @@ export namespace Completor {
 			? []
 			: tokens.length == 1
 			? Completion.prepend(":", completion)
-			: Completion.prepend(":", completor(tokens.slice(1)))
+			: Completion.prepend(":", argument(tokens.slice(1)))
 	}
 
 	export function operators(
 		tokens: Token[],
-		completor: (tokens?: Token[]) => Completion[],
+		argument: (tokens?: Token[]) => Completion[],
 		completion: Completion
 	): Completion[] | Completion {
 		return tokens.length >= 1 && tokens[0].value == completion.value // Complete
-			? Completion.prepend(completion.value, completor(tokens.slice(1)))
+			? Completion.prepend(completion.value, argument(tokens.slice(1)))
 			: tokens.length == 0 /*Nothing*/ ||
 			  (tokens.length == 1 && completion.value.startsWith(tokens[0].value)) /*Incomplete*/
 			? completion

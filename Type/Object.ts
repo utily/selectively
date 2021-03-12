@@ -6,7 +6,7 @@ import { Completor } from "./Completor"
 export class TObject extends SType {
 	readonly class = "object"
 	readonly completions: Completion[]
-	constructor(readonly properties: Readonly<Record<string, SType | undefined>>) {
+	constructor(readonly properties: Readonly<Record<string, SType>>) {
 		super()
 		this.completions = Object.keys(this.properties).map(p => ({ value: p }))
 	}
@@ -63,3 +63,14 @@ export class TObject extends SType {
 		this.completor.push(...completor)
 	}
 }
+
+/*
+object1 = {id, status}
+object2 = {id, hej_då}
+protperty(nummer) => property
+-----------------------
+object1.has(object2.property(1))
+------------------------------
+.object.id.
+object.has()
+*/

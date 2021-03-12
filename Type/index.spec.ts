@@ -35,7 +35,7 @@ describe("selectively.Type", () => {
 		const object = new selectively.Type.Object({
 			id: new selectively.Type.Object({
 				first: new selectively.Type.String("test"),
-				second: new selectively.Type.Boolean(),
+				second: new selectively.Type.Number(),
 			}),
 			status: new selectively.Type.Object({
 				statusArray: new selectively.Type.Array(new selectively.Type.String("")),
@@ -45,7 +45,7 @@ describe("selectively.Type", () => {
 
 		expect(object.complete(t(""))).toMatchSnapshot()
 		expect(object.complete(t("has(i)"))).toMatchSnapshot()
-		expect(object.complete(t("has()"))).toMatchSnapshot()
+		expect(object.complete(t("has(*us)"))).toMatchSnapshot()
 		expect(object.complete(t("ha"))).toMatchSnapshot()
 		expect(object.complete(t("has("))).toMatchSnapshot()
 		expect(object.complete(t("id"))).toMatchSnapshot()
