@@ -1,7 +1,7 @@
 import { Error } from "@cogneco/mend"
 import { And } from "../And"
+import * as lexer from "../lexer"
 import { Rule } from "../Rule"
-import * as lexer from "./lexer"
 import { Source } from "./Source"
 
 export function parse(source: Source): Rule

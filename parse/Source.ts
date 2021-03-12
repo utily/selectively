@@ -1,5 +1,5 @@
 import { Error, Utilities } from "@cogneco/mend"
-import * as lexer from "./lexer"
+import * as lexer from "../lexer"
 
 export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements Error.Handler {
 	constructor(tokens: lexer.Token[] | Utilities.Enumerator<lexer.Token>, private errorHandler: Error.Handler) {
