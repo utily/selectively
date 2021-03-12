@@ -1,5 +1,8 @@
 import { CompareHelper } from "./CompareHelper"
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
+import { Completor } from "./Type/Completor"
 
 export class GreaterThanOrEqual extends Rule {
 	readonly precedence = 70
@@ -41,3 +44,21 @@ export function greaterThanOrEqual(criteria: CompareHelper, value?: any): Greate
 	const result = new GreaterThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
+
+function complete(tokens: Token[], type: Type.String | Type.Number): Type.Completion[] | Type.Completion {
+	return Completor.operators(
+		tokens,
+		(tokens?: Token[]) =>
+			tokens
+				? [
+						/*{ value: "TODO" }*/
+				  ]
+				: [],
+		{
+			value: ">=",
+		}
+	)
+}
+
+Type.String.add(complete)
+Type.Number.add(complete)

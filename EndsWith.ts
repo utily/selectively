@@ -1,4 +1,7 @@
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
+import { Completor } from "./Type/Completor"
 
 export class EndsWith extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -19,3 +22,17 @@ export function endsWith(needle: string, value?: any): EndsWith | boolean {
 	const result = new EndsWith(needle)
 	return value ? result.is(value) : result
 }
+
+function complete(tokens: Token[], string: Type.String): Type.Completion[] | Type.Completion {
+	return Completor.expressions(
+		tokens,
+		(tokens?: Token[]) => {
+			return !tokens || (tokens[0].value == "*" && string.value.endsWith(tokens[1]?.value ?? ""))
+				? [Type.Completion.prepend("*", { value: string.value })]
+				: []
+		},
+		{ value: "*" }
+	)
+}
+
+Type.String.add(complete)
