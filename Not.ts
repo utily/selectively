@@ -32,11 +32,14 @@ function complete(
 	return Completor.expressions(
 		tokens,
 		(tokens?: Token[]) => {
-			return type.class == "string" &&
-				(!tokens || (type.value.startsWith(tokens[1]?.value ?? "") && tokens[0].value == "!"))
+			return type.class == "string" && (!tokens || (tokens[0].value == "!" && type.value != (tokens[1]?.value ?? "")))
 				? [Type.Completion.prepend("!", { value: type.value })]
-				: type.class != "string" && tokens && tokens.length == 1
-				? [Type.Completion.prepend("!", { value: "" })]
+				: type.class == "number" &&
+				  (!tokens || (tokens[0].value == "!" && type.value != (+tokens[1]?.value ?? type.value + 1)))
+				? [Type.Completion.prepend("!", { value: type.value.toString() })]
+				: type.class == "boolean" &&
+				  (!tokens || (tokens[0].value == "!" && type.value != (Boolean(tokens[1]?.value) ?? true)))
+				? [Type.Completion.prepend("!", { value: type.value.toString() })]
 				: []
 		},
 		{ value: "!", cursor: 1 }

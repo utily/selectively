@@ -28,12 +28,21 @@ function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.C
 	return Completor.functions(
 		tokens,
 		(tokens?: Token[]) =>
-			tokens
-				? [
-						{ value: "" },
-						/*{ value: "TODO: implement argument completions" }*/
-				  ]
-				: [{ value: "" }],
+			type.value.every(Type.String.is) && tokens
+				? type.value
+						.map(p => p.complete([{ value: ":" }, ...tokens]))
+						.reduce<Type.Completion[]>(
+							(result, element) =>
+								Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+							[]
+						)
+				: !tokens && type.value.every(Type.String.is)
+				? type.value
+				: type.value.every(Type.Number.is)
+				? type.value
+						.filter(e => e.value == (tokens ? +tokens[0].value : e.value))
+						.map<Type.Completion>(e => ({ value: e.value.toString() }))
+				: [],
 		{
 			value: "every()",
 			cursor: 6,

@@ -15,6 +15,10 @@ Array [
     "cursor": 7,
     "value": ".every()",
   },
+  Object {
+    "cursor": 6,
+    "value": ".some()",
+  },
 ]
 `;
 
@@ -151,11 +155,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 6`] = `Array []`;
-
-exports[`selectively.Type complete 7`] = `Array []`;
-
-exports[`selectively.Type complete 8`] = `
+exports[`selectively.Type complete 6`] = `
 Array [
   Object {
     "cursor": 4,
@@ -164,7 +164,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 9`] = `
+exports[`selectively.Type complete 7`] = `
 Array [
   Object {
     "cursor": 9,
@@ -181,7 +181,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 10`] = `
+exports[`selectively.Type complete 8`] = `
 Array [
   Object {
     "cursor": 13,
@@ -194,7 +194,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 11`] = `
+exports[`selectively.Type complete 9`] = `
 Array [
   Object {
     "cursor": 9,
@@ -203,7 +203,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 12`] = `
+exports[`selectively.Type complete 10`] = `
 Array [
   Object {
     "cursor": 10,
@@ -228,7 +228,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 13`] = `
+exports[`selectively.Type complete 11`] = `
 Array [
   Object {
     "cursor": 11,
@@ -237,9 +237,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 14`] = `Array []`;
+exports[`selectively.Type complete 12`] = `Array []`;
 
-exports[`selectively.Type complete 15`] = `
+exports[`selectively.Type complete 13`] = `
 Array [
   Object {
     "cursor": 11,
@@ -248,6 +248,10 @@ Array [
   Object {
     "cursor": 11,
     "value": ".id.first:**",
+  },
+  Object {
+    "cursor": 11,
+    "value": ".id.first://",
   },
   Object {
     "cursor": 11,
@@ -260,7 +264,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 16`] = `
+exports[`selectively.Type complete 14`] = `
 Array [
   Object {
     "cursor": 15,
@@ -271,13 +275,17 @@ Array [
     "value": ".id.first:**",
   },
   Object {
+    "cursor": 12,
+    "value": ".id.first://",
+  },
+  Object {
     "cursor": 14,
     "value": ".id.first:test*",
   },
 ]
 `;
 
-exports[`selectively.Type complete 17`] = `
+exports[`selectively.Type complete 15`] = `
 Array [
   Object {
     "cursor": 15,
@@ -286,11 +294,22 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 18`] = `
+exports[`selectively.Type complete 16`] = `
 Array [
   Object {
     "cursor": 14,
     "value": ".id.first:test*",
+  },
+]
+`;
+
+exports[`selectively.Type complete 17`] = `Array []`;
+
+exports[`selectively.Type complete 18`] = `
+Array [
+  Object {
+    "cursor": 15,
+    "value": ".id.first:*test*",
   },
 ]
 `;
@@ -301,7 +320,7 @@ exports[`selectively.Type complete 20`] = `
 Array [
   Object {
     "cursor": 15,
-    "value": ".id.first:*test*",
+    "value": ".id.first:*test",
   },
 ]
 `;
@@ -309,17 +328,6 @@ Array [
 exports[`selectively.Type complete 21`] = `Array []`;
 
 exports[`selectively.Type complete 22`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test",
-  },
-]
-`;
-
-exports[`selectively.Type complete 23`] = `Array []`;
-
-exports[`selectively.Type complete 24`] = `
 Array [
   Object {
     "cursor": 11,
@@ -344,16 +352,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 25`] = `
-Array [
-  Object {
-    "cursor": 12,
-    "value": ".id.second:!",
-  },
-]
-`;
-
-exports[`selectively.Type complete 26`] = `
+exports[`selectively.Type complete 23`] = `
 Array [
   Object {
     "cursor": 15,
@@ -362,11 +361,39 @@ Array [
 ]
 `;
 
+exports[`selectively.Type complete 24`] = `
+Array [
+  Object {
+    "cursor": 15,
+    "value": ".id.first:!test",
+  },
+]
+`;
+
+exports[`selectively.Type complete 25`] = `Array []`;
+
+exports[`selectively.Type complete 26`] = `
+Array [
+  Object {
+    "cursor": 19,
+    "value": ".status.statusArray",
+  },
+  Object {
+    "cursor": 20,
+    "value": ".status.statusArray2",
+  },
+]
+`;
+
 exports[`selectively.Type complete 27`] = `
 Array [
   Object {
-    "cursor": 12,
-    "value": ".id.second:!",
+    "cursor": 26,
+    "value": ".status.statusArray.every()",
+  },
+  Object {
+    "cursor": 25,
+    "value": ".status.statusArray.some()",
   },
 ]
 `;
@@ -374,8 +401,8 @@ Array [
 exports[`selectively.Type complete 28`] = `
 Array [
   Object {
-    "cursor": 19,
-    "value": ".status.statusArray",
+    "cursor": 27,
+    "value": ".status.statusArray2.every()",
   },
 ]
 `;
@@ -383,8 +410,20 @@ Array [
 exports[`selectively.Type complete 29`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": 28,
+    "value": ".status.statusArray2.every(1)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(2)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(3)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(4)",
   },
 ]
 `;
@@ -392,8 +431,8 @@ Array [
 exports[`selectively.Type complete 30`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": 28,
+    "value": ".status.statusArray2.every(3)",
   },
 ]
 `;
@@ -401,8 +440,24 @@ Array [
 exports[`selectively.Type complete 31`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": 27,
+    "value": ".status.statusArray.every(t)",
+  },
+  Object {
+    "cursor": 30,
+    "value": ".status.statusArray.every(best)",
+  },
+  Object {
+    "cursor": 30,
+    "value": ".status.statusArray.every(test)",
+  },
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.every(ted)",
+  },
+  Object {
+    "cursor": 32,
+    "value": ".status.statusArray.every(tested)",
   },
 ]
 `;
@@ -410,8 +465,37 @@ Array [
 exports[`selectively.Type complete 32`] = `
 Array [
   Object {
-    "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "cursor": 31,
+    "value": ".status.statusArray.every(:*ted)",
+  },
+  Object {
+    "cursor": 34,
+    "value": ".status.statusArray.every(:*tested)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 33`] = `
+Array [
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.every(:!t)",
+  },
+  Object {
+    "cursor": 32,
+    "value": ".status.statusArray.every(:!best)",
+  },
+  Object {
+    "cursor": 32,
+    "value": ".status.statusArray.every(:!test)",
+  },
+  Object {
+    "cursor": 31,
+    "value": ".status.statusArray.every(:!ted)",
+  },
+  Object {
+    "cursor": 34,
+    "value": ".status.statusArray.every(:!tested)",
   },
 ]
 `;

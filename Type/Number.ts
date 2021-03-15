@@ -7,8 +7,10 @@ import { Completor } from "./Completor"
 export class Number extends SType {
 	readonly class = "number"
 	readonly value: number
-	constructor() {
+	constructor(readonly input?: number) {
 		super()
+		if (input)
+			this.value = input
 	}
 
 	complete(tokens: Token[]): Completion[] {
@@ -25,5 +27,9 @@ export class Number extends SType {
 	private static readonly completor: Completor<Number>[] = []
 	static add(...pattern: Completor<Number>[]) {
 		this.completor.push(...pattern)
+	}
+
+	static is(value: any | Number): value is Number {
+		return value instanceof Number
 	}
 }

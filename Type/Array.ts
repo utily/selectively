@@ -5,8 +5,10 @@ import { Completor } from "./Completor"
 
 export class Array extends SType {
 	readonly class = "array"
-	constructor(readonly type: SType) {
+	readonly value: SType[]
+	constructor(readonly arrayType: SType | SType[]) {
 		super()
+		global.Array.isArray(arrayType) ? (this.value = arrayType) : (this.value = [arrayType])
 	}
 
 	complete(tokens: Token[]): Completion[] {
@@ -23,5 +25,9 @@ export class Array extends SType {
 	private static readonly completor: Completor<Array>[] = []
 	static add(...pattern: Completor<Array>[]) {
 		this.completor.push(...pattern)
+	}
+
+	static is(value: any | Array): value is Array {
+		return value instanceof Array
 	}
 }
