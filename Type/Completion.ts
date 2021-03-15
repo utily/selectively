@@ -19,7 +19,7 @@ export namespace Completion {
 					cursor:
 						typeof completion?.cursor == "number"
 							? completion?.cursor + prefix.length
-							: typeof completion?.cursor == "object"
+							: Cursor.is(completion.cursor)
 							? { start: completion.cursor.start + prefix.length, end: completion.cursor.end + prefix.length }
 							: completion.value.length + prefix.length,
 			  }

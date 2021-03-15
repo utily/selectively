@@ -11,7 +11,7 @@ export class Every extends Rule {
 		super()
 	}
 	is(value: any): boolean {
-		return global.Array.isArray(value) && value.every(v => this.criteria.is(v))
+		return Array.isArray(value) && value.every(v => this.criteria.is(v))
 	}
 	toString() {
 		return `every(${this.criteria.toString()})`

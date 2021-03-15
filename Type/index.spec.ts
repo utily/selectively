@@ -16,7 +16,6 @@ describe("selectively.Type", () => {
 	})
 
 	it("Object", () => {
-		// const type = selectively.Type.create({ name: { class: "string", value: "" } })
 		const type = new selectively.Type.Object({ name: new selectively.Type.String() })
 		expect(type).toMatchSnapshot()
 	})
