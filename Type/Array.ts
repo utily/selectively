@@ -1,14 +1,14 @@
 import { Token } from "../lexer"
-import { Base as SType } from "./Base"
+import { Base } from "./Base"
 import { Completion } from "./Completion"
 import { Completor } from "./Completor"
-
-export class Array extends SType {
+import { Types } from "./index"
+export class Array extends Base {
 	readonly class = "array"
-	readonly value: SType[]
-	constructor(readonly arrayType: SType | SType[]) {
+	readonly array: Types[]
+	constructor(readonly arrayType: Types | Types[]) {
 		super()
-		global.Array.isArray(arrayType) ? (this.value = arrayType) : (this.value = [arrayType])
+		global.Array.isArray(arrayType) ? (this.array = arrayType) : (this.array = [arrayType])
 	}
 
 	complete(tokens: Token[]): Completion[] {

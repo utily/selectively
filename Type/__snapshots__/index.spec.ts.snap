@@ -428,14 +428,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 30`] = `
-Array [
-  Object {
-    "cursor": 28,
-    "value": ".status.statusArray2.every(3)",
-  },
-]
-`;
+exports[`selectively.Type complete 30`] = `Array []`;
 
 exports[`selectively.Type complete 31`] = `
 Array [

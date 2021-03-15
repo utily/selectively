@@ -25,29 +25,34 @@ export function every(criteria: Criteria, value?: any): Every | boolean {
 }
 
 function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.Completion {
-	return Completor.functions(
-		tokens,
-		(tokens?: Token[]) =>
-			type.value.every(Type.String.is) && tokens
-				? type.value
-						.map(p => p.complete([{ value: ":" }, ...tokens]))
-						.reduce<Type.Completion[]>(
-							(result, element) =>
-								Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-							[]
-						)
-				: !tokens && type.value.every(Type.String.is)
-				? type.value
-				: type.value.every(Type.Number.is)
-				? type.value
-						.filter(e => e.value == (tokens ? +tokens[0].value : e.value))
-						.map<Type.Completion>(e => ({ value: e.value.toString() }))
-				: [],
-		{
-			value: "every()",
-			cursor: 6,
-		}
-	)
+	const arrayArgumentor = (tokens?: Token[]): Type.Completion[] =>
+		type.array.some(Type.String.is) && tokens
+			? type.array
+					.filter(Type.String.is)
+					.map(p => p.complete([{ value: ":" }, ...tokens]))
+					.reduce<Type.Completion[]>(
+						(result, element) =>
+							Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+						[]
+					)
+			: !tokens && type.array.some(Type.String.is)
+			? type.array.filter(Type.String.is).map<Type.Completion>(e => ({ value: e.value }))
+			: type.array.some(Type.Number.is) && tokens
+			? type.array
+					.filter(Type.Number.is)
+					.map(e => e.complete(tokens))
+					.reduce<Type.Completion[]>(
+						(result, element) =>
+							Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
+						[]
+					)
+			: !tokens && type.array.some(Type.Number.is)
+			? type.array.filter(Type.Number.is).map<Type.Completion>(e => ({ value: e.value.toString() }))
+			: []
+	return Completor.functions(tokens, arrayArgumentor, {
+		value: "every()",
+		cursor: 6,
+	})
 }
 
 Type.Array.add(complete)
