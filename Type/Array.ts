@@ -3,6 +3,7 @@ import { Base } from "./Base"
 import { Completion } from "./Completion"
 import { Completor } from "./Completor"
 import { Types } from "./index"
+
 export class Array extends Base {
 	readonly class = "array"
 	readonly array: Types[]

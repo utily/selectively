@@ -56,5 +56,3 @@ function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.C
 }
 
 Type.Array.add(complete)
-
-Type.Array.add(complete)
