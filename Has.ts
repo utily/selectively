@@ -1,4 +1,7 @@
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
+import { Completor } from "./Type/Completor"
 
 export class Has extends Rule {
 	readonly precedence = 70
@@ -33,3 +36,16 @@ export function has(criteria: string, value?: any): Has | boolean {
 	const result = new Has(criteria)
 	return value ? result.is(value) : result
 }
+
+function complete(tokens: Token[], object: Type.Object): Type.Completion[] | Type.Completion {
+	return Completor.functions(
+		tokens,
+		(tokens?: Token[]) => object.completions.filter(c => c.value.startsWith(tokens ? tokens[0].value : "")),
+		{
+			value: "has()",
+			cursor: 4,
+		}
+	)
+}
+
+Type.Object.add(complete)

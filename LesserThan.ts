@@ -1,5 +1,8 @@
 import { CompareHelper } from "./CompareHelper"
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
+import { Completor } from "./Type/Completor"
 
 export class LesserThan extends Rule {
 	readonly precedence = 70
@@ -41,3 +44,21 @@ export function lesserThan(criteria: CompareHelper, value?: any): LesserThan | b
 	const result = new LesserThan(criteria)
 	return value ? result.is(value) : result
 }
+
+function complete(tokens: Token[], type: Type.String | Type.Number): Type.Completion[] | Type.Completion {
+	return Completor.operators(
+		tokens,
+		(tokens?: Token[]) =>
+			tokens
+				? [
+						/*{ value: "TODO: implement argument completions" }*/
+				  ]
+				: [],
+		{
+			value: "<",
+		}
+	)
+}
+
+Type.Number.add(complete)
+Type.String.add(complete)

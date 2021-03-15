@@ -20,6 +20,7 @@ import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
 import { StartsWith, startsWith } from "./StartsWith"
 import { Tuple } from "./Tuple"
+import { Type as SType } from "./Type"
 
 function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
@@ -53,6 +54,7 @@ export {
 	Some,
 	StartsWith,
 	Tuple,
+	SType as Type,
 	any,
 	and,
 	create,
