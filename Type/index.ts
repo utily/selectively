@@ -6,7 +6,7 @@ import { Number as TNumber } from "./Number"
 import { TObject } from "./Object"
 import { String as TString } from "./String"
 
-export type Type = Base
+export type Types = Base | TNumber | TString | TObject | TArray | TBoolean
 
 export namespace Type {
 	export type Array = TArray

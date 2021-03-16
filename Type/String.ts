@@ -28,4 +28,8 @@ export class String extends SType {
 	static add(...pattern: Completor<String>[]) {
 		this.completor.push(...pattern)
 	}
+
+	static is(value: any | String): value is String {
+		return value instanceof String
+	}
 }

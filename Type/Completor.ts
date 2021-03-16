@@ -28,6 +28,14 @@ export namespace Completor {
 					argument(tokens.slice(3, tokens.length - 1)),
 					")"
 			  )
+			: tokens.length > 5 &&
+			  tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[tokens.length - 1].value ==
+					"." + completion.value
+			? Completion.prepend(
+					"." + completion.value.substring(0, completion.value.length - 1),
+					argument(tokens.slice(3, tokens.length - 1)),
+					")"
+			  )
 			: []
 	}
 

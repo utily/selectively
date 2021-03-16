@@ -38,8 +38,20 @@ describe("selectively.Type", () => {
 				second: new selectively.Type.Number(),
 			}),
 			status: new selectively.Type.Object({
-				statusArray: new selectively.Type.Array(new selectively.Type.String()),
-				statusString: new selectively.Type.String(),
+				statusArray: new selectively.Type.Array([
+					new selectively.Type.String("t"),
+					new selectively.Type.String("best"),
+					new selectively.Type.String("test"),
+					new selectively.Type.String("ted"),
+					new selectively.Type.String("tested"),
+				]),
+				statusArray2: new selectively.Type.Array([
+					new selectively.Type.Number(1),
+					new selectively.Type.Number(2),
+					new selectively.Type.Number(3),
+					new selectively.Type.Number(3),
+					new selectively.Type.Number(4),
+				]),
 			}),
 			kaktus: new selectively.Type.String(),
 		})
@@ -49,8 +61,6 @@ describe("selectively.Type", () => {
 		expect(object.complete(t("has(id)"))).toMatchSnapshot()
 		expect(object.complete(t("ha"))).toMatchSnapshot()
 		expect(object.complete(t("has("))).toMatchSnapshot()
-		expect(object.complete(t("has(*us)"))).toMatchSnapshot()
-		expect(object.complete(t("has(*tu*)"))).toMatchSnapshot()
 		expect(object.complete(t("id"))).toMatchSnapshot()
 		expect(object.complete(t("id."))).toMatchSnapshot()
 		expect(object.complete(t("id.has()"))).toMatchSnapshot()
@@ -68,14 +78,17 @@ describe("selectively.Type", () => {
 		expect(object.complete(t("id.first:*st"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:*te"))).toMatchSnapshot()
 		expect(object.complete(t("id.second"))).toMatchSnapshot()
-		expect(object.complete(t("id.second:"))).toMatchSnapshot()
 		expect(object.complete(t("id.first:!"))).toMatchSnapshot()
-		expect(object.complete(t("id.second:!"))).toMatchSnapshot()
+		expect(object.complete(t("id.first:!ds"))).toMatchSnapshot()
+		expect(object.complete(t("id.first:!test"))).toMatchSnapshot()
 		//---------------------------------------------------------//
 		expect(object.complete(t("status.statusA"))).toMatchSnapshot()
 		expect(object.complete(t("status.statusArray."))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.ev"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every("))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray2.eve"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray2.every()"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray2.every(3)"))).toMatchSnapshot()
 		expect(object.complete(t("status.statusArray.every()"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray.every(*ed)"))).toMatchSnapshot()
+		expect(object.complete(t("status.statusArray.every(!dada)"))).toMatchSnapshot()
 	})
 })
