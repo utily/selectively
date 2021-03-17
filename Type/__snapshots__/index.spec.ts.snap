@@ -101,20 +101,16 @@ Array [
 exports[`selectively.Type complete 1`] = `
 Array [
   Object {
-    "cursor": 3,
-    "value": ".id",
+    "cursor": 21,
+    "value": ".status:!.statusArray",
   },
   Object {
-    "cursor": 7,
-    "value": ".status",
+    "cursor": 22,
+    "value": ".status:!.statusArray2",
   },
   Object {
-    "cursor": 7,
-    "value": ".kaktus",
-  },
-  Object {
-    "cursor": 5,
-    "value": ".has()",
+    "cursor": 14,
+    "value": ".status:!.has()",
   },
 ]
 `;
@@ -161,6 +157,10 @@ Array [
     "cursor": 4,
     "value": ".id.",
   },
+  Object {
+    "cursor": 4,
+    "value": ".id:",
+  },
 ]
 `;
 
@@ -206,175 +206,6 @@ Array [
 exports[`selectively.Type complete 10`] = `
 Array [
   Object {
-    "cursor": 10,
-    "value": ".id.first:",
-  },
-  Object {
-    "cursor": 10,
-    "value": ".id.first>",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.first>=",
-  },
-  Object {
-    "cursor": 10,
-    "value": ".id.first<",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.first<=",
-  },
-]
-`;
-
-exports[`selectively.Type complete 11`] = `
-Array [
-  Object {
-    "cursor": 11,
-    "value": ".id.first<=",
-  },
-]
-`;
-
-exports[`selectively.Type complete 12`] = `Array []`;
-
-exports[`selectively.Type complete 13`] = `
-Array [
-  Object {
-    "cursor": 11,
-    "value": ".id.first:*",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.first:**",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.first://",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.first:!",
-  },
-  Object {
-    "cursor": 10,
-    "value": ".id.first:*",
-  },
-]
-`;
-
-exports[`selectively.Type complete 14`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test",
-  },
-  Object {
-    "cursor": 12,
-    "value": ".id.first:**",
-  },
-  Object {
-    "cursor": 12,
-    "value": ".id.first://",
-  },
-  Object {
-    "cursor": 14,
-    "value": ".id.first:test*",
-  },
-]
-`;
-
-exports[`selectively.Type complete 15`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test*",
-  },
-]
-`;
-
-exports[`selectively.Type complete 16`] = `
-Array [
-  Object {
-    "cursor": 14,
-    "value": ".id.first:test*",
-  },
-]
-`;
-
-exports[`selectively.Type complete 17`] = `Array []`;
-
-exports[`selectively.Type complete 18`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test*",
-  },
-]
-`;
-
-exports[`selectively.Type complete 19`] = `Array []`;
-
-exports[`selectively.Type complete 20`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:*test",
-  },
-]
-`;
-
-exports[`selectively.Type complete 21`] = `Array []`;
-
-exports[`selectively.Type complete 22`] = `
-Array [
-  Object {
-    "cursor": 11,
-    "value": ".id.second>",
-  },
-  Object {
-    "cursor": 12,
-    "value": ".id.second>=",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.second<",
-  },
-  Object {
-    "cursor": 12,
-    "value": ".id.second<=",
-  },
-  Object {
-    "cursor": 11,
-    "value": ".id.second:",
-  },
-]
-`;
-
-exports[`selectively.Type complete 23`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:!test",
-  },
-]
-`;
-
-exports[`selectively.Type complete 24`] = `
-Array [
-  Object {
-    "cursor": 15,
-    "value": ".id.first:!test",
-  },
-]
-`;
-
-exports[`selectively.Type complete 25`] = `Array []`;
-
-exports[`selectively.Type complete 26`] = `
-Array [
-  Object {
     "cursor": 19,
     "value": ".status.statusArray",
   },
@@ -385,20 +216,32 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 27`] = `
+exports[`selectively.Type complete 11`] = `
 Array [
   Object {
     "cursor": 26,
-    "value": ".status.statusArray.every()",
+    "value": ".status.statusArray.some(t)",
   },
   Object {
-    "cursor": 25,
-    "value": ".status.statusArray.some()",
+    "cursor": 29,
+    "value": ".status.statusArray.some(best)",
+  },
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.some(test)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray.some(ted)",
+  },
+  Object {
+    "cursor": 31,
+    "value": ".status.statusArray.some(tested)",
   },
 ]
 `;
 
-exports[`selectively.Type complete 28`] = `
+exports[`selectively.Type complete 12`] = `
 Array [
   Object {
     "cursor": 27,
@@ -407,7 +250,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 29`] = `
+exports[`selectively.Type complete 13`] = `
 Array [
   Object {
     "cursor": 28,
@@ -428,9 +271,9 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 30`] = `Array []`;
+exports[`selectively.Type complete 14`] = `Array []`;
 
-exports[`selectively.Type complete 31`] = `
+exports[`selectively.Type complete 15`] = `
 Array [
   Object {
     "cursor": 27,
@@ -455,7 +298,7 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 32`] = `
+exports[`selectively.Type complete 16`] = `
 Array [
   Object {
     "cursor": 31,
@@ -468,27 +311,4 @@ Array [
 ]
 `;
 
-exports[`selectively.Type complete 33`] = `
-Array [
-  Object {
-    "cursor": 29,
-    "value": ".status.statusArray.every(:!t)",
-  },
-  Object {
-    "cursor": 32,
-    "value": ".status.statusArray.every(:!best)",
-  },
-  Object {
-    "cursor": 32,
-    "value": ".status.statusArray.every(:!test)",
-  },
-  Object {
-    "cursor": 31,
-    "value": ".status.statusArray.every(:!ted)",
-  },
-  Object {
-    "cursor": 34,
-    "value": ".status.statusArray.every(:!tested)",
-  },
-]
-`;
+exports[`selectively.Type complete 17`] = `Array []`;
