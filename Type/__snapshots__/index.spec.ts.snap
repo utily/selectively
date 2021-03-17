@@ -1,0 +1,314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`selectively.Type Array 1`] = `
+Array [
+  Object {
+    "cursor": 7,
+    "value": ".every()",
+  },
+]
+`;
+
+exports[`selectively.Type Array 2`] = `
+Array [
+  Object {
+    "cursor": 7,
+    "value": ".every()",
+  },
+  Object {
+    "cursor": 6,
+    "value": ".some()",
+  },
+]
+`;
+
+exports[`selectively.Type Boolean 1`] = `
+Boolean {
+  "class": "boolean",
+}
+`;
+
+exports[`selectively.Type Boolean 2`] = `Array []`;
+
+exports[`selectively.Type Boolean 3`] = `Array []`;
+
+exports[`selectively.Type Object 1`] = `
+TObject {
+  "class": "object",
+  "completions": Array [
+    Object {
+      "value": "name",
+    },
+  ],
+  "properties": Object {
+    "name": String {
+      "class": "string",
+      "input": undefined,
+    },
+  },
+}
+`;
+
+exports[`selectively.Type Tokenizer 1`] = `
+Array [
+  Object {
+    "value": ".",
+  },
+  Object {
+    "value": "object",
+  },
+  Object {
+    "value": ".",
+  },
+  Object {
+    "value": "has",
+  },
+  Object {
+    "value": "(",
+  },
+  Object {
+    "value": ")",
+  },
+]
+`;
+
+exports[`selectively.Type Tokenizer 2`] = `
+Array [
+  Object {
+    "value": ".",
+  },
+  Object {
+    "value": "<=",
+  },
+  Object {
+    "value": ">=",
+  },
+  Object {
+    "value": "==",
+  },
+  Object {
+    "value": ">=",
+  },
+  Object {
+    "value": ">=",
+  },
+  Object {
+    "value": "=",
+  },
+]
+`;
+
+exports[`selectively.Type complete 1`] = `
+Array [
+  Object {
+    "cursor": 21,
+    "value": ".status:!.statusArray",
+  },
+  Object {
+    "cursor": 22,
+    "value": ".status:!.statusArray2",
+  },
+  Object {
+    "cursor": 14,
+    "value": ".status:!.has()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 2`] = `
+Array [
+  Object {
+    "cursor": 7,
+    "value": ".has(id)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 3`] = `
+Array [
+  Object {
+    "cursor": 7,
+    "value": ".has(id)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 4`] = `
+Array [
+  Object {
+    "cursor": 5,
+    "value": ".has()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 5`] = `
+Array [
+  Object {
+    "cursor": 5,
+    "value": ".has()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 6`] = `
+Array [
+  Object {
+    "cursor": 4,
+    "value": ".id.",
+  },
+  Object {
+    "cursor": 4,
+    "value": ".id:",
+  },
+]
+`;
+
+exports[`selectively.Type complete 7`] = `
+Array [
+  Object {
+    "cursor": 9,
+    "value": ".id.first",
+  },
+  Object {
+    "cursor": 10,
+    "value": ".id.second",
+  },
+  Object {
+    "cursor": 8,
+    "value": ".id.has()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 8`] = `
+Array [
+  Object {
+    "cursor": 13,
+    "value": ".id.has(first)",
+  },
+  Object {
+    "cursor": 14,
+    "value": ".id.has(second)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 9`] = `
+Array [
+  Object {
+    "cursor": 9,
+    "value": ".id.first",
+  },
+]
+`;
+
+exports[`selectively.Type complete 10`] = `
+Array [
+  Object {
+    "cursor": 19,
+    "value": ".status.statusArray",
+  },
+  Object {
+    "cursor": 20,
+    "value": ".status.statusArray2",
+  },
+]
+`;
+
+exports[`selectively.Type complete 11`] = `
+Array [
+  Object {
+    "cursor": 26,
+    "value": ".status.statusArray.some(t)",
+  },
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.some(best)",
+  },
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.some(test)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray.some(ted)",
+  },
+  Object {
+    "cursor": 31,
+    "value": ".status.statusArray.some(tested)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 12`] = `
+Array [
+  Object {
+    "cursor": 27,
+    "value": ".status.statusArray2.every()",
+  },
+]
+`;
+
+exports[`selectively.Type complete 13`] = `
+Array [
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(1)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(2)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(3)",
+  },
+  Object {
+    "cursor": 28,
+    "value": ".status.statusArray2.every(4)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 14`] = `Array []`;
+
+exports[`selectively.Type complete 15`] = `
+Array [
+  Object {
+    "cursor": 27,
+    "value": ".status.statusArray.every(t)",
+  },
+  Object {
+    "cursor": 30,
+    "value": ".status.statusArray.every(best)",
+  },
+  Object {
+    "cursor": 30,
+    "value": ".status.statusArray.every(test)",
+  },
+  Object {
+    "cursor": 29,
+    "value": ".status.statusArray.every(ted)",
+  },
+  Object {
+    "cursor": 32,
+    "value": ".status.statusArray.every(tested)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 16`] = `
+Array [
+  Object {
+    "cursor": 31,
+    "value": ".status.statusArray.every(:*ted)",
+  },
+  Object {
+    "cursor": 34,
+    "value": ".status.statusArray.every(:*tested)",
+  },
+]
+`;
+
+exports[`selectively.Type complete 17`] = `Array []`;
