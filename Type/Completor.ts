@@ -41,7 +41,7 @@ export namespace Completor {
 
 	export function expressions(
 		tokens: Token[],
-		argument: (tokens?: Token[]) => Completion[],
+		argument: (tokens: Token[]) => Completion[],
 		completion: Completion
 	): Completion[] | Completion {
 		return tokens.length == 0
