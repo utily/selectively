@@ -9,6 +9,24 @@ Addition {
 }
 `;
 
+exports[`selectively.Type Addition and Multiplication 1`] = `
+Addition {
+  "left": 4,
+  "precedence": 17,
+  "right": Multiplication {
+    "left": 3,
+    "precedence": 15,
+    "right": 2,
+    "symbol": "*",
+  },
+  "symbol": "+",
+}
+`;
+
+exports[`selectively.Type Addition and Multiplication 2`] = `"4+3*2"`;
+
+exports[`selectively.Type Addition and Multiplication 3`] = `10`;
+
 exports[`selectively.Type Multiplication 1`] = `
 Multiplication {
   "left": 5,
@@ -23,11 +41,15 @@ Multiplication {
   "left": Addition {
     "left": 4,
     "precedence": 17,
-    "right": 5,
+    "right": 3,
     "symbol": "+",
   },
   "precedence": 15,
-  "right": 3,
+  "right": 2,
   "symbol": "*",
 }
 `;
+
+exports[`selectively.Type Multiplication and Addition 2`] = `"4+3*2"`;
+
+exports[`selectively.Type Multiplication and Addition 3`] = `14`;

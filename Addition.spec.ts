@@ -11,7 +11,15 @@ describe("selectively.Type", () => {
 		expect(adder).toMatchSnapshot()
 	})
 	it("Multiplication and Addition", () => {
-		const adder = new Multiplication(new Addition(4, 5), 3)
-		expect(adder).toMatchSnapshot()
+		const multiplyAddition = new Multiplication(new Addition(4, 3), 2)
+		expect(multiplyAddition).toMatchSnapshot()
+		expect(multiplyAddition.toString()).toMatchSnapshot()
+		expect(multiplyAddition.evaluate()).toMatchSnapshot()
+	})
+	it("Addition and Multiplication", () => {
+		const addMultiplication = new Addition(4, new Multiplication(3, 2))
+		expect(addMultiplication).toMatchSnapshot()
+		expect(addMultiplication.toString()).toMatchSnapshot()
+		expect(addMultiplication.evaluate()).toMatchSnapshot()
 	})
 })
