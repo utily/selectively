@@ -2,8 +2,8 @@ import * as selectively from "../index"
 
 describe("parse.Every", () => {
 	it("every(charged | ordered)", () =>
-		expect(selectively.parse("every(charged | ordered)")).toMatchObject(
-			selectively.every(selectively.or("charged", "ordered"))
+		expect(selectively.parse("value:every(charged | ordered)")).toMatchObject(
+			selectively.property("value", selectively.every(selectively.or("charged", "ordered")))
 		))
 	it("every(*ed)", () =>
 		expect(

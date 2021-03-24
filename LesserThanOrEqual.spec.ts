@@ -28,7 +28,7 @@ describe("lesser than or equal", () => {
 	it("lesser than when equal", () => {
 		expect(selectively.is({ class: selectively.lesserThanOrEqual("300") }, { id: "axb", class: "300.0" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThanOrEqual("300") }, { id: "axb", class: 300.0 })).toBeTruthy()
-		expect(selectively.is({ class: selectively.lesserThanOrEqual(300) }, { id: "axb", class: "300.0" })).toBeFalsy()
+		expect(selectively.is({ class: selectively.lesserThanOrEqual(300) }, { id: "axb", class: "300.0" })).toBeTruthy()
 		expect(selectively.is({ class: selectively.lesserThanOrEqual(300) }, { id: "axb", class: 300.0 })).toBeTruthy()
 		expect(selectively.is({ class: selectively.lesserThanOrEqual("300.0") }, { id: "axb", class: "300" })).toBeTruthy()
 		expect(selectively.is({ class: selectively.lesserThanOrEqual("300.0") }, { id: "axb", class: 300 })).toBeTruthy()

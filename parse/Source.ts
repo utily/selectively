@@ -75,7 +75,8 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 			: needle == value
 	}
 	private static wildcard = ["*", "?"]
-	private static separator = ["(", ")", ":", "."]
+	private static separator = ["(", ")", "."]
 	private static operator = ["!", "|"]
-	private static symbol = [...Source.wildcard, ...Source.separator, ...Source.operator]
+	static comparator = ["<", "<=", ">", ">=", ":"]
+	private static symbol = [...Source.wildcard, ...Source.separator, ...Source.operator, ...Source.comparator]
 }

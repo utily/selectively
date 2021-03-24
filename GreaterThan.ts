@@ -1,67 +1,21 @@
-import { CompareHelper } from "./CompareHelper"
-import { Token } from "./lexer"
 import { Rule } from "./Rule"
-import { Type } from "./Type"
-import { Completor } from "./Type/Completor"
 
 export class GreaterThan extends Rule {
 	readonly precedence = 70
 	readonly class = "GreaterThan"
-	constructor(readonly value: CompareHelper) {
+	constructor(readonly value: bigint | boolean | number | string) {
 		super()
 	}
 	is(value: any): boolean {
-		let result: boolean | undefined
-		value = CompareHelper.adjustInput(this.value, value)
-		if (typeof this.value == "string" || typeof this.value == "number")
-			result =
-				value == undefined
-					? false
-					: typeof value == "number" && typeof this.value == "string"
-					? value > Number.parseFloat(this.value)
-					: typeof value == "number" && typeof this.value == "number"
-					? value > this.value
-					: value.toString().trim() > this.value.toString().trim()
-		else if (
-			typeof this.value[0] == "object" &&
-			typeof this.value[1] == "object" &&
-			Array.isArray(value) &&
-			value.length == 2
-		)
-			result = greaterThan(value[1], value[0])
-		else
-			result = greaterThan(
-				typeof this.value[1] == "object" ? value : this.value[1],
-				typeof this.value[0] == "object" ? value : this.value[0]
-			)
-		return result
+		return value > this.value
 	}
-	toString() {
-		return CompareHelper.toString(this.value, ">")
+	toString(): string {
+		return this.value.toString()
 	}
 }
-
-export function greaterThan(criteria: CompareHelper): GreaterThan
-export function greaterThan(criteria: CompareHelper, value: any): boolean
-export function greaterThan(criteria: CompareHelper, value?: any): GreaterThan | boolean {
+export function greaterThan(criteria: bigint | boolean | number | string): GreaterThan
+export function greaterThan(criteria: bigint | boolean | number | string, value?: any): boolean
+export function greaterThan(criteria: bigint | boolean | number | string, value?: any): GreaterThan | boolean {
 	const result = new GreaterThan(criteria)
 	return value ? result.is(value) : result
 }
-
-function complete(tokens: Token[], type: Type.String | Type.Number): Type.Completion[] | Type.Completion {
-	return Completor.operators(
-		tokens,
-		(tokens?: Token[]) =>
-			tokens
-				? [
-						/*{ value: "TODO: implement argument completions" }*/
-				  ]
-				: [],
-		{
-			value: ">",
-		}
-	)
-}
-
-Type.String.add(complete)
-Type.Number.add(complete)
