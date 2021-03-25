@@ -1,41 +1,11 @@
 import * as selectively from "../index"
 
 describe("parse.GreaterThan", () => {
-	it("test GreaterThan parse quick", () => {
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, testA: 300 })).toBeTruthy()
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 300, testA: 200 })).toBeFalsy()
-
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, testA: [300] })).toBeTruthy()
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, testA: [100] })).toBeFalsy()
-
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, nested: { testA: 300 } })).toBeTruthy()
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, nested: { testA: 100 } })).toBeFalsy()
-
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, nested: { testA: [300] } })).toBeTruthy()
-		expect(selectively.parse("$testA>$testB").is({ testC: 700, testB: 200, nested: { testA: [100] } })).toBeFalsy()
-
-		expect(selectively.parse("200>300").is(undefined)).toBeFalsy()
-		expect(selectively.parse("$testA>300").is(200)).toBeFalsy()
-		expect(selectively.parse("200>$testB").is(300)).toBeFalsy()
-		expect(selectively.parse("$testA>$testB").is([200, 300])).toBeFalsy()
-
-		expect(selectively.parse("100>100").is(undefined)).toBeFalsy()
-		expect(selectively.parse("100>$testB").is(100)).toBeFalsy()
-		expect(selectively.parse("$testA>100").is(100)).toBeFalsy()
-		expect(selectively.parse("$testA>$testB").is([100, 100])).toBeFalsy()
-	})
-
-	it("test GreaterThan parse only $", () => {
-		expect(selectively.parse("300>200").is(undefined)).toBeTruthy()
-		expect(selectively.parse("$>200").is(300)).toBeTruthy()
-		expect(selectively.parse("300>$").is(200)).toBeTruthy()
-		expect(selectively.parse("$>$").is([300, 200])).toBeTruthy()
-		expect(selectively.parse("$>$").is([300, 200])).toBeTruthy()
-
-		expect(selectively.parse("200>300").is(undefined)).toBeFalsy()
-		expect(selectively.parse("$>300").is(200)).toBeFalsy()
-		expect(selectively.parse("200>$").is(300)).toBeFalsy()
-		expect(selectively.parse("$>$").is([200, 300])).toBeFalsy()
-		expect(selectively.parse("$>$").is([200, 300])).toBeFalsy()
+	it("test rules related comparisons", () => {
+		expect(selectively.parse("amount>5")).toEqual(new selectively.Property("amount", new selectively.GreaterThan(5)))
+		expect(selectively.parse("amount>5").is({ amount: 6 })).toBeTruthy()
+		expect(selectively.parse("amount>5").is({ amount: 4 })).toBeFalsy()
+		expect(selectively.parse("verification.amount>5").is({ verification: { amount: 4 } })).toBeFalsy()
+		expect(selectively.parse("verification.amount>5").is({ verification: { amount: 6 } })).toBeTruthy()
 	})
 })

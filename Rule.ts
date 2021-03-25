@@ -3,6 +3,7 @@ import { Criteria } from "./Criteria"
 export abstract class Rule {
 	abstract readonly precedence: number
 	abstract readonly class: string
+	readonly symbol: string | undefined
 	abstract is(value: any): boolean
 	filter<T>(value: T[]): T[] {
 		return value.filter(element => this.is(element))

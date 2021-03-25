@@ -3,6 +3,7 @@ import { add, Rule } from "./Rule"
 export class Is extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	readonly class = "Is"
+	readonly symbol = ":"
 	constructor(readonly value: bigint | boolean | number | string) {
 		super()
 	}

@@ -5,7 +5,7 @@ import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
 export class Every extends Rule {
-	readonly precedence = Number.MAX_SAFE_INTEGER
+	readonly precedence = 100
 	readonly class = "Every"
 	constructor(readonly criteria: Rule) {
 		super()

@@ -4,7 +4,7 @@ import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
 export class Has extends Rule {
-	readonly precedence = 70
+	readonly precedence = 85
 	readonly class = "Has"
 	constructor(readonly property: string) {
 		super()

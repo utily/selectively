@@ -1,12 +1,12 @@
 import * as selectively from "../index"
 
 describe("parse.group", () => {
-	it("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()", () =>
-		expect(
-			selectively
-				.parse("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()")
-				.toString()
-		).toEqual("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()"))
+	it("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()", () => {
+		const parsed = selectively
+			.parse("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()")
+			.toString()
+		expect(parsed).toEqual("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()")
+	})
 	it("status:some(charged | ordered) created:2019-11*", () =>
 		expect(selectively.parse("status:some(charged | ordered) created:2019-11*").toString()).toEqual(
 			"status:some(charged | ordered) created:2019-11*"

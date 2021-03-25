@@ -26,9 +26,22 @@ describe("lesser than", () => {
 		expect(selectively.is({ class: selectively.lesserThan("300") }, { id: "axb", class: 300.0 })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThan(300) }, { id: "axb", class: "300.0" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThan(300) }, { id: "axb", class: 300.0 })).toBeFalsy()
-		expect(selectively.is({ class: selectively.lesserThan("300.0") }, { id: "axb", class: "300" })).toBeTruthy()
+		expect(selectively.is({ class: selectively.lesserThan("300.0") }, { id: "axb", class: "300" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThan("300.0") }, { id: "axb", class: 300 })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThan(300.0) }, { id: "axb", class: "300" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.lesserThan(300.0) }, { id: "axb", class: 300 })).toBeFalsy()
+	})
+
+	it("iso-dates compare", () => {
+		expect(
+			selectively.is({ class: selectively.lesserThan("2021-02-27") }, { id: "axb", class: "2021-03-01" })
+		).toBeFalsy()
+	})
+	it("greater than toString", () => {
+		const asText = "verification.amount<5"
+		expect(selectively.parse(asText)).toEqual(
+			selectively.property("verification", selectively.property("amount", selectively.lesserThan(5)))
+		)
+		expect(selectively.parse(asText).toString()).toEqual(asText)
 	})
 })

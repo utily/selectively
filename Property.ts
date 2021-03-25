@@ -5,6 +5,7 @@ import { add, create, Rule } from "./Rule"
 export class Property extends Rule {
 	readonly precedence = Property.precedence
 	readonly class = "Property"
+	readonly symbol = "."
 	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}
@@ -12,7 +13,7 @@ export class Property extends Rule {
 		return typeof value == "object" && this.criteria.is(value[this.name])
 	}
 	toString(): string {
-		return `${this.name}:${this.criteria.stringify(this.precedence)}`
+		return `${this.name}${this.criteria.symbol ?? ":"}${this.criteria.stringify(this.precedence)}`
 	}
 	static readonly precedence = 80
 }
