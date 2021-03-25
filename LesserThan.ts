@@ -1,13 +1,14 @@
 import { Rule } from "./Rule"
 
 export class LesserThan extends Rule {
-	readonly precedence = 70
+	readonly precedence = 85
 	readonly class = "LesserThan"
+	readonly symbol = "<"
 	constructor(readonly value: bigint | boolean | number | string) {
 		super()
 	}
 	is(value: any): boolean {
-		return value < this.value
+		return (isNaN(+value) ? value : +value) < this.value
 	}
 	toString(): string {
 		return this.value.toString()

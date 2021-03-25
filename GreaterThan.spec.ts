@@ -22,7 +22,7 @@ describe("greater than", () => {
 		expect(selectively.is({ class: selectively.greaterThan(300.1) }, { id: "axb", class: 300.11 })).toBeTruthy()
 	})
 	it("greater than when equal", () => {
-		expect(selectively.is({ class: selectively.greaterThan("300") }, { id: "axb", class: "300.0" })).toBeTruthy()
+		expect(selectively.is({ class: selectively.greaterThan("300") }, { id: "axb", class: "300.0" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.greaterThan("300") }, { id: "axb", class: 300.0 })).toBeFalsy()
 		expect(selectively.is({ class: selectively.greaterThan(300) }, { id: "axb", class: "300.0" })).toBeFalsy()
 		expect(selectively.is({ class: selectively.greaterThan(300) }, { id: "axb", class: 300.0 })).toBeFalsy()
