@@ -39,4 +39,11 @@ describe("greater than or equal", () => {
 		expect(selectively.is({ class: selectively.greaterThanOrEqual(300.0) }, { id: "axb", class: "300" })).toBeTruthy()
 		expect(selectively.is({ class: selectively.greaterThanOrEqual(300.0) }, { id: "axb", class: 300 })).toBeTruthy()
 	})
+	it("greater than toString", () => {
+		const asText = "verification.amount>=5"
+		expect(selectively.parse(asText)).toEqual(
+			selectively.property("verification", selectively.property("amount", selectively.greaterThanOrEqual(5)))
+		)
+		expect(selectively.parse(asText).toString()).toEqual(asText)
+	})
 })

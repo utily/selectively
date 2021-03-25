@@ -3,5 +3,5 @@ import { add } from "./parse"
 
 add(source => {
 	const fetched = source.fetchIf("<", "any")
-	return fetched && new LesserThan(fetched[1].value)
+	return fetched && new LesserThan(isNaN(+fetched[1].value) ? fetched[1].value : +fetched[1].value)
 })

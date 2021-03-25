@@ -3,6 +3,7 @@ import { Rule } from "./Rule"
 export class GreaterThan extends Rule {
 	readonly precedence = 85
 	readonly class = "GreaterThan"
+	readonly symbol = ">"
 	constructor(readonly value: bigint | boolean | number | string) {
 		super()
 	}
