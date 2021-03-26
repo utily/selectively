@@ -3,7 +3,7 @@ name: "Publish NPM Package"
 on:
   push:
     branches:
-      - "action2"
+      - "master"
 
 jobs:
   publish:
