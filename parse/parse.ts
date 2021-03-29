@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Error } from "@cogneco/mend"
 import { And } from "../And"
+import { BinaryOperator } from "../BinaryOperator"
 import * as lexer from "../lexer"
 import { Rule } from "../Rule"
+import { Value } from "../Value"
 import { Source } from "./Source"
 
 export function parse(source: Source): Rule
@@ -39,4 +42,47 @@ export function add(
 	precedence?: number
 ): void {
 	parsers.push([parser, precedence])
+}
+
+export function parseExpression(source: Source): BinaryOperator
+export function parseExpression(source: string, handler?: Error.Handler): BinaryOperator
+export function parseExpression(source: string | Source, handler?: Error.Handler): BinaryOperator {
+	if (typeof source == "string") {
+		handler = handler || new Error.ConsoleHandler()
+		const tokens = lexer.tokenize(source, handler).toArray()
+		source = new Source(tokens, handler)
+	}
+	handler = handler instanceof Rule ? handler : undefined
+	return parseNextExpression(0, source)
+}
+export function parseNextExpression(parent: BinaryOperator | number, source: Source): BinaryOperator {
+	let result: BinaryOperator | undefined
+	const left = typeof parent == "number" ? undefined : parent
+	if (
+		source.peek() &&
+		(Source.binaryOperator.some(o => source.peek(0)?.value == o || source.peek(1)?.value == o) ||
+			!source.peek(1) ||
+			(source.peek(1) ? source.peek(1)?.value == "." : false))
+	) {
+		for (const expressionParser of expressionParsers) {
+			const r = expressionParser[0](source, left)
+			if (r) {
+				result = parseNextExpression(r, source)
+				break
+			}
+		}
+	}
+	if (!(result || left || source.peek()))
+		source.raise("Not complete statement")
+	return result || left || new Value(+source.fetch()!.value)
+}
+const expressionParsers: [
+	(source: Source, previous: BinaryOperator | undefined) => BinaryOperator | undefined | false,
+	number?
+][] = []
+export function addExpression(
+	expressionParser: (source: Source, previous: BinaryOperator | undefined) => BinaryOperator | undefined | false,
+	precedence?: number
+): void {
+	expressionParsers.push([expressionParser, precedence])
 }

@@ -77,6 +77,7 @@ export class Source extends Utilities.BufferedEnumerator<lexer.Token> implements
 	private static wildcard = ["*", "?"]
 	private static separator = ["(", ")", "."]
 	private static operator = ["!", "|"]
-	static comparator = ["<", "<=", ">", ">=", ":"]
+	static readonly comparator = ["<", "<=", ">", ">=", ":"]
+	static readonly binaryOperator = ["*", "+", "-"]
 	private static symbol = [...Source.wildcard, ...Source.separator, ...Source.operator, ...Source.comparator]
 }
