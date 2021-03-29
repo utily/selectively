@@ -1,17 +1,20 @@
 import { BinaryOperator } from "./BinaryOperator"
-import { Expression } from "./Expression"
 
 export class Multiplication extends BinaryOperator {
-	readonly precedence = 15
+	readonly precedence = Multiplication.precedence
 	readonly symbol = "*"
-	constructor(readonly left: Expression, readonly right: Expression) {
+	constructor(readonly left: BinaryOperator, readonly right: BinaryOperator) {
 		super()
 	}
+	static readonly precedence = 15
 	toString(): string {
-		return this.left + "*" + this.right
+		return (
+			this.left.stringify(Multiplication.precedence) +
+			` ${this.symbol} ` +
+			this.right.stringify(Multiplication.precedence)
+		)
 	}
-}
-
-export function multiply(left: Expression, right: Expression): number | undefined {
-	return typeof left == "number" && typeof right == "number" ? left + right : undefined
+	evaluate(): number {
+		return this.left.evaluate() * this.right.evaluate()
+	}
 }
