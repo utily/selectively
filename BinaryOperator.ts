@@ -1,7 +1,8 @@
 export abstract class BinaryOperator {
 	readonly precedence: number
-	abstract evaluate(): number
 	readonly symbol: string
+	abstract evaluate(): number
+	abstract evaluate(criteria?: any): number
 	abstract toString(): string
 	stringify(precedence = 0): string {
 		let result = this.toString()

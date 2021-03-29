@@ -10,7 +10,9 @@ export class Addition extends BinaryOperator {
 	toString(): string {
 		return this.left.stringify(Addition.precedence) + ` ${this.symbol} ` + this.right.stringify(Addition.precedence)
 	}
-	evaluate(): number {
-		return this.left.evaluate() + this.right.evaluate()
+	evaluate(variable?: any): number {
+		return variable
+			? this.left.evaluate(variable) + this.right.evaluate(variable)
+			: this.left.evaluate() + this.right.evaluate()
 	}
 }
