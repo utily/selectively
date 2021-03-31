@@ -38,7 +38,10 @@ describe("lesser than or equal", () => {
 	it("greater than toString", () => {
 		const asText = "verification.amount<=5"
 		expect(selectively.parse(asText)).toEqual(
-			selectively.property("verification", selectively.property("amount", selectively.lesserThanOrEqual(5)))
+			selectively.property(
+				"verification",
+				selectively.property("amount", new selectively.LesserThanOrEqual(new selectively.Value(5)))
+			)
 		)
 		expect(selectively.parse(asText).toString()).toEqual(asText)
 	})
