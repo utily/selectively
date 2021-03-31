@@ -1,17 +1,16 @@
 import { BinaryOperator } from "./BinaryOperator"
-import { Expression } from "./Expression"
 
 export class Addition extends BinaryOperator {
-	readonly precedence = 17
+	readonly precedence = Addition.precedence
 	readonly symbol = "+"
-	constructor(readonly left: Expression, readonly right: Expression) {
+	constructor(readonly left: BinaryOperator, readonly right: BinaryOperator) {
 		super()
 	}
+	static readonly precedence = 14
 	toString(): string {
-		return this.left + "+" + this.right
+		return this.left.stringify(Addition.precedence) + ` ${this.symbol} ` + this.right.stringify(Addition.precedence)
 	}
-}
-
-export function add(left: Expression, right: Expression): number | undefined {
-	return typeof left == "number" && typeof right == "number" ? left + right : undefined
+	evaluate(): number {
+		return this.left.evaluate() + this.right.evaluate()
+	}
 }

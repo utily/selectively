@@ -1,8 +1,12 @@
-import { Expression } from "./Expression"
-
 export abstract class BinaryOperator {
 	readonly precedence: number
+	abstract evaluate(): number
 	readonly symbol: string
-	readonly left: Expression
-	readonly right: Expression
+	abstract toString(): string
+	stringify(precedence = 0): string {
+		let result = this.toString()
+		if (this.precedence < precedence)
+			result = "(" + result + ")"
+		return result
+	}
 }

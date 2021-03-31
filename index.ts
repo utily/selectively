@@ -1,4 +1,5 @@
 import "./Always"
+import { Addition } from "./Addition"
 import { And, and } from "./And"
 import { Any, any } from "./Any"
 import { Criteria } from "./Criteria"
@@ -12,6 +13,7 @@ import { Is } from "./Is"
 import { LesserThan, lesserThan } from "./LesserThan"
 import { LesserThanOrEqual, lesserThanOrEqual } from "./LesserThanOrEqual"
 import { Match, match } from "./Match"
+import { Multiplication } from "./Multiplication"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
 import { parse } from "./parse"
@@ -21,6 +23,7 @@ import { Some, some } from "./Some"
 import { StartsWith, startsWith } from "./StartsWith"
 import { Tuple } from "./Tuple"
 import { Type as SType } from "./Type"
+import { Value } from "./Value"
 
 function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
@@ -34,6 +37,7 @@ function filter<T>(criteria: Criteria, value: T[]): T[] {
 }
 
 export {
+	Addition,
 	And,
 	Any,
 	Criteria,
@@ -47,6 +51,7 @@ export {
 	Includes,
 	Is,
 	Match,
+	Multiplication,
 	Not,
 	Or,
 	Property,
@@ -55,6 +60,7 @@ export {
 	StartsWith,
 	Tuple,
 	SType as Type,
+	Value,
 	any,
 	and,
 	create,

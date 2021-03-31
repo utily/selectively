@@ -1,17 +1,16 @@
 import { Addition } from "./Addition"
 import { Multiplication } from "./Multiplication"
+import { Value } from "./Value"
 
-describe("selectively.Type", () => {
-	it("Addition", () => {
-		const adder = new Addition(5, 3)
-		expect(adder).toMatchSnapshot()
-	})
-	it("Multiplication", () => {
-		const adder = new Multiplication(5, 3)
-		expect(adder).toMatchSnapshot()
-	})
+describe("selectively.Addition", () => {
 	it("Multiplication and Addition", () => {
-		const adder = new Multiplication(new Addition(4, 5), 3)
-		expect(adder).toMatchSnapshot()
+		const multiplyAddition = new Multiplication(new Addition(new Value(1), new Value(2)), new Value(3))
+		expect(multiplyAddition.toString()).toEqual("(1 + 2) * 3")
+		expect(multiplyAddition.evaluate()).toEqual(9)
+	})
+	it("Addition and Multiplication", () => {
+		const addMultiplication = new Addition(new Value(4), new Multiplication(new Value(3), new Value(2)))
+		expect(addMultiplication.toString()).toEqual("4 + 3 * 2")
+		expect(addMultiplication.evaluate()).toEqual(10)
 	})
 })
