@@ -37,7 +37,7 @@ describe("lesser than", () => {
 			selectively.is({ class: selectively.lesserThan("2021-02-27") }, { id: "axb", class: "2021-03-01" })
 		).toBeFalsy()
 	})
-	it("greater than toString", () => {
+	it("lesser than toString", () => {
 		const asText = "verification.amount<5"
 		expect(selectively.parse(asText)).toEqual(
 			selectively.property("verification", selectively.property("amount", selectively.lesserThan(5)))

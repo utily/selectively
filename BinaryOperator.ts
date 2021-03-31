@@ -9,7 +9,4 @@ export abstract class BinaryOperator {
 			result = "(" + result + ")"
 		return result
 	}
-	// createTree(operators: BinaryOperator[], start: number): BinaryOperator {
-	// 	return
-	// }
 }
