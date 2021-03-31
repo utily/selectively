@@ -8,8 +8,9 @@ export class LesserThan extends Rule {
 	constructor(readonly value: bigint | boolean | number | string | BinaryOperator) {
 		super()
 	}
-	is(value: any): boolean {
-		return (isNaN(+value) ? value : +value) < this.value
+	is(value: any): boolean
+	is(value: any, object?: any): boolean {
+		return (isNaN(+value) ? value : +value) < (typeof this.value == "object" ? this.value.evaluate(object) : this.value)
 	}
 	toString(): string {
 		return this.value.toString()
