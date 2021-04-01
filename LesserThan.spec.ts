@@ -40,7 +40,7 @@ describe("lesser than", () => {
 	it("lesser than toString", () => {
 		const asText = "verification.amount<5"
 		expect(selectively.parse(asText)).toEqual(
-			selectively.property("verification", selectively.property("amount", selectively.lesserThan(5)))
+			selectively.property("verification", selectively.property("amount", new selectively.LesserThan(5)))
 		)
 		expect(selectively.parse(asText).toString()).toEqual(asText)
 	})
