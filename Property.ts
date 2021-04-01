@@ -9,8 +9,10 @@ export class Property extends Rule {
 	constructor(readonly name: string, readonly criteria: Rule) {
 		super()
 	}
-	is(value: any): boolean {
-		return typeof value == "object" && this.criteria.is(value[this.name])
+
+	is(value: any): boolean
+	is(value: any, object?: any): boolean {
+		return typeof value == "object" && this.criteria.is(value[this.name], object ?? value)
 	}
 	toString(): string {
 		return `${this.name}${this.criteria.symbol ?? ":"}${this.criteria.stringify(this.precedence)}`

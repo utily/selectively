@@ -16,11 +16,12 @@ import { Match, match } from "./Match"
 import { Multiplication } from "./Multiplication"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
-import { parse } from "./parse"
+import { parse, parseExpression } from "./parse"
 import { Property, property } from "./Property"
 import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
 import { StartsWith, startsWith } from "./StartsWith"
+import { Subtraction } from "./Subtraction"
 import { Tuple } from "./Tuple"
 import { Type as SType } from "./Type"
 import { Value } from "./Value"
@@ -61,6 +62,7 @@ export {
 	Tuple,
 	SType as Type,
 	Value,
+	Subtraction,
 	any,
 	and,
 	create,
@@ -78,6 +80,7 @@ export {
 	not,
 	or,
 	parse,
+	parseExpression,
 	property,
 	some,
 	startsWith,
