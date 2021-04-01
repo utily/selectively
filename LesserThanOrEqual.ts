@@ -1,10 +1,11 @@
+import { BinaryOperator } from "./BinaryOperator"
 import { Rule } from "./Rule"
 
 export class LesserThanOrEqual extends Rule {
 	readonly precedence = 85
 	readonly class = "LesserThanOrEqual"
 	readonly symbol = "<="
-	constructor(readonly value: bigint | boolean | number | string) {
+	constructor(readonly value: bigint | boolean | number | string | BinaryOperator) {
 		super()
 	}
 	is(value: any): boolean {
