@@ -3,15 +3,16 @@ import * as lexer from "../lexer"
 import { Value } from "../Value"
 import { addExpression, parseNextExpression } from "./parse"
 
-addExpression(source => {
+addExpression((source, previous) => {
 	const fetchedArray: string[] = []
 	let fetched: lexer.Token[] | lexer.Token | undefined
 	while ((fetched = source.fetchIf("identifier", ".")))
 		fetchedArray.push(fetched[0].value)
 	let result: Expression | undefined | false
 	if (fetchedArray.length == 0) {
-		fetched = source.fetchIf("any")
-		result = fetched && parseNextExpression(new Value(fetched.value), source)
+		fetched = source.fetchIf("any", ".", "any") || source.fetchIf("any")
+		result =
+			fetched && (Array.isArray(fetched) ? new Value(+fetched.map(t => t.value).join("")) : new Value(fetched.value))
 	} else {
 		fetched = source.fetchIf("identifier")
 		const fetchedValue = new Value(fetched ? fetched.value : 0)
@@ -19,5 +20,7 @@ addExpression(source => {
 			fetchedArray.length > 0 &&
 			fetchedArray.reduceRight((r, name) => new Value(isNaN(+r) ? r : +r, name), fetchedValue)
 	}
+	if (result && !previous)
+		result = parseNextExpression(result, source)
 	return result
 })

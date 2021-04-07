@@ -1,7 +1,7 @@
 import { Expression } from "./Expression"
 
 export class Value extends Expression {
-	static readonly precedence = 14
+	readonly precedence = 19
 	readonly value: Value | string | number
 	constructor(value: Value | string | number, readonly name?: string) {
 		super()

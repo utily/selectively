@@ -53,11 +53,13 @@ export function parseExpression(source: string | Source, handler?: Error.Handler
 		source = new Source(tokens, handler)
 	}
 	handler = handler instanceof Rule ? handler : undefined
-	return parseNextExpression(0, source)
+	return parseNextExpression(Number.MAX_SAFE_INTEGER, source)
 }
-export function parseNextExpression(parent: Expression | number, source: Source): Expression {
+export function parseNextExpression(previous: Expression | number, source: Source): Expression {
 	let result: Expression | undefined
-	const left = typeof parent == "number" ? undefined : parent
+	const precedenceTest: (precedence: number) => boolean =
+		typeof previous == "number" ? p => previous <= p : p => previous.precedence <= p
+	const left = typeof previous == "number" ? undefined : previous
 	if (
 		source.peek() &&
 		(Source.binaryOperator.some(o => source.peek(0)?.value == o || source.peek(1)?.value == o) ||
@@ -65,16 +67,18 @@ export function parseNextExpression(parent: Expression | number, source: Source)
 			(source.peek(1) ? source.peek(1)?.value == "." : false))
 	) {
 		for (const expressionParser of expressionParsers) {
-			const r = expressionParser[0](source, left)
-			if (r) {
-				result = parseNextExpression(r, source)
-				break
+			if (precedenceTest(expressionParser[1] || Number.MAX_SAFE_INTEGER)) {
+				const r = expressionParser[0](source, left)
+				if (r) {
+					result = r
+					break
+				}
 			}
 		}
 	}
 	if (!(result || left || source.peek()))
 		source.raise("Not complete statement")
-	return result || left || new Value(+source.fetch()!.value)
+	return result || left || new Value(source.fetch()!.value)
 }
 const expressionParsers: [
 	(source: Source, previous: Expression | undefined) => Expression | undefined | false,
