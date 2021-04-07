@@ -1,9 +1,9 @@
-import { BinaryOperator } from "./BinaryOperator"
+import { Expression } from "./Expression"
 
-export class Multiplication extends BinaryOperator {
+export class Multiplication extends Expression {
 	readonly precedence = Multiplication.precedence
 	readonly symbol = "*"
-	constructor(readonly left: BinaryOperator, readonly right: BinaryOperator) {
+	constructor(readonly left: Expression, readonly right: Expression) {
 		super()
 	}
 	static readonly precedence = 16

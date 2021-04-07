@@ -1,4 +1,4 @@
-import { BinaryOperator } from "../BinaryOperator"
+import { Expression } from "../Expression"
 import * as lexer from "../lexer"
 import { Value } from "../Value"
 import { addExpression, parseNextExpression } from "./parse"
@@ -8,7 +8,7 @@ addExpression(source => {
 	let fetched: lexer.Token[] | lexer.Token | undefined
 	while ((fetched = source.fetchIf("identifier", ".")))
 		fetchedArray.push(fetched[0].value)
-	let result: BinaryOperator | undefined | false
+	let result: Expression | undefined | false
 	if (fetchedArray.length == 0) {
 		fetched = source.fetchIf("any")
 		result = fetched && parseNextExpression(new Value(fetched.value), source)

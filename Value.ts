@@ -1,6 +1,6 @@
-import { BinaryOperator } from "./BinaryOperator"
+import { Expression } from "./Expression"
 
-export class Value extends BinaryOperator {
+export class Value extends Expression {
 	static readonly precedence = 14
 	readonly value: Value | string | number
 	constructor(value: Value | string | number, readonly name?: string) {

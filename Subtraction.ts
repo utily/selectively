@@ -1,9 +1,9 @@
-import { BinaryOperator } from "./BinaryOperator"
+import { Expression } from "./Expression"
 
-export class Subtraction extends BinaryOperator {
+export class Subtraction extends Expression {
 	readonly precedence = Subtraction.precedence
 	readonly symbol = "-"
-	constructor(readonly left: BinaryOperator, readonly right: BinaryOperator) {
+	constructor(readonly left: Expression, readonly right: Expression) {
 		super()
 	}
 	static readonly precedence = 15
