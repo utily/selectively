@@ -11,3 +11,20 @@ export abstract class Expression {
 		return result
 	}
 }
+export function getPrecedence(symbol: string | undefined): number | undefined {
+	let result: number | undefined
+	switch (symbol) {
+		case "+":
+			result = 14
+			break
+		case "-":
+			result = 15
+			break
+		case "*":
+			result = 16
+			break
+		default:
+			break
+	}
+	return result
+}

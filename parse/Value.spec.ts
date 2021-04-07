@@ -22,7 +22,7 @@ describe("parse.Property", () => {
 			captured: { amount: 50 },
 		},
 	}
-	it("Reject captures that exceed the authorized amount by more than 5 percent", () => {
+	it("Value rule", () => {
 		const rule = "authorization.amount * 1.05 - authorization.captured.amount"
 		const modifiedValue = JSON.parse(JSON.stringify(value))
 		modifiedValue.authorization.captured.amount = 51

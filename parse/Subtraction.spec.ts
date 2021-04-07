@@ -1,7 +1,7 @@
 import * as selectively from "../index"
 
 describe("parse.Subtraction", () => {
-	it("9test rules related to addition", () => {
+	it("subtraction parsing", () => {
 		const expression = new selectively.Subtraction(
 			new selectively.Value(5),
 			new selectively.Subtraction(
