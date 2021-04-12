@@ -16,7 +16,7 @@ export function parseExpression(source: string | Source, handler?: Error.Handler
 	let result: Expression | undefined
 	let algebra = false
 	let comparator = false
-	while (!result || algebra) {
+	while (+!result ^ +algebra) {
 		let i = 1
 		algebra = false
 		comparator = false
@@ -26,8 +26,6 @@ export function parseExpression(source: string | Source, handler?: Error.Handler
 			i++
 		}
 		result = parseNextExpression(result ?? Number.MAX_SAFE_INTEGER, source)
-		if (!result && algebra)
-			break
 	}
 	if (!result)
 		source.raise("Missing Expression")
