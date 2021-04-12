@@ -16,7 +16,7 @@ export function parseExpression(source: string | Source, handler?: Error.Handler
 	let result: Expression | undefined
 	let algebra = false
 	let comparator = false
-	while (!result != algebra) {
+	while (!result != algebra && !comparator && source.peek()) {
 		let i = 1
 		algebra = false
 		comparator = false
@@ -45,11 +45,11 @@ export function parseNextExpression(previous: Expression | number, source: Sourc
 	return result || left
 }
 const expressionParsers: [
-	(source: Source, previous: Expression | number | undefined) => Expression | undefined | false,
+	(source: Source, previous: Expression | number | undefined) => Expression | undefined,
 	number?
 ][] = []
 export function addExpression(
-	expressionParser: (source: Source, previous: Expression | number | undefined) => Expression | undefined | false,
+	expressionParser: (source: Source, previous: Expression | number | undefined) => Expression | undefined,
 	precedence?: number
 ): void {
 	expressionParsers.push([expressionParser, precedence])
