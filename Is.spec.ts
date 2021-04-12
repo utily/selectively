@@ -9,7 +9,7 @@ describe("is", () => {
 		).toBeTruthy())
 })
 describe("filter", () => {
-	it("simple", () =>
+	it("simple.filter", () =>
 		expect(
 			selectively.filter({ class: "test" }, [
 				{ id: "axb", class: "test" },

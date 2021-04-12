@@ -8,7 +8,7 @@ addExpression((source, previous) => {
 	let fetched: lexer.Token[] | lexer.Token | undefined
 	while ((fetched = source.fetchIf("identifier", ".")))
 		fetchedArray.push(fetched[0].value)
-	let result: Expression | undefined | false
+	let result: Expression | undefined
 	if (fetchedArray.length == 0) {
 		fetched = source.fetchIf("any", ".", "any") || source.fetchIf("any")
 		result =
@@ -17,8 +17,9 @@ addExpression((source, previous) => {
 		fetched = source.fetchIf("identifier")
 		const fetchedValue = new Value(fetched ? fetched.value : 0)
 		result =
-			fetchedArray.length > 0 &&
-			fetchedArray.reduceRight((r, name) => new Value(isNaN(+r) ? r : +r, name), fetchedValue)
+			fetchedArray.length > 0
+				? fetchedArray.reduceRight((r, name) => new Value(isNaN(+r) ? r : +r, name), fetchedValue)
+				: undefined
 	}
 	if (result && typeof previous == "number" && !isNaN(previous) && previous != Number.MAX_SAFE_INTEGER)
 		result = parseNextExpression(result, source)

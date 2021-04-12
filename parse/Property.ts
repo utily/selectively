@@ -10,7 +10,7 @@ add(source => {
 		result.push(fetched[0].value)
 	if (source.peekIs("identifier", Source.comparator) && (fetched = source.fetchIf("identifier")))
 		result.push(fetched.value)
-	return (
-		result.length > 0 && result.reduceRight((r, name) => new Property(name, r), parseNext(Property.precedence, source))
-	)
+	return result.length > 0
+		? result.reduceRight((r, name) => new Property(name, r), parseNext(Property.precedence, source))
+		: undefined
 })
