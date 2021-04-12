@@ -1,7 +1,7 @@
-import { BinaryOperator } from "./BinaryOperator"
+import { Expression } from "./Expression"
 
-export class Value extends BinaryOperator {
-	static readonly precedence = 14
+export class Value extends Expression {
+	readonly precedence = Value.precedence
 	readonly value: Value | string | number
 	constructor(value: Value | string | number, readonly name?: string) {
 		super()
@@ -10,6 +10,7 @@ export class Value extends BinaryOperator {
 		else
 			this.value = value
 	}
+	static readonly precedence = 19
 	toString(): string {
 		return this.name ? `${this.name?.toString()}.` + this.value.toString() : this.value.toString()
 	}
@@ -22,5 +23,8 @@ export class Value extends BinaryOperator {
 			: this.name && typeof this.value == "object"
 			? this.value.get(variable[this.name])
 			: +this.value
+	}
+	static create(value: Value | string | number, name?: string): Value {
+		return new Value(value, name)
 	}
 }

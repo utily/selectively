@@ -1,4 +1,4 @@
-export abstract class BinaryOperator {
+export abstract class Expression {
 	readonly precedence: number
 	readonly symbol: string
 	abstract evaluate(): number
