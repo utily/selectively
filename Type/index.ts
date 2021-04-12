@@ -9,6 +9,27 @@ import { String as TString } from "./String"
 export type Types = Base | TNumber | TString | TObject | TArray | TBoolean
 
 export namespace Type {
+	export function convert(value: any): Base {
+		let result: Base
+		switch (typeof value) {
+			case "object":
+				result = global.Array.isArray(value)
+					? new TArray(value.map(e => convert(e)))
+					: new TObject(
+							global.Object.entries(value).reduce((r, c) => {
+								return { ...r, [c[0]]: convert(c[1]) }
+							}, {})
+					  )
+				break
+			case "string":
+				result = new TString(value)
+				break
+			default:
+				result = new TNumber(value)
+				break
+		}
+		return result
+	}
 	export type Array = TArray
 	export const Array = TArray
 	export type Boolean = TBoolean

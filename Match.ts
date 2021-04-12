@@ -26,10 +26,10 @@ function complete(tokens: Token[], string: Type.String): Type.Completion[] | Typ
 		(tokens?: Token[]) => {
 			return !tokens ||
 				(tokens.length == 3 && string.value.includes(tokens[1].value)) ||
-				(tokens.length == 2 && tokens[0].value + tokens[1].value == "**")
-				? [Type.Completion.prepend("*", { value: string.value }, "*")]
-				: tokens.length == 1 && tokens[0].value == "*"
-				? [{ value: "//" }]
+				(tokens.length == 2 && tokens[0].value + tokens[1].value == "//")
+				? [Type.Completion.prepend("/", { value: string.value }, "/")]
+				: tokens.length == 1 && tokens[0].value == "/"
+				? [{ value: "//", cursor: 1 }]
 				: []
 		},
 		{ value: "//", cursor: 1 }

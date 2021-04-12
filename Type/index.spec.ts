@@ -1,78 +1,69 @@
-import { execPath } from "process"
 import * as selectively from "../index"
 import { Token } from "../lexer"
 import { tokenize } from "../lexer"
+import { Completion } from "./Completion"
 
 function t(data: string): Token[] {
-	return tokenize("." + data)
+	return tokenize(data)
 		.map(t => ({ value: t.value }))
 		.toArray()
 }
-
 describe("selectively.Type", () => {
 	it("Tokenizer", () => {
-		expect(t("object.has()")).toMatchSnapshot()
-		expect(t("<=>===>=>==")).toMatchSnapshot()
+		expect(t("")).toEqual([])
 	})
-
-	it("Object", () => {
-		const type = new selectively.Type.Object({ name: new selectively.Type.String() })
-		expect(type).toMatchSnapshot()
-	})
-	it("Array", () => {
-		const testArray: selectively.Type.Array = new selectively.Type.Array(new selectively.Type.String(""))
-		expect(testArray.complete(t("ev"))).toMatchSnapshot()
-		expect(testArray.complete(t(""))).toMatchSnapshot()
-	})
-	it("Boolean", () => {
-		const testBoolean: selectively.Type.Boolean = new selectively.Type.Boolean()
-		expect(testBoolean).toMatchSnapshot()
-		expect(testBoolean.complete(t("tr"))).toMatchSnapshot()
-		expect(testBoolean.complete(t(""))).toMatchSnapshot()
-	})
-
 	it("complete", () => {
-		const object = new selectively.Type.Object({
-			id: new selectively.Type.Object({
-				first: new selectively.Type.String("test"),
-				second: new selectively.Type.Number(),
-			}),
-			status: new selectively.Type.Object({
-				statusArray: new selectively.Type.Array([
-					new selectively.Type.String("t"),
-					new selectively.Type.String("best"),
-					new selectively.Type.String("test"),
-					new selectively.Type.String("ted"),
-					new selectively.Type.String("tested"),
-				]),
-				statusArray2: new selectively.Type.Array([
-					new selectively.Type.Number(1),
-					new selectively.Type.Number(2),
-					new selectively.Type.Number(3),
-					new selectively.Type.Number(3),
-					new selectively.Type.Number(4),
-				]),
-			}),
-			kaktus: new selectively.Type.String(),
-		})
+		const testing = {
+			merchant: {
+				name: "Example AB",
+				descriptor: "Example Company",
+				country: "SE",
+				currency: "SEK",
+				captured: 1000,
+				fees: 1000,
+				refundable: 1000,
+				settled: 1000,
+				scheme: ["visa", "mastercard"],
+			},
+			authorization: {
+				amount: 10,
+				currency: "SEK",
+				card: {
+					iin: "411111",
+					last4: "1111",
+					scheme: "visa",
+					csc: "present",
+					type: "debit",
+				},
+				capture: "auto",
+				descriptor: "Example AB",
+				recurring: "initial",
+				verification: "rejected",
+			},
+		}
+		const output = selectively.Type.convert(testing)
 
-		expect(object.complete(t("status:!"))).toMatchSnapshot()
-		expect(object.complete(t("has(i)"))).toMatchSnapshot()
-		expect(object.complete(t("has(id)"))).toMatchSnapshot()
-		expect(object.complete(t("ha"))).toMatchSnapshot()
-		expect(object.complete(t("has("))).toMatchSnapshot()
-		expect(object.complete(t("id"))).toMatchSnapshot()
-		expect(object.complete(t("id."))).toMatchSnapshot()
-		expect(object.complete(t("id.has()"))).toMatchSnapshot()
-		expect(object.complete(t("id.fir"))).toMatchSnapshot()
-		//---------------------------------------------------------//
-		expect(object.complete(t("status.statusA"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.some()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.eve"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.every()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.every(3)"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every(*ed)"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every(!dada)"))).toMatchSnapshot()
+		expect(Completion.stringify(output.complete(t("")))).toEqual(["merchant|", "authorization|"])
+		expect(Completion.stringify(output.complete(t("merc")))).toEqual(["merchant|"])
+		expect(Completion.stringify(output.complete(t("merchant")))).toEqual(["merchant.|", "merchant:|"])
+		expect(Completion.stringify(output.complete(t("merchant.")))).toEqual([
+			"merchant.name|",
+			"merchant.descriptor|",
+			"merchant.country|",
+			"merchant.currency|",
+			"merchant.captured|",
+			"merchant.fees|",
+			"merchant.refundable|",
+			"merchant.settled|",
+			"merchant.scheme|",
+		])
+		expect(Completion.stringify(output.complete(t("merchant.name")))).toEqual(["merchant.name:|"])
+		expect(Completion.stringify(output.complete(t("merchant.name:")))).toEqual([
+			"merchant.name:*|",
+			"merchant.name:*|*",
+			"merchant.name:/|/",
+			"merchant.name:!|",
+			"merchant.name:|*",
+		])
 	})
 })

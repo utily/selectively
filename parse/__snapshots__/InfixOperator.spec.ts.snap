@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse InfixOperator Algebraic parenthesis complex 1`] = `
+InfixOperator {
+  "class": "InfixOperator",
+  "left": Value {
+    "class": "Value",
+    "name": undefined,
+    "precedence": 19,
+    "value": 5,
+  },
+  "precedence": 15,
+  "right": InfixOperator {
+    "class": "InfixOperator",
+    "left": InfixOperator {
+      "class": "InfixOperator",
+      "left": Value {
+        "class": "Value",
+        "name": undefined,
+        "precedence": 19,
+        "value": 6,
+      },
+      "precedence": 16,
+      "right": InfixOperator {
+        "class": "InfixOperator",
+        "left": Value {
+          "class": "Value",
+          "name": undefined,
+          "precedence": 19,
+          "value": 7,
+        },
+        "precedence": 15,
+        "right": Value {
+          "class": "Value",
+          "name": undefined,
+          "precedence": 19,
+          "value": 5,
+        },
+        "symbol": "-",
+      },
+      "symbol": "*",
+    },
+    "precedence": 16,
+    "right": Value {
+      "class": "Value",
+      "name": undefined,
+      "precedence": 19,
+      "value": 8,
+    },
+    "symbol": "*",
+  },
+  "symbol": "-",
+}
+`;

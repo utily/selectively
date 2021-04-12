@@ -11,8 +11,9 @@ describe("parse InfixOperator", () => {
 	it("Algebraic parenthesis simple", () => {
 		expect(selectively.parseExpression("(5 + 7) * 8").evaluate()).toEqual(96)
 		expect(selectively.parseExpression("(5 + 7) * 8").toString()).toEqual("(5 + 7) * 8")
+		expect(selectively.parseExpression("5 - 6 * (7 - 5) * 8").evaluate()).toEqual(-91)
 	})
 	it.skip("Algebraic parenthesis complex", () => {
-		expect(selectively.parseExpression("5 - 6 * (7 - 5) * 8").evaluate()).toEqual(-77)
+		expect(selectively.parseExpression("5 - (6 * (7 - 5)) * 8").toString()).toEqual("5 - (6 * (7 - 5)) * 8")
 	})
 })
