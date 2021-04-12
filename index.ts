@@ -14,7 +14,7 @@ import { LesserThanOrEqual, lesserThanOrEqual } from "./LesserThanOrEqual"
 import { Match, match } from "./Match"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
-import { parse } from "./parse"
+import { parse, parseExpression } from "./parse"
 import { Property, property } from "./Property"
 import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
@@ -74,6 +74,7 @@ export {
 	not,
 	or,
 	parse,
+	parseExpression,
 	property,
 	some,
 	startsWith,
