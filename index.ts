@@ -16,7 +16,7 @@ import { Match, match } from "./Match"
 import { Multiplication } from "./Multiplication"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
-import { parse, parseExpression } from "./parse"
+import { parse } from "./parse"
 import { Property, property } from "./Property"
 import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
@@ -80,7 +80,6 @@ export {
 	not,
 	or,
 	parse,
-	parseExpression,
 	property,
 	some,
 	startsWith,
