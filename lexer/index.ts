@@ -8,7 +8,7 @@ function tokenize(reader: IO.Reader | string, errorHandler?: Error.Handler): Uti
 		let result: Token | undefined
 		let peekSymbolLength: number | false = 1
 		if (!source.isEmpty) {
-			while (source.peekIsWhitespace())
+			while (source.peekIsWhitespace() && !source.peekIsSymbol())
 				source.read()
 			if ((peekSymbolLength = source.peekIsSymbol()))
 				result = { value: source.read(peekSymbolLength) || "", region: source.mark() }

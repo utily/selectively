@@ -2,6 +2,7 @@ import { Expression } from "./Expression"
 
 export class InfixOperator extends Expression {
 	readonly class = "InfixOperator"
+	readonly symbol: string
 	toString(): string {
 		const symbol = this.symbol
 		return (
@@ -10,13 +11,9 @@ export class InfixOperator extends Expression {
 			this.right.stringify(InfixOperator.getPrecedence(symbol))
 		)
 	}
-	constructor(
-		readonly symbol: string,
-		readonly precedence: number,
-		readonly left: Expression,
-		readonly right: Expression
-	) {
+	constructor(symbol: string, readonly precedence: number, readonly left: Expression, readonly right: Expression) {
 		super()
+		this.symbol = symbol.replace(/ /g, "")
 	}
 	evaluate(): number
 	evaluate(criteria?: any): number {
@@ -48,6 +45,7 @@ export class InfixOperator extends Expression {
 	}
 	static getPrecedence(symbol: string | undefined): number | undefined {
 		let result: number | undefined
+		symbol = symbol?.replace(/ /g, "")
 		switch (symbol) {
 			case "+":
 				result = 14
