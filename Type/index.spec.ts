@@ -57,7 +57,13 @@ describe("selectively.Type", () => {
 			"merchant.settled|",
 			"merchant.scheme|",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name")))).toEqual(["merchant.name:|"])
+		expect(Completion.stringify(output.complete(t("merchant.name")))).toEqual([
+			"merchant.name:|",
+			"merchant.name>|",
+			"merchant.name>=|",
+			"merchant.name<|",
+			"merchant.name<=|",
+		])
 		expect(Completion.stringify(output.complete(t("merchant.name:")))).toEqual([
 			"merchant.name:*|",
 			"merchant.name:*|*",

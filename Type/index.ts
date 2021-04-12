@@ -2,6 +2,7 @@ import { Array as TArray } from "./Array"
 import { Base } from "./Base"
 import { Boolean as TBoolean } from "./Boolean"
 import { Completion as TCompletion } from "./Completion"
+import { Completor as TCompletor } from "./Completor"
 import { Number as TNumber } from "./Number"
 import { TObject } from "./Object"
 import { String as TString } from "./String"
@@ -42,4 +43,5 @@ export namespace Type {
 	export const String = TString
 	export type Number = TNumber
 	export const Number = TNumber
+	export const Completor = TCompletor
 }
