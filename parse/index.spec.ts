@@ -69,7 +69,7 @@ describe("parse.group", () => {
 		expect(selectively.parse(rule).is(value)).toBeFalsy()
 		expect(selectively.parse(rule).is(modifiedValue)).toBeTruthy()
 	})
-	it.skip("Reject captures that exceed the authorized amount by more than 5 percent", () => {
+	it("Reject captures that exceed the authorized amount by more than 5 percent", () => {
 		const rule = "amount>authorization.amount * 1.05 - authorization.captured.amount"
 		const modifiedValue = JSON.parse(JSON.stringify(value))
 		modifiedValue.authorization.captured.amount = 51
