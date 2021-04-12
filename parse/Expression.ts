@@ -47,11 +47,11 @@ export function parseNextExpression(previous: Expression | number, source: Sourc
 	return result || left
 }
 const expressionParsers: [
-	(source: Source, previous: Expression | number | undefined) => Expression | undefined | false,
+	(source: Source, previous: Expression | number | undefined) => Expression | undefined,
 	number?
 ][] = []
 export function addExpression(
-	expressionParser: (source: Source, previous: Expression | number | undefined) => Expression | undefined | false,
+	expressionParser: (source: Source, previous: Expression | number | undefined) => Expression | undefined,
 	precedence?: number
 ): void {
 	expressionParsers.push([expressionParser, precedence])
