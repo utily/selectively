@@ -1,6 +1,7 @@
 import { LesserThan } from "../LesserThan"
-import { add, parseExpression } from "./parse"
+import { add } from "./parse"
 
 add(source => {
-	return source.fetchIf("<") && new LesserThan(parseExpression(source))
+	const fetched = source.fetchIf("<", "any")
+	return fetched && new LesserThan(fetched[1].value)
 })

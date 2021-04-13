@@ -1,14 +1,9 @@
 export { parse } from "./parse"
-export { parseExpression } from "./parse"
 
 // Order matters
 import "./Every"
 import "./Some"
 import "./group"
-import "./Multiplication"
-import "./Subtraction"
-import "./Addition"
-import "./Value"
 import "./GreaterThan"
 import "./GreaterThanOrEqual"
 import "./LesserThan"

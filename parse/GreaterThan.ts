@@ -1,6 +1,7 @@
 import { GreaterThan } from "../GreaterThan"
-import { add, parseExpression } from "./parse"
+import { add } from "./parse"
 
 add(source => {
-	return source.fetchIf(">") && new GreaterThan(parseExpression(source))
+	const fetched = source.fetchIf(">", "any")
+	return fetched && new GreaterThan(fetched[1].value)
 })
