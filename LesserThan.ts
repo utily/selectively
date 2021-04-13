@@ -1,11 +1,11 @@
-import { BinaryOperator } from "./BinaryOperator"
+import { Expression } from "./Expression"
 import { Rule } from "./Rule"
 
 export class LesserThan extends Rule {
 	readonly precedence = 85
 	readonly class = "LesserThan"
 	readonly symbol = "<"
-	constructor(readonly value: bigint | boolean | number | string | BinaryOperator) {
+	constructor(readonly value: bigint | boolean | number | string | Expression) {
 		super()
 	}
 	is(value: any): boolean
