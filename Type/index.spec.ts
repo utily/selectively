@@ -10,7 +10,6 @@ function t(data: string): Token[] {
 }
 describe("selectively.Type", () => {
 	it("Tokenizer", () => {
-		expect(t("object.has()")).toMatchSnapshot()
 		expect(t("")).toEqual([])
 	})
 	it("complete", () => {
