@@ -1,40 +1,22 @@
-import { execPath } from "process"
 import * as selectively from "../index"
 import { Token } from "../lexer"
 import { tokenize } from "../lexer"
+import { Completion } from "./Completion"
 
 function t(data: string): Token[] {
-	return tokenize("." + data)
+	return tokenize(data)
 		.map(t => ({ value: t.value }))
 		.toArray()
 }
-
 describe("selectively.Type", () => {
 	it("Tokenizer", () => {
 		expect(t("object.has()")).toMatchSnapshot()
-		expect(t("<=>===>=>==")).toMatchSnapshot()
+		expect(t("")).toEqual([])
 	})
-
-	it("Object", () => {
-		const type = new selectively.Type.Object({ name: new selectively.Type.String() })
-		expect(type).toMatchSnapshot()
-	})
-	it("Array", () => {
-		const testArray: selectively.Type.Array = new selectively.Type.Array(new selectively.Type.String(""))
-		expect(testArray.complete(t("ev"))).toMatchSnapshot()
-		expect(testArray.complete(t(""))).toMatchSnapshot()
-	})
-	it("Boolean", () => {
-		const testBoolean: selectively.Type.Boolean = new selectively.Type.Boolean()
-		expect(testBoolean).toMatchSnapshot()
-		expect(testBoolean.complete(t("tr"))).toMatchSnapshot()
-		expect(testBoolean.complete(t(""))).toMatchSnapshot()
-	})
-
 	it("complete", () => {
 		const object = new selectively.Type.Object({
 			id: new selectively.Type.Object({
-				first: new selectively.Type.String("test"),
+				first: new selectively.Type.Object({ value: new selectively.Type.String("test") }),
 				second: new selectively.Type.Number(),
 			}),
 			status: new selectively.Type.Object({
@@ -55,24 +37,16 @@ describe("selectively.Type", () => {
 			}),
 			kaktus: new selectively.Type.String(),
 		})
-
-		expect(object.complete(t("status:!"))).toMatchSnapshot()
-		expect(object.complete(t("has(i)"))).toMatchSnapshot()
-		expect(object.complete(t("has(id)"))).toMatchSnapshot()
-		expect(object.complete(t("ha"))).toMatchSnapshot()
-		expect(object.complete(t("has("))).toMatchSnapshot()
-		expect(object.complete(t("id"))).toMatchSnapshot()
-		expect(object.complete(t("id."))).toMatchSnapshot()
-		expect(object.complete(t("id.has()"))).toMatchSnapshot()
-		expect(object.complete(t("id.fir"))).toMatchSnapshot()
-		//---------------------------------------------------------//
-		expect(object.complete(t("status.statusA"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.some()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.eve"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.every()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray2.every(3)"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every()"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every(*ed)"))).toMatchSnapshot()
-		expect(object.complete(t("status.statusArray.every(!dada)"))).toMatchSnapshot()
+		expect(Completion.stringify(object.complete(t("")))).toEqual(["id|", "status|", "kaktus|"])
+		expect(Completion.stringify(object.complete(t("i")))).toEqual(["id|"])
+		expect(Completion.stringify(object.complete(t("id")))).toEqual(["id.|", "id:|"])
+		expect(Completion.stringify(object.complete(t("id.")))).toEqual(["id.first|", "id.second|"])
+		expect(Completion.stringify(object.complete(t("id.first")))).toEqual(["id.first.|", "id.first:|"])
+		expect(Completion.stringify(object.complete(t("id.first.")))).toEqual(["id.first.value|"])
+		expect(Completion.stringify(object.complete(t("id.first:")))).toEqual(["id.first:has(|)", "id.first:!|"])
+		expect(Completion.stringify(object.complete(t("id:")))).toEqual(["id:has(|)", "id:!|"])
+		expect(Completion.stringify(object.complete(t("id:ha")))).toEqual(["id:has(|)"])
+		expect(Completion.stringify(object.complete(t("id:has()")))).toEqual(["id:has(first|)", "id:has(second|)"])
+		expect(Completion.stringify(object.complete(t("id.first.value:*t")))).toEqual(["id.first.value:*test|"])
 	})
 })

@@ -12,23 +12,51 @@ export class TObject extends SType {
 	}
 
 	complete(tokens: Token[]): Completion[] {
-		return [
-			...(tokens.length == 0 || tokens[0].value != "."
-				? []
-				: tokens.length == 1
-				? Completion.prepend(".", this.completions)
-				: this.properties[tokens[1].value]
-				? Completion.prepend("." + tokens[1].value, this.properties[tokens[1].value].complete(tokens.slice(2)))
-				: Completion.prepend(
-						".",
-						this.completions.filter(c => c.value.startsWith(tokens[1].value))
-				  )),
-			...TObject.completor
-				.map(p => p(tokens, this))
-				.reduce<Completion[]>((result, element) => result.concat(element), []),
-		]
+		let result: Completion[]
+		switch (tokens.length) {
+			case 0:
+				result = this.completions
+				break
+			case 1:
+				result = this.match(tokens[0])
+					? Completion.prepend(tokens[0].value, [{ value: "." }, ...this.completor(tokens.slice(1))])
+					: this.completor(tokens).length > 0
+					? this.completor(tokens)
+					: this.partial(tokens[0])
+				break
+			default:
+				if (this.match(tokens[0])) {
+					if (tokens[1].value == ".")
+						result = Completion.prepend(
+							tokens[0].value + ".",
+							this.properties[tokens[0].value].complete(tokens.slice(2))
+						)
+					else
+						result = Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
+				} else
+					result = this.completor(tokens)
+				break
+		}
+		return result
 	}
 
+	partial(token: Token): Completion[] {
+		return this.completions.filter(c => c.value.startsWith(token.value))
+	}
+	match(token: Token): boolean {
+		return !!this.properties[token.value]
+	}
+
+	completor(tokens: Token[]): Completion[] {
+		return TObject.completor
+			.map(p => p(tokens, this))
+			.reduce<Completion[]>((result, element) => result.concat(element), [])
+			.reduce<Completion[]>(
+				(result, element) =>
+					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
+				[]
+			)
+	}
 	private static readonly completor: Completor<TObject>[] = []
 	static add(...completor: Completor<TObject>[]) {
 		this.completor.push(...completor)

@@ -11,28 +11,28 @@ export namespace Completor {
 		completion: Completion
 	): Completion[] | Completion {
 		return tokens.length == 0
-			? { value: "." }
+			? { value: ":" }
 			: tokens.length <= 3 &&
-			  tokens[0].value == "." &&
+			  tokens[0].value == ":" &&
 			  completion.value.startsWith(tokens[1]?.value ?? "") &&
 			  (tokens[2]?.value ?? "(") == "("
-			? Completion.prepend(".", completion)
+			? Completion.prepend(":", completion)
 			: tokens.length <= 4 &&
-			  tokens.slice(0, 4).reduce((string, token) => string + token.value, "") == "." + completion.value
-			? Completion.prepend("." + completion.value.substring(0, completion.value.length - 1), argument(), ")")
+			  tokens.slice(0, 4).reduce((string, token) => string + token.value, "") == ":" + completion.value
+			? Completion.prepend(":" + completion.value.substring(0, completion.value.length - 1), argument(), ")")
 			: tokens.length == 5 &&
 			  tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[4].value ==
-					"." + completion.value
+					":" + completion.value
 			? Completion.prepend(
-					"." + completion.value.substring(0, completion.value.length - 1),
+					":" + completion.value.substring(0, completion.value.length - 1),
 					argument(tokens.slice(3, tokens.length - 1)),
 					")"
 			  )
 			: tokens.length > 5 &&
 			  tokens.slice(0, 3).reduce((string, token) => string + token.value, "") + tokens[tokens.length - 1].value ==
-					"." + completion.value
+					":" + completion.value
 			? Completion.prepend(
-					"." + completion.value.substring(0, completion.value.length - 1),
+					":" + completion.value.substring(0, completion.value.length - 1),
 					argument(tokens.slice(3, tokens.length - 1)),
 					")"
 			  )
