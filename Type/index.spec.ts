@@ -46,6 +46,6 @@ describe("selectively.Type", () => {
 		expect(Completion.stringify(object.complete(t("id:")))).toEqual(["id:has(|)", "id:!|"])
 		expect(Completion.stringify(object.complete(t("id:ha")))).toEqual(["id:has(|)"])
 		expect(Completion.stringify(object.complete(t("id:has()")))).toEqual(["id:has(first|)", "id:has(second|)"])
-		expect(Completion.stringify(object.complete(t("id.first.value:*t")))).toEqual(["id.first.value:*test|"])
+		expect(Completion.stringify(object.complete(t("id.first.value")))).toEqual(["id.first.value:|"])
 	})
 })
