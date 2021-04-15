@@ -1,4 +1,5 @@
 export { parse } from "./parse"
+export { parseExpression } from "./Expression"
 
 // Order matters
 import "./Every"
@@ -15,5 +16,7 @@ import "./Includes"
 import "./StartsWith"
 import "./EndsWith"
 import "./Has"
+import "./InfixOperator"
+import "./Value"
 import "./Is"
 import "./ignore" // Reads every token and throws it away so that parsing is finite
