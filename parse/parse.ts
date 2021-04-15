@@ -34,9 +34,9 @@ export function parseNext(previous: Rule | number, source: Source): Rule {
 		}
 	return result || left || new And([])
 }
-const parsers: [(source: Source, previous: Rule | undefined) => Rule | undefined | false | "", number?][] = []
+const parsers: [(source: Source, previous: Rule | undefined) => Rule | undefined, number?][] = []
 export function add(
-	parser: (source: Source, previous: Rule | undefined) => Rule | undefined | false | "",
+	parser: (source: Source, previous: Rule | undefined) => Rule | undefined,
 	precedence?: number
 ): void {
 	parsers.push([parser, precedence])

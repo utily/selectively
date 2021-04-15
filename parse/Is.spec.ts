@@ -6,4 +6,8 @@ describe("parse.Is", () => {
 		expect(selectively.parse("testA testB testC")).toMatchObject(
 			selectively.and(selectively.is("testA"), selectively.is("testB"), selectively.is("testC"))
 		))
+	it("expression.is", () => {
+		expect(selectively.parse("test:1 + 1").is({ test: 2 })).toBeTruthy()
+		expect(selectively.parse("test:1 + 2").is({ test: 2 })).toBeFalsy()
+	})
 })
