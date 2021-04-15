@@ -1,5 +1,4 @@
 import "./Always"
-import { Addition } from "./Addition"
 import { And, and } from "./And"
 import { Any, any } from "./Any"
 import { Criteria } from "./Criteria"
@@ -13,15 +12,13 @@ import { Is } from "./Is"
 import { LesserThan, lesserThan } from "./LesserThan"
 import { LesserThanOrEqual, lesserThanOrEqual } from "./LesserThanOrEqual"
 import { Match, match } from "./Match"
-import { Multiplication } from "./Multiplication"
 import { Not, not } from "./Not"
 import { Or, or } from "./Or"
-import { parse } from "./parse"
+import { parse, parseExpression } from "./parse"
 import { Property, property } from "./Property"
 import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
 import { StartsWith, startsWith } from "./StartsWith"
-import { Subtraction } from "./Subtraction"
 import { Tuple } from "./Tuple"
 import { Type as SType } from "./Type"
 import { Value } from "./Value"
@@ -38,7 +35,6 @@ function filter<T>(criteria: Criteria, value: T[]): T[] {
 }
 
 export {
-	Addition,
 	And,
 	Any,
 	Criteria,
@@ -52,7 +48,6 @@ export {
 	Includes,
 	Is,
 	Match,
-	Multiplication,
 	Not,
 	Or,
 	Property,
@@ -62,7 +57,6 @@ export {
 	Tuple,
 	SType as Type,
 	Value,
-	Subtraction,
 	any,
 	and,
 	create,
@@ -80,6 +74,7 @@ export {
 	not,
 	or,
 	parse,
+	parseExpression,
 	property,
 	some,
 	startsWith,
