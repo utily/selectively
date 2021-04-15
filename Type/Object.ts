@@ -28,15 +28,15 @@ export class TObject extends SType {
 						: this.partial(tokens[0])
 				break
 			default:
-				if (this.match(tokens[0])) {
-					if (tokens[1].value == ".") {
+				if (this.match(tokens[0]))
+					if (tokens[1].value == ".")
 						result = Completion.prepend(
 							tokens[0].value + ".",
 							this.properties[tokens[0].value].complete(tokens.slice(2))
 						)
-					} else
+					else
 						result = Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
-				} else
+				else
 					result = this.completor(tokens)
 				break
 		}
