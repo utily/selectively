@@ -18,14 +18,17 @@ export class TObject extends SType {
 				result = this.completions
 				break
 			case 1:
-				result = this.match(tokens[0])
-					? Completion.prepend(tokens[0].value, [{ value: "." }, ...this.completor(tokens.slice(1))])
-					: this.completor(tokens).length > 0
-					? this.completor(tokens)
-					: this.partial(tokens[0])
+				result =
+					this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
+						? Completion.prepend(tokens[0].value, [{ value: "." }, ...this.completor(tokens.slice(1))])
+						: this.match(tokens[0])
+						? Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
+						: this.completor(tokens).length > 0
+						? this.completor(tokens)
+						: this.partial(tokens[0])
 				break
 			default:
-				if (this.match(tokens[0])) {
+				if (this.match(tokens[0]))
 					if (tokens[1].value == ".")
 						result = Completion.prepend(
 							tokens[0].value + ".",
@@ -33,7 +36,7 @@ export class TObject extends SType {
 						)
 					else
 						result = Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
-				} else
+				else
 					result = this.completor(tokens)
 				break
 		}
