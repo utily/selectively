@@ -24,15 +24,14 @@ export function greaterThan(criteria: bigint | boolean | number | string, value?
 	const result = new GreaterThan(criteria)
 	return value ? result.is(value) : result
 }
-function complete(tokens: Token[], type: Type.String | Type.Number): Type.Completion[] | Type.Completion {
+function complete(
+	tokens: Token[],
+	type: Type.String | Type.Number,
+	baseObject?: Type.Object
+): Type.Completion[] | Type.Completion {
 	return Type.Completor.operators(
 		tokens,
-		(tokens?: Token[]) =>
-			tokens
-				? [
-						/*{ value: "TODO: implement argument completions" }*/
-				  ]
-				: [],
+		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, baseObject, type) : []),
 		{
 			value: ">",
 		}
