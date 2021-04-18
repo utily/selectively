@@ -11,35 +11,66 @@ export class TObject extends SType {
 		this.completions = Object.keys(this.properties).map(p => ({ value: p }))
 	}
 
-	complete(tokens: Token[]): Completion[] {
+	complete(tokens: Token[], baseObject: TObject = this, type?: SType): Completion[] {
 		let result: Completion[]
 		switch (tokens.length) {
 			case 0:
-				result = this.completions
+				result = type
+					? this.filterByType(type).map(c =>
+							this.properties[c.value].class == "object" ? { value: c.value + "." } : { value: c.value }
+					  )
+					: this.completions
 				break
 			case 1:
-				result =
-					this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
-						? Completion.prepend(tokens[0].value, [{ value: "." }, ...this.completor(tokens.slice(1))])
-						: this.match(tokens[0])
-						? Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
-						: this.completor(tokens).length > 0
-						? this.completor(tokens)
-						: this.partial(tokens[0])
+				if (type)
+					result = this.match(tokens[0])
+						? [{ value: tokens[0].value + "." }]
+						: this.filterByType(type)
+								.filter(c => c.value.startsWith(tokens[0].value))
+								.map(c => ({ value: c.value + "." }))
+				else
+					result =
+						this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
+							? Completion.prepend(tokens[0].value, [
+									{ value: "." },
+									...this.completor(tokens.slice(1), baseObject, type),
+							  ])
+							: this.match(tokens[0])
+							? Completion.prepend(
+									tokens[0].value,
+									this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
+							  )
+							: this.completor(tokens, baseObject, type).length > 0
+							? this.completor(tokens, baseObject, type)
+							: this.partial(tokens[0])
 				break
 			default:
 				if (this.match(tokens[0]))
 					if (tokens[1].value == ".")
 						result = Completion.prepend(
 							tokens[0].value + ".",
-							this.properties[tokens[0].value].complete(tokens.slice(2))
+							this.properties[tokens[0].value].complete(tokens.slice(2), baseObject, type)
 						)
 					else
-						result = Completion.prepend(tokens[0].value, this.properties[tokens[0].value].complete(tokens.slice(1)))
+						result = Completion.prepend(
+							tokens[0].value,
+							this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
+						)
 				else
-					result = this.completor(tokens)
+					result = this.completor(tokens, baseObject, type)
 				break
 		}
+		return result
+	}
+
+	filterByType(type: SType): Completion[] {
+		const result = this.completions.filter(
+			c =>
+				this.properties[c.value].class == type.class ||
+				(this.properties[c.value].class == "object"
+					? (this.properties[c.value] as TObject).filterByType(type).length > 0
+					: false)
+		)
 		return result
 	}
 
@@ -50,15 +81,17 @@ export class TObject extends SType {
 		return !!this.properties[token.value]
 	}
 
-	completor(tokens: Token[]): Completion[] {
-		return TObject.completor
-			.map(p => p(tokens, this))
-			.reduce<Completion[]>((result, element) => result.concat(element), [])
-			.reduce<Completion[]>(
-				(result, element) =>
-					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
-				[]
-			)
+	completor(tokens: Token[], baseObject?: TObject, type?: SType): Completion[] {
+		return type
+			? []
+			: TObject.completor
+					.map(p => p(tokens, this, baseObject))
+					.reduce<Completion[]>((result, element) => result.concat(element), [])
+					.reduce<Completion[]>(
+						(result, element) =>
+							result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
+						[]
+					)
 	}
 	private static readonly completor: Completor<TObject>[] = []
 	static add(...completor: Completor<TObject>[]) {

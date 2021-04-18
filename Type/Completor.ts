@@ -2,7 +2,7 @@ import { Token } from "../lexer"
 import { Base } from "./Base"
 import { Completion } from "./Completion"
 
-export type Completor<T extends Base> = (tokens: Token[], data: T) => Completion[] | Completion
+export type Completor<T extends Base> = (tokens: Token[], data: T, baseObject?: Base) => Completion[] | Completion
 
 export namespace Completor {
 	export function functions(

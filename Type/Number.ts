@@ -13,9 +13,9 @@ export class Number extends SType {
 			this.value = input
 	}
 
-	complete(tokens: Token[]): Completion[] {
+	complete(tokens: Token[], baseObject?: SType): Completion[] {
 		return Number.completor
-			.map(p => p(tokens, this))
+			.map(p => p(tokens, this, baseObject))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])
 			.reduce<Completion[]>(
 				(result, element) =>
