@@ -12,11 +12,13 @@ addExpression((source, previous) => {
 		let right: Expression | undefined
 		let nextPrecedence: number | undefined
 		let i = 0
+		precedence = InfixOperator.getPrecedence(symbol)
 		while (!nextPrecedence && source.peek(i)) {
-			nextPrecedence = InfixOperator.getPrecedence(source.peek(i)?.value)
+			nextPrecedence =
+				source.peek(i)?.value == "(" ? Number.MAX_SAFE_INTEGER : InfixOperator.getPrecedence(source.peek(i)?.value)
 			i++
 		}
-		precedence = InfixOperator.getPrecedence(symbol)
+
 		if (nextPrecedence && precedence! < nextPrecedence) {
 			right = parseNextExpression(precedence!, source)
 			if (!right) {
@@ -25,7 +27,7 @@ addExpression((source, previous) => {
 		} else
 			right = parseNextExpression(NaN, source)
 
-		if (nextPrecedence && precedence! == nextPrecedence) {
+		if ((nextPrecedence && precedence == nextPrecedence) || nextPrecedence == Number.MAX_SAFE_INTEGER) {
 			result = parseNextExpression(new InfixOperator(symbol, precedence!, previous, right!), source)
 		} else
 			result = new InfixOperator(symbol, precedence!, previous, right!)
