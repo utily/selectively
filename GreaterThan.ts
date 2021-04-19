@@ -1,5 +1,7 @@
 import { Expression } from "./Expression"
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class GreaterThan extends Rule {
 	readonly precedence = 85
@@ -22,3 +24,19 @@ export function greaterThan(criteria: bigint | boolean | number | string, value?
 	const result = new GreaterThan(criteria)
 	return value ? result.is(value) : result
 }
+function complete(
+	tokens: Token[],
+	type: Type.String | Type.Number,
+	baseObject?: Type.Object
+): Type.Completion[] | Type.Completion {
+	return Type.Completor.operators(
+		tokens,
+		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, baseObject, type) : []),
+		{
+			value: ">",
+		}
+	)
+}
+
+Type.Number.add(complete)
+Type.String.add(complete)
