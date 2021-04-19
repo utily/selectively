@@ -41,7 +41,7 @@ export function parseNextExpression(previous: Expression | number, source: Sourc
 			break
 		}
 	}
-	return result || left || undefined
+	return result || left
 }
 const expressionParsers: [
 	(source: Source, previous: Expression | number | undefined) => Expression | undefined,
