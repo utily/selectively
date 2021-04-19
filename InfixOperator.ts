@@ -1,4 +1,6 @@
 import { Expression } from "./Expression"
+import { Token } from "./lexer"
+import { Type } from "./Type"
 
 export class InfixOperator extends Expression {
 	readonly class = "InfixOperator"
@@ -71,3 +73,18 @@ export class InfixOperator extends Expression {
 		return result || fallback
 	}
 }
+
+function complete(tokens: Token[], type: Type.Number, baseObject: Type.Object): Type.Completion[] {
+	return [" + ", " - ", " * "]
+		.map<Type.Completion>(s => ({ value: s }))
+		.map(c =>
+			Type.Completor.operators(
+				tokens,
+				(tokens?: Token[]) => (tokens ? baseObject.complete(tokens, baseObject, type) : []),
+				c
+			)
+		)
+		.reduce<Type.Completion[]>((result, element) => result.concat(element), [])
+}
+
+Type.Number.addArgument(complete)

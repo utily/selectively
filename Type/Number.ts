@@ -13,8 +13,8 @@ export class Number extends SType {
 			this.value = input
 	}
 
-	complete(tokens: Token[], baseObject?: SType): Completion[] {
-		return Number.completor
+	complete(tokens: Token[], baseObject?: SType, type?: SType): Completion[] {
+		return (type ? Number.completorArgument : Number.completor)
 			.map(p => p(tokens, this, baseObject))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])
 			.reduce<Completion[]>(
@@ -23,12 +23,15 @@ export class Number extends SType {
 				[]
 			)
 	}
-
 	private static readonly completor: Completor<Number>[] = []
 	static add(...pattern: Completor<Number>[]) {
 		this.completor.push(...pattern)
 	}
 
+	private static readonly completorArgument: Completor<Number>[] = []
+	static addArgument(...pattern: Completor<Number>[]) {
+		this.completorArgument.push(...pattern)
+	}
 	static is(value: any | Number): value is Number {
 		return value instanceof Number
 	}
