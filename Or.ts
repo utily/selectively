@@ -1,7 +1,8 @@
 import { Criteria } from "./Criteria"
 import { Token } from "./lexer"
 import { create, Rule } from "./Rule"
-import { Type, Types } from "./Type"
+import { Type } from "./Type"
+import { Base } from "./Type/Base"
 
 export class Or extends Rule {
 	readonly precedence = Or.precedence
@@ -23,7 +24,7 @@ export function or(...criterias: Criteria[]): Or {
 	return new Or(criterias.map(create))
 }
 
-function complete(tokens: Token[], type?: Types, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
+function complete(tokens: Token[], type?: Base, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
 	return Type.Completor.operators(
 		tokens,
 		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, undefined) : []),

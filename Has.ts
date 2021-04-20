@@ -1,6 +1,6 @@
 import { Token } from "./lexer"
 import { Rule } from "./Rule"
-import { Type, Types } from "./Type"
+import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
 export class Has extends Rule {
@@ -37,7 +37,7 @@ export function has(criteria: string, value?: any): Has | boolean {
 	return value ? result.is(value) : result
 }
 
-function complete(tokens: Token[], type?: Types, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
+function complete(tokens: Token[], type?: Type, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
 	return baseObject && !type
 		? Completor.functions(
 				tokens,

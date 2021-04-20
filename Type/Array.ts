@@ -2,12 +2,11 @@ import { Token } from "../lexer"
 import { Base } from "./Base"
 import { Completion } from "./Completion"
 import { Completor } from "./Completor"
-import { Types } from "./index"
 
 export class Array extends Base {
 	readonly class = "array"
-	readonly array: Types[]
-	constructor(readonly arrayType: Types | Types[]) {
+	readonly array: Base[]
+	constructor(readonly arrayType: Base | Base[]) {
 		super()
 		global.Array.isArray(arrayType) ? (this.array = arrayType) : (this.array = [arrayType])
 	}
