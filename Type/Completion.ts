@@ -5,6 +5,13 @@ export interface Completion {
 	cursor?: Cursor | number
 }
 export namespace Completion {
+	export function stringify(completions: Completion[]): string[] {
+		return completions.map(c =>
+			typeof c.cursor == "number"
+				? c.value.slice(0, c.cursor) + "|" + c.value.slice(c.cursor, c.value.length)
+				: c.value + "|"
+		)
+	}
 	export function prepend(prefix: string, completion: Completion, suffix?: string): Completion
 	export function prepend(prefix: string, completions: Completion[], suffix?: string): Completion[]
 	export function prepend(

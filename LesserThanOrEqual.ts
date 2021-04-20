@@ -1,5 +1,7 @@
 import { Expression } from "./Expression"
+import { Token } from "./lexer"
 import { Rule } from "./Rule"
+import { Type } from "./Type"
 
 export class LesserThanOrEqual extends Rule {
 	readonly precedence = 85
@@ -27,3 +29,19 @@ export function lesserThanOrEqual(
 	const result = new LesserThanOrEqual(criteria)
 	return value ? result.is(value) : result
 }
+function complete(
+	tokens: Token[],
+	type: Type.String | Type.Number,
+	baseObject: Type.Object
+): Type.Completion[] | Type.Completion {
+	return Type.Completor.operators(
+		tokens,
+		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens) : []),
+		{
+			value: "<=",
+		}
+	)
+}
+
+Type.Number.add(complete)
+Type.String.add(complete)

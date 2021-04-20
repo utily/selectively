@@ -41,7 +41,6 @@ export function parseNextExpression(previous: Expression | number, source: Sourc
 			break
 		}
 	}
-
 	return result || left
 }
 const expressionParsers: [
