@@ -24,8 +24,8 @@ export class String extends SType {
 			)
 	}
 
-	private static readonly completor: Completor<String>[] = []
-	static add(...pattern: Completor<String>[]) {
+	private static readonly completor: Completor<SType>[] = []
+	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
 	}
 

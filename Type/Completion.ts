@@ -1,15 +1,15 @@
 import { Cursor } from "./Cursor"
 
 export interface Completion {
-	value: string
-	cursor?: Cursor | number
+	readonly value: string
+	readonly cursor?: Cursor | number
 }
 export namespace Completion {
 	export function stringify(completions: Completion[]): string[] {
 		return completions.map(c =>
 			typeof c.cursor == "number"
-				? c.value.slice(0, c.cursor) + "|" + c.value.slice(c.cursor, c.value.length)
-				: c.value + "|"
+				? c.value.slice(0, c.cursor) + "_" + c.value.slice(c.cursor, c.value.length)
+				: c.value + "_"
 		)
 	}
 	export function prepend(prefix: string, completion: Completion, suffix?: string): Completion

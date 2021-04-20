@@ -14,17 +14,24 @@ export class Number extends SType {
 	}
 
 	complete(tokens: Token[], baseObject?: SType, type?: SType): Completion[] {
-		return (type ? Number.completorArgument : Number.completor)
-			.map(p => p(tokens, this, baseObject))
-			.reduce<Completion[]>((result, element) => result.concat(element), [])
-			.reduce<Completion[]>(
-				(result, element) =>
-					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
-				[]
-			)
+		return [
+			...(tokens.length > 0 && tokens[0].value == ":" && baseObject
+				? Completion.prepend(":", baseObject.complete(tokens.slice(1), undefined, this))
+				: baseObject && tokens.length >= 0 && type
+				? Completion.prepend(" ", baseObject?.complete(tokens, undefined, undefined))
+				: []),
+			...(type ? Number.completorArgument : Number.completor)
+				.map(p => p(tokens, this, baseObject))
+				.reduce<Completion[]>((result, element) => result.concat(element), [])
+				.reduce<Completion[]>(
+					(result, element) =>
+						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
+					[]
+				),
+		]
 	}
-	private static readonly completor: Completor<Number>[] = []
-	static add(...pattern: Completor<Number>[]) {
+	private static readonly completor: Completor<SType>[] = []
+	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
 	}
 

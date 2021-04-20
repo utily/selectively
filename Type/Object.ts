@@ -10,97 +10,79 @@ export class TObject extends SType {
 		super()
 		this.completions = Object.keys(this.properties).map(p => ({ value: p }))
 	}
-
-	complete(tokens: Token[], baseObject: TObject = this, type?: SType): Completion[] {
-		let result: Completion[]
-		switch (tokens.length) {
-			case 0:
-				result = type
-					? this.filterByType(type).map(c =>
-							this.properties[c.value].class == "object" ? { value: c.value + "." } : { value: c.value }
+	complete(tokens: Token[], baseObject?: TObject, type?: SType): Completion[] {
+		let result: Completion[] | undefined
+		const filtered = this.filterByType(type)
+		if (!baseObject) {
+			const matched = tokens.length > 0 ? this.match(tokens[0], filtered) : undefined
+			if (matched) {
+				result =
+					tokens.length == 1
+						? [
+								{ value: matched.value + "." },
+								...Completion.prepend(matched.value, this.complete(tokens.slice(1), this, type)),
+						  ]
+						: tokens.length > 1
+						? Completion.prepend(matched.value, this.properties[matched.value].complete(tokens.slice(1), this, type))
+						: []
+			} else {
+				let found: Completion | undefined
+				result =
+					tokens.length == 0
+						? [...this.addDot(filtered, type), ...(type?.class == "number" ? [] : TObject.wildcard)]
+						: tokens.length == 1 && (found = TObject.wildcard.find(w => w.value == tokens[0].value))
+						? Completion.prepend(found.value, this.completions, type ? "." : "")
+						: this.addDot(this.partial(tokens[0], filtered), type)
+			}
+		} else {
+			result =
+				tokens.length == 0 || tokens[0].value != "."
+					? []
+					: tokens.length == 1
+					? Completion.prepend(".", this.addDot(filtered, type))
+					: this.properties[tokens[1].value]
+					? Completion.prepend(
+							"." + tokens[1].value,
+							this.properties[tokens[1].value].complete(tokens.slice(2), baseObject, type)
 					  )
-					: this.completions
-				break
-			case 1:
-				if (type)
-					result =
-						this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
-							? [{ value: tokens[0].value + "." }]
-							: this.match(tokens[0])
-							? Completion.prepend(
-									tokens[0].value,
-									this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
-							  )
-							: this.filterByType(type)
-									.filter(c => c.value.startsWith(tokens[0].value))
-									.map(c => ({ value: c.value + "." }))
-				else
-					result =
-						this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
-							? Completion.prepend(tokens[0].value, [
-									{ value: "." },
-									...this.completor(tokens.slice(1), baseObject, type),
-							  ])
-							: this.match(tokens[0])
-							? Completion.prepend(
-									tokens[0].value,
-									this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
-							  )
-							: this.completor(tokens, baseObject, type).length > 0
-							? this.completor(tokens, baseObject, type)
-							: this.partial(tokens[0])
-				break
-			default:
-				if (this.match(tokens[0]))
-					if (tokens[1].value == ".")
-						result = Completion.prepend(
-							tokens[0].value + ".",
-							this.properties[tokens[0].value].complete(tokens.slice(2), baseObject, type)
-						)
-					else
-						result = Completion.prepend(
-							tokens[0].value,
-							this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
-						)
-				else
-					result = this.completor(tokens, baseObject, type)
-				break
+					: Completion.prepend(".", this.addDot(this.partial(tokens[1], filtered), type))
 		}
-		return result
+		return [
+			...(result ?? []),
+			...TObject.completor
+				.map(p => p(tokens, type, baseObject))
+				.reduce<Completion[]>((result, element) => result.concat(element), []),
+		]
 	}
-
-	filterByType(type: SType): Completion[] {
-		const result = this.completions.filter(
-			c =>
-				this.properties[c.value].class == type.class ||
-				(this.properties[c.value].class == "object"
-					? (this.properties[c.value] as TObject).filterByType(type).length > 0
-					: false)
-		)
-		return result
-	}
-
-	partial(token: Token): Completion[] {
-		return this.completions.filter(c => c.value.startsWith(token.value))
-	}
-	match(token: Token): boolean {
-		return !!this.properties[token.value]
-	}
-
-	completor(tokens: Token[], baseObject?: TObject, type?: SType): Completion[] {
+	filterByType(type?: SType): Completion[] {
 		return type
-			? []
-			: TObject.completor
-					.map(p => p(tokens, this, baseObject))
-					.reduce<Completion[]>((result, element) => result.concat(element), [])
-					.reduce<Completion[]>(
-						(result, element) =>
-							result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
-						[]
-					)
+			? this.completions.filter(
+					c =>
+						this.properties[c.value].class == type.class ||
+						(this.properties[c.value].class == "object"
+							? (this.properties[c.value] as TObject).filterByType(type).length > 0
+							: false)
+			  )
+			: this.completions
 	}
-	private static readonly completor: Completor<TObject>[] = []
-	static add(...completor: Completor<TObject>[]) {
+	addDot(completions?: Completion[], type?: SType): Completion[] {
+		return !completions
+			? []
+			: type
+			? completions.map(c => (this.properties[c.value].class == "object" ? { value: c.value + "." } : c))
+			: completions
+	}
+	partial(token: Token, completions: Completion[]): Completion[] | undefined {
+		const result = completions.filter(c => c.value.startsWith(token.value))
+		return result && result.length > 0 ? result : undefined
+	}
+	match(token: Token, completions: Completion[]): Completion | undefined {
+		const result = completions.filter(c => c.value == token.value)
+		return result && result.length > 0 ? result[0] : undefined
+	}
+	private static readonly completor: Completor<SType>[] = []
+	static add(...completor: Completor<SType>[]) {
 		this.completor.push(...completor)
 	}
+	private static readonly wildcard: Completion[] = [{ value: "!", cursor: 1 }]
 }

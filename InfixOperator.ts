@@ -80,7 +80,7 @@ function complete(tokens: Token[], type: Type.Number, baseObject: Type.Object): 
 		.map(c =>
 			Type.Completor.operators(
 				tokens,
-				(tokens?: Token[]) => (tokens ? baseObject.complete(tokens, baseObject, type) : []),
+				(tokens?: Token[]) => (tokens ? baseObject.complete(tokens, undefined, type) : []),
 				c
 			)
 		)

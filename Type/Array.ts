@@ -23,8 +23,8 @@ export class Array extends Base {
 			)
 	}
 
-	private static readonly completor: Completor<Array>[] = []
-	static add(...pattern: Completor<Array>[]) {
+	private static readonly completor: Completor<Base>[] = []
+	static add(...pattern: Completor<Base>[]) {
 		this.completor.push(...pattern)
 	}
 

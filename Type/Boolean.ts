@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { Token } from "../lexer"
 import { Base as SType } from "./Base"
 import { Completion } from "./Completion"
@@ -21,8 +20,8 @@ export class Boolean extends SType {
 			)
 	}
 
-	private static readonly completor: Completor<Boolean>[] = []
-	static add(...pattern: Completor<Boolean>[]) {
+	private static readonly completor: Completor<SType>[] = []
+	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
 	}
 }
