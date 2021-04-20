@@ -15,7 +15,7 @@ export class TObject extends SType {
 		const filtered = this.filterByType(type)
 		if (!baseObject) {
 			const matched = tokens.length > 0 ? this.match(tokens[0], filtered) : undefined
-			if (matched) {
+			if (matched)
 				result =
 					tokens.length == 1
 						? [
@@ -25,7 +25,7 @@ export class TObject extends SType {
 						: tokens.length > 1
 						? Completion.prepend(matched.value, this.properties[matched.value].complete(tokens.slice(1), this, type))
 						: []
-			} else {
+			else {
 				let found: Completion | undefined
 				result =
 					tokens.length == 0
@@ -34,7 +34,7 @@ export class TObject extends SType {
 						? Completion.prepend(found.value, this.completions, type ? "." : "")
 						: this.addDot(this.partial(tokens[0], filtered), type)
 			}
-		} else {
+		} else
 			result =
 				tokens.length == 0 || tokens[0].value != "."
 					? []
@@ -46,12 +46,11 @@ export class TObject extends SType {
 							this.properties[tokens[1].value].complete(tokens.slice(2), baseObject, type)
 					  )
 					: Completion.prepend(".", this.addDot(this.partial(tokens[1], filtered), type))
-		}
 		return [
 			...(result ?? []),
 			...TObject.completor
 				.map(p => p(tokens, type, baseObject))
-				.reduce<Completion[]>((result, element) => result.concat(element), []),
+				.reduce<Completion[]>((r, element) => r.concat(element), []),
 		]
 	}
 	filterByType(type?: SType): Completion[] {
