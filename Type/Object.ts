@@ -23,11 +23,17 @@ export class TObject extends SType {
 				break
 			case 1:
 				if (type)
-					result = this.match(tokens[0])
-						? [{ value: tokens[0].value + "." }]
-						: this.filterByType(type)
-								.filter(c => c.value.startsWith(tokens[0].value))
-								.map(c => ({ value: c.value + "." }))
+					result =
+						this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"
+							? [{ value: tokens[0].value + "." }]
+							: this.match(tokens[0])
+							? Completion.prepend(
+									tokens[0].value,
+									this.properties[tokens[0].value].complete(tokens.slice(1), baseObject, type)
+							  )
+							: this.filterByType(type)
+									.filter(c => c.value.startsWith(tokens[0].value))
+									.map(c => ({ value: c.value + "." }))
 				else
 					result =
 						this.match(tokens[0]) && this.properties[tokens[0].value].class == "object"

@@ -57,11 +57,11 @@ export namespace Completor {
 		tokens: Token[],
 		argument: (tokens?: Token[]) => Completion[],
 		completion: Completion
-	): Completion[] | Completion {
+	): Completion[] {
 		return tokens.length >= 1 && tokens[0].value == completion.value
 			? Completion.prepend(completion.value, argument(tokens.slice(1)))
 			: tokens.length == 0 || (tokens.length == 1 && completion.value.startsWith(tokens[0].value))
-			? completion
+			? [completion]
 			: []
 	}
 }

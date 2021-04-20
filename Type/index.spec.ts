@@ -98,13 +98,32 @@ describe("selectively.Type", () => {
 		])
 	})
 	it("right hand side test with number on left hand", () => {
+		expect(Completion.stringify(output.complete(t("merchant.captured")))).toEqual([
+			"merchant.captured>|",
+			"merchant.captured>=|",
+			"merchant.captured<|",
+			"merchant.captured<=|",
+			"merchant.captured:|",
+		])
 		expect(Completion.stringify(output.complete(t("merchant.captured>")))).toEqual([
 			"merchant.captured>merchant.|",
 			"merchant.captured>authorization.|",
 			"merchant.captured>=|",
 		])
+		expect(Completion.stringify(output.complete(t("merchant.captured>auth")))).toEqual([
+			"merchant.captured>authorization.|",
+		])
 		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.")))).toEqual([
 			"merchant.captured>authorization.amount|",
+		])
+		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.amount")))).toEqual([
+			"merchant.captured>authorization.amount + |",
+			"merchant.captured>authorization.amount - |",
+			"merchant.captured>authorization.amount * |",
+		])
+		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.amount + ")))).toEqual([
+			"merchant.captured>authorization.amount + merchant.|",
+			"merchant.captured>authorization.amount + authorization.|",
 		])
 	})
 })
