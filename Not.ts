@@ -30,19 +30,17 @@ function complete(
 	type?: Type.String | Type.Number | Type.Boolean | Type.Object,
 	baseObject?: Type.Object
 ): Type.Completion[] {
-	const result =
-		type && baseObject
-			? Completor.expressions(
-					tokens,
-					(tokens: Token[]) => {
-						return tokens[0].value != "!"
-							? []
-							: Type.Completion.prepend("!", type.complete([{ value: "." }, ...(tokens.length > 1 ? tokens : [])]))
-					},
-					{ value: "!", cursor: 1 }
-			  )
-			: []
-	return result
+	return type && baseObject
+		? Completor.expressions(
+				tokens,
+				(tokens: Token[]) => {
+					return tokens[0].value != "!"
+						? []
+						: Type.Completion.prepend("!", type.complete([{ value: "." }, ...(tokens.length > 1 ? tokens : [])]))
+				},
+				{ value: "!", cursor: 1 }
+		  )
+		: []
 }
 
 Type.String.add(complete)
