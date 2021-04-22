@@ -27,17 +27,20 @@ export function not(criteria: Criteria, value?: any): Not | boolean {
 
 function complete(
 	tokens: Token[],
-	type: Type.String | Type.Number | Type.Boolean | Type.Object
-): Type.Completion[] | Type.Completion {
-	return Completor.expressions(
-		tokens,
-		(tokens: Token[]) => {
-			return tokens[0].value != "!"
-				? []
-				: Type.Completion.prepend("!", type.complete([{ value: "." }, ...(tokens.length > 1 ? tokens : [])]))
-		},
-		{ value: "!", cursor: 1 }
-	)
+	type?: Type.String | Type.Number | Type.Boolean | Type.Object,
+	baseObject?: Type.Object
+): Type.Completion[] {
+	return type && baseObject
+		? Completor.expressions(
+				tokens,
+				(tokens: Token[]) => {
+					return tokens[0].value != "!"
+						? []
+						: Type.Completion.prepend("!", type.complete([{ value: "." }, ...(tokens.length > 1 ? tokens : [])]))
+				},
+				{ value: "!", cursor: 1 }
+		  )
+		: []
 }
 
 Type.String.add(complete)

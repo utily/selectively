@@ -36,94 +36,139 @@ const testing = {
 		verification: "rejected",
 	},
 }
-const output = selectively.Type.convert(testing)
+
 describe("selectively.Type", () => {
 	it("Tokenizer", () => {
 		expect(t("")).toEqual([])
 	})
+
 	it("complete", () => {
-		expect(Completion.stringify(output.complete(t("")))).toEqual(["merchant|", "authorization|"])
-		expect(Completion.stringify(output.complete(t("merc")))).toEqual(["merchant|"])
-		expect(Completion.stringify(output.complete(t("merchant")))).toEqual(["merchant.|", "merchant:|"])
-		expect(Completion.stringify(output.complete(t("merchant.")))).toEqual([
-			"merchant.name|",
-			"merchant.descriptor|",
-			"merchant.country|",
-			"merchant.currency|",
-			"merchant.captured|",
-			"merchant.fees|",
-			"merchant.refundable|",
-			"merchant.settled|",
-			"merchant.scheme|",
+		const testObject = selectively.Type.convert(testing)
+		expect(Completion.stringify(testObject.complete(t("")))).toEqual(["merchant_", "authorization_", "!_"])
+		expect(Completion.stringify(testObject.complete(t("merc")))).toEqual(["merchant_"])
+		expect(Completion.stringify(testObject.complete(t("merchant")))).toEqual(["merchant._", "merchant:_"])
+		expect(Completion.stringify(testObject.complete(t("merchant:")))).toEqual(["merchant:has(_)"])
+		expect(Completion.stringify(testObject.complete(t("merchant.")))).toEqual([
+			"merchant.name_",
+			"merchant.descriptor_",
+			"merchant.country_",
+			"merchant.currency_",
+			"merchant.captured_",
+			"merchant.fees_",
+			"merchant.refundable_",
+			"merchant.settled_",
+			"merchant.scheme_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name")))).toEqual([
-			"merchant.name:|",
-			"merchant.name>|",
-			"merchant.name>=|",
-			"merchant.name<|",
-			"merchant.name<=|",
+		expect(Completion.stringify(testObject.complete(t("merchant.name")))).toEqual([
+			"merchant.name:_",
+			"merchant.name>_",
+			"merchant.name>=_",
+			"merchant.name<_",
+			"merchant.name<=_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name:")))).toEqual([
-			"merchant.name:*|",
-			"merchant.name:*|*",
-			"merchant.name:/|/",
-			"merchant.name:!|",
-			"merchant.name:|*",
+		expect(Completion.stringify(testObject.complete(t("merchant.name:")))).toEqual([
+			"merchant.name:*_",
+			"merchant.name:*_*",
+			"merchant.name:/_/",
+			"merchant.name:!_",
+			"merchant.name:_*",
 		])
 	})
 
 	it("right hand side test with string on left hand", () => {
-		expect(Completion.stringify(output.complete(t("merchant.name>")))).toEqual([
-			"merchant.name>merchant.|",
-			"merchant.name>authorization.|",
-			"merchant.name>=|",
+		const testObject = selectively.Type.convert(testing)
+		expect(Completion.stringify(testObject.complete(t("!")))).toEqual(["!merchant_", "!authorization_"])
+		expect(Completion.stringify(testObject.complete(t("merchant.name>")))).toEqual([
+			"merchant.name>merchant._",
+			"merchant.name>authorization._",
+			"merchant.name>!_",
+			"merchant.name>=_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name>authorization.")))).toEqual([
-			"merchant.name>authorization.currency|",
-			"merchant.name>authorization.card.|",
-			"merchant.name>authorization.capture|",
-			"merchant.name>authorization.descriptor|",
-			"merchant.name>authorization.recurring|",
-			"merchant.name>authorization.verification|",
+		expect(testObject).toEqual(testObject)
+		expect(Completion.stringify(testObject.complete(t("merchant.name>authorization.")))).toEqual([
+			"merchant.name>authorization.currency_",
+			"merchant.name>authorization.card._",
+			"merchant.name>authorization.capture_",
+			"merchant.name>authorization.descriptor_",
+			"merchant.name>authorization.recurring_",
+			"merchant.name>authorization.verification_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name>authorization.car")))).toEqual([
-			"merchant.name>authorization.card.|",
+		expect(Completion.stringify(testObject.complete(t("merchant.name>authorization.car")))).toEqual([
+			"merchant.name>authorization.card._",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.name>authorization.card.")))).toEqual([
-			"merchant.name>authorization.card.iin|",
-			"merchant.name>authorization.card.last4|",
-			"merchant.name>authorization.card.scheme|",
-			"merchant.name>authorization.card.csc|",
-			"merchant.name>authorization.card.type|",
+		expect(Completion.stringify(testObject.complete(t("merchant.name>authorization.card.")))).toEqual([
+			"merchant.name>authorization.card.iin_",
+			"merchant.name>authorization.card.last4_",
+			"merchant.name>authorization.card.scheme_",
+			"merchant.name>authorization.card.csc_",
+			"merchant.name>authorization.card.type_",
 		])
 	})
 	it("right hand side test with number on left hand", () => {
-		expect(Completion.stringify(output.complete(t("merchant.captured")))).toEqual([
-			"merchant.captured>|",
-			"merchant.captured>=|",
-			"merchant.captured<|",
-			"merchant.captured<=|",
-			"merchant.captured:|",
+		const testObject = selectively.Type.convert(testing)
+		expect(Completion.stringify(testObject.complete(t("merchant.captured:")))).toEqual([
+			"merchant.captured:merchant._",
+			"merchant.captured:authorization._",
+			"merchant.captured:!_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.captured>")))).toEqual([
-			"merchant.captured>merchant.|",
-			"merchant.captured>authorization.|",
-			"merchant.captured>=|",
+		expect(Completion.stringify(testObject.complete(t("merchant.captured")))).toEqual([
+			"merchant.captured>_",
+			"merchant.captured>=_",
+			"merchant.captured<_",
+			"merchant.captured<=_",
+			"merchant.captured:_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.captured>auth")))).toEqual([
-			"merchant.captured>authorization.|",
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>")))).toEqual([
+			"merchant.captured>merchant._",
+			"merchant.captured>authorization._",
+			"merchant.captured>=_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.")))).toEqual([
-			"merchant.captured>authorization.amount|",
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>auth")))).toEqual([
+			"merchant.captured>authorization._",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.amount")))).toEqual([
-			"merchant.captured>authorization.amount + |",
-			"merchant.captured>authorization.amount - |",
-			"merchant.captured>authorization.amount * |",
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.")))).toEqual([
+			"merchant.captured>authorization.amount_",
 		])
-		expect(Completion.stringify(output.complete(t("merchant.captured>authorization.amount + ")))).toEqual([
-			"merchant.captured>authorization.amount + merchant.|",
-			"merchant.captured>authorization.amount + authorization.|",
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount")))).toEqual([
+			"merchant.captured>authorization.amount merchant_",
+			"merchant.captured>authorization.amount authorization_",
+			"merchant.captured>authorization.amount !_",
+			"merchant.captured>authorization.amount | _",
+			"merchant.captured>authorization.amount + _",
+			"merchant.captured>authorization.amount - _",
+			"merchant.captured>authorization.amount * _",
+		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount + ")))).toEqual([
+			"merchant.captured>authorization.amount + merchant._",
+			"merchant.captured>authorization.amount + authorization._",
+		])
+	})
+	it("And and Or completion test", () => {
+		const testObject = selectively.Type.convert(testing)
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount")))).toEqual([
+			"merchant.captured>authorization.amount merchant_",
+			"merchant.captured>authorization.amount authorization_",
+			"merchant.captured>authorization.amount !_",
+			"merchant.captured>authorization.amount | _",
+			"merchant.captured>authorization.amount + _",
+			"merchant.captured>authorization.amount - _",
+			"merchant.captured>authorization.amount * _",
+		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount|")))).toEqual([
+			"merchant.captured>authorization.amount | merchant_",
+			"merchant.captured>authorization.amount | authorization_",
+			"merchant.captured>authorization.amount | !_",
+		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount | merchant.")))).toEqual([
+			"merchant.captured>authorization.amount | merchant.name_",
+			"merchant.captured>authorization.amount | merchant.descriptor_",
+			"merchant.captured>authorization.amount | merchant.country_",
+			"merchant.captured>authorization.amount | merchant.currency_",
+			"merchant.captured>authorization.amount | merchant.captured_",
+			"merchant.captured>authorization.amount | merchant.fees_",
+			"merchant.captured>authorization.amount | merchant.refundable_",
+			"merchant.captured>authorization.amount | merchant.settled_",
+			"merchant.captured>authorization.amount | merchant.scheme_",
 		])
 	})
 })

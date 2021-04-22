@@ -2,12 +2,11 @@ import { Token } from "../lexer"
 import { Base } from "./Base"
 import { Completion } from "./Completion"
 import { Completor } from "./Completor"
-import { Types } from "./index"
 
 export class Array extends Base {
 	readonly class = "array"
-	readonly array: Types[]
-	constructor(readonly arrayType: Types | Types[]) {
+	readonly array: Base[]
+	constructor(readonly arrayType: Base | Base[]) {
 		super()
 		global.Array.isArray(arrayType) ? (this.array = arrayType) : (this.array = [arrayType])
 	}
@@ -23,8 +22,8 @@ export class Array extends Base {
 			)
 	}
 
-	private static readonly completor: Completor<Array>[] = []
-	static add(...pattern: Completor<Array>[]) {
+	private static readonly completor: Completor<Base>[] = []
+	static add(...pattern: Completor<Base>[]) {
 		this.completor.push(...pattern)
 	}
 

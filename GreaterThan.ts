@@ -31,7 +31,7 @@ function complete(
 ): Type.Completion[] | Type.Completion {
 	return Type.Completor.operators(
 		tokens,
-		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, baseObject, type) : []),
+		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, type) : []),
 		{
 			value: ">",
 		}
