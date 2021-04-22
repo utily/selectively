@@ -30,6 +30,9 @@ export class Number extends SType {
 				),
 		]
 	}
+	isType(value: any): boolean {
+		return isNaN(+value) ? false : true
+	}
 	private static readonly completor: Completor<SType>[] = []
 	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
@@ -40,6 +43,6 @@ export class Number extends SType {
 		this.completorArgument.push(...pattern)
 	}
 	static is(value: any | Number): value is Number {
-		return value instanceof Number
+		return value instanceof Number || !global.Number.isNaN(value)
 	}
 }
