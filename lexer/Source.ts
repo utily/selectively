@@ -26,10 +26,11 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 	until(endMark: string | string[]): Source {
 		return new Source(IO.UntilReader.create(this, endMark), this.errorHandler)
 	}
-	peekIsSymbol(): number | false {
+	peekIsSymbol(symbols?: string[]): number | false {
 		return (
-			this.peekIs(["!", "(", ")", "[", "]", "|", "*", ":", ".", "<=", ">=", "<", ">", " * ", " + ", " - ", " / "])
-				?.length ?? false
+			this.peekIs(
+				symbols ?? ["!", "(", ")", "[", "]", "|", "*", ":", ".", "<=", ">=", "<", ">", " * ", " + ", " - ", " / "]
+			)?.length ?? false
 		)
 	}
 	peekIsWhitespace(): boolean {
