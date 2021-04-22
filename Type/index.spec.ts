@@ -160,6 +160,24 @@ describe("selectively.Type", () => {
 			"merchant.captured>9 - _",
 			"merchant.captured>9 * _",
 		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>9.5")))).toEqual([
+			"merchant.captured>9.5 merchant_",
+			"merchant.captured>9.5 authorization_",
+			"merchant.captured>9.5 !_",
+			"merchant.captured>9.5 | _",
+			"merchant.captured>9.5 + _",
+			"merchant.captured>9.5 - _",
+			"merchant.captured>9.5 * _",
+		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>9.5 * 0.9")))).toEqual([
+			"merchant.captured>9.5 * 0.9 merchant_",
+			"merchant.captured>9.5 * 0.9 authorization_",
+			"merchant.captured>9.5 * 0.9 !_",
+			"merchant.captured>9.5 * 0.9 | _",
+			"merchant.captured>9.5 * 0.9 + _",
+			"merchant.captured>9.5 * 0.9 - _",
+			"merchant.captured>9.5 * 0.9 * _",
+		])
 		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount + ")))).toEqual([
 			"merchant.captured>authorization.amount + merchant._",
 			"merchant.captured>authorization.amount + authorization._",
