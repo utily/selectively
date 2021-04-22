@@ -4,7 +4,27 @@ import { tokenize } from "../lexer"
 import { Completion } from "./Completion"
 
 function t(data: string): Token[] {
-	return tokenize(data)
+	return tokenize(data, undefined, [
+		"!",
+		"(",
+		")",
+		"[",
+		"]",
+		"|",
+		" | ",
+		"*",
+		":",
+		".",
+		"<=",
+		">=",
+		"<",
+		">",
+		" * ",
+		" + ",
+		" - ",
+		"-",
+		" / ",
+	])
 		.map(t => ({ value: t.value }))
 		.toArray()
 }
@@ -41,7 +61,6 @@ describe("selectively.Type", () => {
 	it("Tokenizer", () => {
 		expect(t("")).toEqual([])
 	})
-
 	it("complete", () => {
 		const testObject = selectively.Type.convert(testing)
 		expect(Completion.stringify(testObject.complete(t("")))).toEqual(["merchant_", "authorization_", "!_"])
@@ -142,6 +161,9 @@ describe("selectively.Type", () => {
 			"merchant.captured>authorization.amount + merchant._",
 			"merchant.captured>authorization.amount + authorization._",
 		])
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount-")))).toEqual([
+			"merchant.captured>authorization.amount - _",
+		])
 	})
 	it("And and Or completion test", () => {
 		const testObject = selectively.Type.convert(testing)
@@ -155,9 +177,7 @@ describe("selectively.Type", () => {
 			"merchant.captured>authorization.amount * _",
 		])
 		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount|")))).toEqual([
-			"merchant.captured>authorization.amount | merchant_",
-			"merchant.captured>authorization.amount | authorization_",
-			"merchant.captured>authorization.amount | !_",
+			"merchant.captured>authorization.amount | _",
 		])
 		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount | merchant.")))).toEqual([
 			"merchant.captured>authorization.amount | merchant.name_",
