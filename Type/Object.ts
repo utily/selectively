@@ -25,6 +25,11 @@ export class TObject extends SType {
 						: tokens.length > 1
 						? Completion.prepend(matched.value, this.properties[matched.value].complete(tokens.slice(1), this, type))
 						: []
+			else if (type && tokens.length > 2 && type.isType(tokens[0].value + tokens[1].value + tokens[2].value))
+				result = Completion.prepend(
+					tokens[0].value + tokens[1].value + tokens[2].value,
+					type.complete(tokens.slice(3), this, type)
+				)
 			else if (type && tokens.length > 0 && type.isType(tokens[0].value))
 				result = Completion.prepend(tokens[0].value, type.complete(tokens.slice(1), this, type))
 			else {
