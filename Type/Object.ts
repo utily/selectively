@@ -25,6 +25,8 @@ export class TObject extends SType {
 						: tokens.length > 1
 						? Completion.prepend(matched.value, this.properties[matched.value].complete(tokens.slice(1), this, type))
 						: []
+			else if (type && tokens.length > 0 && type.isType(tokens[0].value))
+				result = Completion.prepend(tokens[0].value, type.complete(tokens.slice(1), this, type))
 			else {
 				let found: Completion | undefined
 				result =
@@ -47,7 +49,7 @@ export class TObject extends SType {
 					  )
 					: Completion.prepend(".", this.addDot(this.partial(tokens[1], filtered), type))
 		return [
-			...(result ?? []),
+			...result,
 			...TObject.completor
 				.map(p => p(tokens, type, baseObject))
 				.reduce<Completion[]>((r, element) => r.concat(element), []),
@@ -79,9 +81,12 @@ export class TObject extends SType {
 		const result = completions.filter(c => c.value == token.value)
 		return result && result.length > 0 ? result[0] : undefined
 	}
+	isType(value: any): boolean {
+		return false
+	}
+	private static readonly wildcard: Completion[] = [{ value: "!", cursor: 1 }]
 	private static readonly completor: Completor<SType>[] = []
 	static add(...completor: Completor<SType>[]) {
 		this.completor.push(...completor)
 	}
-	private static readonly wildcard: Completion[] = [{ value: "!", cursor: 1 }]
 }

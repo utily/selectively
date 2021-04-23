@@ -148,14 +148,17 @@ describe("selectively.Type", () => {
 		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.")))).toEqual([
 			"merchant.captured>authorization.amount_",
 		])
-		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount")))).toEqual([
-			"merchant.captured>authorization.amount merchant_",
-			"merchant.captured>authorization.amount authorization_",
-			"merchant.captured>authorization.amount !_",
-			"merchant.captured>authorization.amount | _",
-			"merchant.captured>authorization.amount + _",
-			"merchant.captured>authorization.amount - _",
-			"merchant.captured>authorization.amount * _",
+	})
+	it("algebra and literals", () => {
+		const testObject = selectively.Type.convert(testing)
+		expect(Completion.stringify(testObject.complete(t("merchant.captured>9")))).toEqual([
+			"merchant.captured>9 merchant_",
+			"merchant.captured>9 authorization_",
+			"merchant.captured>9 !_",
+			"merchant.captured>9 | _",
+			"merchant.captured>9 + _",
+			"merchant.captured>9 - _",
+			"merchant.captured>9 * _",
 		])
 		expect(Completion.stringify(testObject.complete(t("merchant.captured>authorization.amount + ")))).toEqual([
 			"merchant.captured>authorization.amount + merchant._",

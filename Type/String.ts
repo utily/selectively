@@ -23,12 +23,13 @@ export class String extends SType {
 				[]
 			)
 	}
-
+	isType(value: any): boolean {
+		return false
+	}
 	private static readonly completor: Completor<SType>[] = []
 	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
 	}
-
 	static is(value: any | String): value is String {
 		return value instanceof String
 	}

@@ -19,7 +19,9 @@ export class Boolean extends SType {
 				[]
 			)
 	}
-
+	isType(value: any): boolean {
+		return typeof value == "boolean"
+	}
 	private static readonly completor: Completor<SType>[] = []
 	static add(...pattern: Completor<SType>[]) {
 		this.completor.push(...pattern)
