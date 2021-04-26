@@ -11,7 +11,8 @@ export class Array extends Base {
 		global.Array.isArray(arrayType) ? (this.array = arrayType) : (this.array = [arrayType])
 	}
 
-	complete(tokens: Token[]): Completion[] {
+	complete(input: Token[] | string): Completion[] {
+		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return Array.completor
 			.map(p => p(tokens, this))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])

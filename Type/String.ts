@@ -13,7 +13,8 @@ export class String extends SType {
 			this.value = input
 	}
 
-	complete(tokens: Token[], baseObject?: SType): Completion[] {
+	complete(input: Token[] | string, baseObject?: SType): Completion[] {
+		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return String.completor
 			.map(p => p(tokens, this, baseObject))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])

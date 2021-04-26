@@ -13,7 +13,8 @@ export class Number extends SType {
 			this.value = input
 	}
 
-	complete(tokens: Token[], baseObject?: SType, type?: SType): Completion[] {
+	complete(input: Token[] | string, baseObject?: SType, type?: SType): Completion[] {
+		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return [
 			...(tokens.length > 0 && tokens[0].value == ":" && baseObject
 				? Completion.prepend(":", baseObject.complete(tokens.slice(1), undefined, this))
