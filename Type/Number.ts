@@ -6,7 +6,7 @@ import { Completor } from "./Completor"
 
 export class Number extends SType {
 	readonly class = "number"
-	readonly value: number
+	readonly value?: number
 	constructor(readonly input?: number) {
 		super()
 		if (input)

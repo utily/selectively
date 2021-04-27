@@ -58,6 +58,7 @@ describe("selectively.Type", () => {
 		expect(Completion.stringify(testObject.complete("merchant.name:"))).toEqual([
 			"merchant.name:*_",
 			"merchant.name:*_*",
+			"merchant.name:Example AB_",
 			"merchant.name:/_/",
 			"merchant.name:!_",
 			"merchant.name:_*",

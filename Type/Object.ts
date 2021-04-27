@@ -56,7 +56,11 @@ export class TObject extends SType {
 					  )
 					: Completion.prepend(".", this.addDot(this.partial(tokens[1], filtered), type))
 		return [
-			...result,
+			...result.reduce<Completion[]>(
+				(result, element) =>
+					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
+				[]
+			),
 			...TObject.completor
 				.map(p => p(tokens, type, baseObject))
 				.reduce<Completion[]>((r, element) => r.concat(element), []),

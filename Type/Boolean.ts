@@ -5,7 +5,7 @@ import { Completor } from "./Completor"
 
 export class Boolean extends SType {
 	readonly class = "boolean"
-	readonly value: boolean
+	readonly value?: boolean
 	constructor() {
 		super()
 	}
