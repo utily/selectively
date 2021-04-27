@@ -6,6 +6,7 @@ import { Completor as TCompletor } from "./Completor"
 import { Number as TNumber } from "./Number"
 import { TObject } from "./Object"
 import { String as TString } from "./String"
+import { Union as TUnion } from "./Union"
 
 export type Type = Base
 export namespace Type {
@@ -42,5 +43,7 @@ export namespace Type {
 	export const String = TString
 	export type Number = TNumber
 	export const Number = TNumber
+	export type Union = TUnion
+	export const Union = TUnion
 	export const Completor = TCompletor
 }

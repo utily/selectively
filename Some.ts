@@ -2,7 +2,6 @@ import { Criteria } from "./Criteria"
 import { Token } from "./lexer"
 import { create, Rule } from "./Rule"
 import { Type } from "./Type"
-import { Completor } from "./Type/Completor"
 
 export class Some extends Rule {
 	readonly precedence = 100
@@ -24,35 +23,28 @@ export function some(criteria: Criteria, value?: any): Some | boolean {
 	return value ? result.is(value) : result
 }
 
-function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.Completion {
-	const arrayArgumentor = (tokens?: Token[]): Type.Completion[] =>
-		type.array.some(Type.String.is) && tokens
-			? type.array
+function complete(tokens: Token[], type: Type.Array, baseObject?: Type): Type.Completion[] | Type.Completion {
+	return tokens.length == 0
+		? [{ value: ":" }]
+		: tokens[0].value != ":"
+		? []
+		: tokens.length == 1 && tokens[0].value == ":"
+		? Type.Completion.prepend(
+				":",
+				type.array
 					.filter(Type.String.is)
-					.map(p => p.complete([{ value: ":" }, ...tokens]))
-					.reduce<Type.Completion[]>(
-						(result, element) =>
-							Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-						[]
-					)
-			: !tokens && type.array.some(Type.String.is)
-			? type.array.filter(Type.String.is).map<Type.Completion>(e => ({ value: e.value }))
-			: type.array.some(Type.Number.is) && tokens
-			? type.array
-					.filter(Type.Number.is)
-					.map(e => e.complete(tokens))
-					.reduce<Type.Completion[]>(
-						(result, element) =>
-							Array.isArray(element) ? result.concat(element) : element ? [...result, element] : result,
-						[]
-					)
-			: !tokens && type.array.some(Type.Number.is)
-			? type.array.filter(Type.Number.is).map<Type.Completion>(e => ({ value: e.value?.toString() ?? "" }))
-			: []
-	return Completor.functions(tokens, arrayArgumentor, {
-		value: "some()",
-		cursor: 5,
-	})
+					.filter(e => e.value && e.value != "string")
+					.map(e => ({ value: e?.value ?? "" }))
+		  )
+		: tokens.length == 2 && tokens[0].value == ":"
+		? Type.Completion.prepend(
+				":",
+				type.array
+					.filter(Type.String.is)
+					.filter(e => e.value && e.value != "string" && e.value.startsWith(tokens[1].value))
+					.map(e => ({ value: e?.value ?? "" }))
+		  )
+		: []
 }
 
 Type.Array.add(complete)

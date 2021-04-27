@@ -1,7 +1,9 @@
 import { isCriteria } from "./Criteria"
 import { Expression } from "./Expression"
+import { Token } from "./lexer"
 import { add, Rule } from "./Rule"
 import { some } from "./Some"
+import { Type } from "./Type"
 
 export class Is extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -34,3 +36,18 @@ add(criteria =>
 		? new Is(criteria)
 		: undefined
 )
+function complete(tokens: Token[], type: Type.String, baseObject?: Type): Type.Completion[] | Type.Completion {
+	return !type.value
+		? []
+		: tokens.length == 0
+		? [{ value: ":" }]
+		: tokens[0].value != ":"
+		? []
+		: tokens.length == 1 && tokens[0].value == ":"
+		? Type.Completion.prepend(":", { value: type.value })
+		: tokens.length == 2 && tokens[0].value == ":" && type?.value?.startsWith(tokens[1].value)
+		? Type.Completion.prepend(":", { value: type.value })
+		: []
+}
+
+Type.String.add(complete)
