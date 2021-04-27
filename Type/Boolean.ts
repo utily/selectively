@@ -9,7 +9,9 @@ export class Boolean extends SType {
 	constructor() {
 		super()
 	}
-	complete(tokens: Token[]): Completion[] {
+
+	complete(input: Token[] | string): Completion[] {
+		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return Boolean.completor
 			.map(p => p(tokens, this))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])

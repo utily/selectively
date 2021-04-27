@@ -10,7 +10,9 @@ export class TObject extends SType {
 		super()
 		this.completions = Object.keys(this.properties).map(p => ({ value: p }))
 	}
-	complete(tokens: Token[], baseObject?: TObject, type?: SType): Completion[] {
+
+	complete(input: Token[] | string, baseObject?: TObject, type?: SType): Completion[] {
+		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		let result: Completion[] | undefined
 		const filtered = this.filterByType(type)
 		if (!baseObject) {
