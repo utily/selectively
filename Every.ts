@@ -36,7 +36,7 @@ function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.C
 						[]
 					)
 			: !tokens && type.array.some(Type.String.is)
-			? type.array.filter(Type.String.is).map<Type.Completion>(e => ({ value: e.value }))
+			? type.array.filter(Type.String.is).map<Type.Completion>(e => ({ value: e?.value ?? "" }))
 			: type.array.some(Type.Number.is) && tokens
 			? type.array
 					.filter(Type.Number.is)
@@ -47,7 +47,7 @@ function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.C
 						[]
 					)
 			: !tokens && type.array.some(Type.Number.is)
-			? type.array.filter(Type.Number.is).map<Type.Completion>(e => ({ value: e.value.toString() }))
+			? type.array.filter(Type.Number.is).map<Type.Completion>(e => ({ value: (e?.value ?? "").toString() }))
 			: []
 	return Completor.functions(tokens, arrayArgumentor, {
 		value: "every()",

@@ -6,15 +6,15 @@ import { Completor } from "./Completor"
 export class Array extends Base {
 	readonly class = "array"
 	readonly array: Base[]
-	constructor(readonly arrayType: Base | Base[]) {
+	constructor(input: Base[]) {
 		super()
-		global.Array.isArray(arrayType) ? (this.array = arrayType) : (this.array = [arrayType])
+		this.array = input
 	}
 
-	complete(input: Token[] | string): Completion[] {
+	complete(input: Token[] | string, baseObject?: Base, type?: Base): Completion[] {
 		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return Array.completor
-			.map(p => p(tokens, this))
+			.map(p => p(tokens, this, baseObject))
 			.reduce<Completion[]>((result, element) => result.concat(element), [])
 			.reduce<Completion[]>(
 				(result, element) =>
@@ -22,6 +22,7 @@ export class Array extends Base {
 				[]
 			)
 	}
+
 	isType(value: any): boolean {
 		return global.Array.isArray(value)
 	}

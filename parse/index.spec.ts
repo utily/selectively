@@ -45,6 +45,12 @@ describe("parse.group", () => {
 			verification: "rejected",
 		},
 	}
+	it("implicit some", () => {
+		const rule = "merchant.scheme:visa"
+		const failingValue = { merchant: ["mastercard", "amex"] }
+		expect(selectively.parse(rule).is(value)).toBeTruthy()
+		expect(selectively.parse(rule).is(failingValue)).toBeFalsy()
+	})
 	it("3d on Initial Recurring", () => {
 		const rule = "authorization.recurring:initial !authorization.verification:verified"
 		const failingValue = { authorization: { recurring: "initial", verification: "verified" } }

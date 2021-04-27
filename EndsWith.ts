@@ -27,8 +27,8 @@ function complete(tokens: Token[], string: Type.String): Type.Completion[] | Typ
 	return Completor.expressions(
 		tokens,
 		(tokens?: Token[]) => {
-			return !tokens || (tokens[0].value == "*" && string.value.endsWith(tokens[1]?.value ?? ""))
-				? [Type.Completion.prepend("*", { value: string.value })]
+			return !tokens || (tokens[0].value == "*" && string.value && string.value.endsWith(tokens[1]?.value ?? ""))
+				? [Type.Completion.prepend("*", { value: string?.value ?? "" })]
 				: []
 		},
 		{ value: "*" }
