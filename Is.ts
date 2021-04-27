@@ -1,5 +1,7 @@
+import { isCriteria } from "./Criteria"
 import { Expression } from "./Expression"
 import { add, Rule } from "./Rule"
+import { some } from "./Some"
 
 export class Is extends Rule {
 	readonly precedence = Number.MAX_SAFE_INTEGER
@@ -10,9 +12,9 @@ export class Is extends Rule {
 	}
 	is(value: any): boolean
 	is(value: any, object?: any): boolean {
-		return (
-			(isNaN(+value) ? value : +value) == (typeof this.value == "object" ? this.value.evaluate(object) : this.value)
-		)
+		return Array.isArray(value) && isCriteria(this.value)
+			? some(this.value, value)
+			: (isNaN(+value) ? value : +value) == (typeof this.value == "object" ? this.value.evaluate(object) : this.value)
 	}
 	toString(): string {
 		return this.value.toString()
