@@ -138,7 +138,6 @@ describe("selectively.template", () => {
 	})
 	it("suggestions", () => {
 		const completion = template.complete("authorization:has(mercha)")
-		console.log(completion)
 		expect(selectively.Type.getSuggestion(completion[0], "authorization.has(mercha".length)).toEqual("nt")
 	})
 })
