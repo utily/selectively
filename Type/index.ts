@@ -1,3 +1,4 @@
+import { Token, tokenize } from "../lexer"
 import { Array as TArray } from "./Array"
 import { Base } from "./Base"
 import { Boolean as TBoolean } from "./Boolean"
@@ -10,11 +11,44 @@ import { Union as TUnion } from "./Union"
 
 export type Type = Base
 export namespace Type {
-	export function getSuggestion(completion: Type.Completion, cursor: number): string {
-		return completion.value.substring(
-			cursor,
-			typeof completion.cursor == "number" ? completion.cursor : completion.value.length
-		)
+	export function getSuggestion(completion: Completion, cursor: number): string | void {
+		const tokens: Token[] = tokenize(completion.value, undefined, [
+			"!",
+			"has()",
+			"every()",
+			"(",
+			")",
+			"[",
+			"]",
+			"|",
+			" | ",
+			"*",
+			":",
+			".",
+			"<=",
+			">=",
+			"<",
+			">",
+			" * ",
+			" + ",
+			"+",
+			" - ",
+			"-",
+			" / ",
+		])
+			.map(t => ({ value: t.value }))
+			.toArray()
+		let result: string | undefined
+		let position = 0
+		for (const token of tokens) {
+			if (position + token.value.length <= cursor)
+				position += token.value.length
+			else {
+				result = token.value
+				break
+			}
+		}
+		return result ?? undefined
 	}
 	export function convert(value: any): Base {
 		let result: Base

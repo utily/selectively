@@ -62,7 +62,7 @@ export class TObject extends SType {
 				[]
 			),
 			...TObject.completor
-				.map(p => p(tokens, type, baseObject))
+				.map(p => p(tokens, this, baseObject))
 				.reduce<Completion[]>((r, element) => r.concat(element), []),
 		]
 	}

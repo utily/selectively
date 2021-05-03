@@ -137,7 +137,60 @@ describe("selectively.template", () => {
 		])
 	})
 	it("suggestions", () => {
-		const completion = template.complete("authorization:has(mercha)")
-		expect(selectively.Type.getSuggestion(completion[0], "authorization.has(mercha".length)).toEqual("nt")
+		const input1 = "authorization:has()"
+		const completion1 = template.complete(input1)
+		expect(completion1.map(c => selectively.Type.getSuggestion(c, input1.length))).toEqual([
+			"id",
+			"number",
+			"reference",
+			"amount",
+			"currency",
+			"card",
+			"descriptor",
+			"recurring",
+			"verification",
+			"captured",
+			"refunded",
+			"settled",
+			"voided",
+			"status",
+			"created",
+		])
+
+		const input2 = "authorization:has"
+		const completion2 = template.complete(input2)
+		expect(completion2.map(c => selectively.Type.getSuggestion(c, input2.length))).toEqual(["has()"])
+
+		const input = "authorization:ha"
+		const completion = template.complete(input)
+		expect(completion.map(c => selectively.Type.getSuggestion(c, input.length))).toEqual(["has()"])
+
+		const input3 = "authorization."
+		const completion3 = template.complete(input3)
+		expect(completion3.map(c => selectively.Type.getSuggestion(c, input3.length))).toEqual([
+			"id",
+			"number",
+			"reference",
+			"amount",
+			"currency",
+			"card",
+			"descriptor",
+			"recurring",
+			"verification",
+			"captured",
+			"refunded",
+			"settled",
+			"voided",
+			"status",
+			"created",
+		])
+
+		const input4 = "authorization:has(re)"
+		const completion4 = template.complete(input4)
+		expect(completion4.map(c => selectively.Type.getSuggestion(c, input4.length))).toEqual([
+			"reference",
+			"recurring",
+			"refunded",
+		])
 	})
 })

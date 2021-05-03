@@ -37,11 +37,11 @@ export function has(criteria: string, value?: any): Has | boolean {
 	return value ? result.is(value) : result
 }
 
-function complete(tokens: Token[], type?: Type, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
-	return baseObject && !type
+function complete(tokens: Token[], type?: Type.Object, baseObject?: Type.Object): Type.Completion[] | Type.Completion {
+	return baseObject && type?.class == "object"
 		? Completor.functions(
 				tokens,
-				(tokens?: Token[]) => baseObject.completions.filter(c => c.value.startsWith(tokens ? tokens[0].value : "")),
+				(tokens?: Token[]) => type.completions.filter(c => c.value.startsWith(tokens ? tokens[0].value : "")),
 				{
 					value: "has()",
 					cursor: 4,
