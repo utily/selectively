@@ -10,6 +10,12 @@ import { Union as TUnion } from "./Union"
 
 export type Type = Base
 export namespace Type {
+	export function getSuggestion(completion: Type.Completion, cursor: number): string {
+		return completion.value.substring(
+			cursor,
+			typeof completion.cursor == "number" ? completion.cursor : completion.value.length
+		)
+	}
 	export function convert(value: any): Base {
 		let result: Base
 		switch (typeof value) {
