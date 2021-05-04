@@ -11,7 +11,7 @@ import { Union as TUnion } from "./Union"
 
 export type Type = Base
 export namespace Type {
-	export function getSuggestion(completion: Completion, cursor: number): string | void {
+	export function getSuggestion(completion: Completion, cursor: number): string | undefined {
 		const tokens: Token[] = tokenize(completion.value, undefined, [
 			"!",
 			"has()",
@@ -48,7 +48,7 @@ export namespace Type {
 				break
 			}
 		}
-		return result ?? undefined
+		return result
 	}
 	export function convert(value: any): Base {
 		let result: Base
