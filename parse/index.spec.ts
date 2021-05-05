@@ -82,18 +82,40 @@ describe("parse.group", () => {
 		expect(selectively.parse(rule).is(value)).toBeFalsy()
 		expect(selectively.parse(rule).is(modifiedValue)).toBeTruthy()
 	})
-	it.skip("descriptor (fails)", () => {
-		const rule = "!authorization.descriptor: (*merchant.descriptor* | *merchant.name*)"
-		const value = {
-			authorization: { descriptor: "Example AB" },
-			merchant: { descriptor: "Example2 AB", name: "Example2 Company" },
-		}
+	it("authorization:has(descriptor)", () => {
+		const rule = "authorization:has(descriptor)"
 		const parsed = selectively.parse(rule)
+		expect(parsed).toEqual({
+			class: "Property",
+			criteria: { class: "Has", precedence: 85, property: "descriptor" },
+			name: "authorization",
+			precedence: 80,
+			symbol: ".",
+		})
+		const value = {
+			authorization: { descriptor: {} },
+		}
 		const failingValue = {
-			authorization: { descriptor: "Example AB" },
-			merchant: { descriptor: "Example AB", name: "Example Company" },
+			authorization: {},
 		}
 		expect(parsed.is(value)).toBeTruthy()
-		expect(selectively.parse(rule).is(failingValue)).toBeFalsy()
+		expect(parsed.is(failingValue)).toBeFalsy()
+	})
+	it("merchant.refundable<-3000", () => {
+		const rule = "merchant.refundable<-3000"
+		const parsed = selectively.parse(rule)
+		expect(parsed.is({ merchant: { refundable: 0 } })).toBeFalsy()
+		expect(parsed.is({ merchant: { refundable: -5000 } })).toBeTruthy()
+	})
+	it("authorization.amount>225 !authorization.verification:verified !authorization.recurring:subsequent", () => {
+		const rule = "authorization.amount>225 !authorization.verification:verified !authorization.recurring:subsequent"
+		const parsed = selectively.parse(rule)
+		expect(parsed.is({ authorization: { amount: 230, verification: "failing", recurring: "failing" } })).toEqual(true)
+		expect(parsed.is({ authorization: { amount: 220, verification: "failing", recurring: "failing" } })).toEqual(false)
+		expect(parsed.is({ authorization: { amount: 230, verification: "failing", recurring: "subsequent" } })).toEqual(
+			false
+		)
+		expect(parsed.is({ authorization: { amount: 230, verification: "verified", recurring: "failing" } })).toEqual(false)
+		expect(parsed.is({ authorization: { amount: 230, verification: "verified", recurring: "failing" } })).toEqual(false)
 	})
 })
