@@ -45,6 +45,7 @@ function complete(tokens: Token[], type?: Type.Object, baseObject?: Type.Object)
 				{
 					value: "has()",
 					cursor: 4,
+					suggestion: { value: "has()" },
 				}
 		  )
 		: []

@@ -8,7 +8,7 @@ export class TObject extends SType {
 	readonly completions: Completion[]
 	constructor(readonly properties: Readonly<Record<string, SType>>) {
 		super()
-		this.completions = Object.keys(this.properties).map(p => ({ value: p }))
+		this.completions = Object.keys(this.properties).map(p => ({ value: p, suggestion: { value: p } }))
 	}
 
 	complete(input: Token[] | string, baseObject?: TObject, type?: SType): Completion[] {
@@ -21,7 +21,7 @@ export class TObject extends SType {
 				result =
 					tokens.length == 1
 						? [
-								{ value: matched.value + "." },
+								{ value: matched.value + ".", suggestion: { value: "." } },
 								...Completion.prepend(matched.value, this.complete(tokens.slice(1), this, type)),
 						  ]
 						: tokens.length > 1
@@ -81,7 +81,11 @@ export class TObject extends SType {
 		return !completions
 			? []
 			: type
-			? completions.map(c => (this.properties[c.value].class == "object" ? { value: c.value + "." } : c))
+			? completions.map(c =>
+					this.properties[c.value].class == "object"
+						? { value: c.value + ".", suggestion: { value: c.suggestion?.value + "." } }
+						: c
+			  )
 			: completions
 	}
 	partial(token: Token, completions: Completion[]): Completion[] | undefined {
@@ -95,7 +99,9 @@ export class TObject extends SType {
 	isType(value: any): boolean {
 		return false
 	}
-	private static readonly wildcard: Completion[] = [{ value: "!", cursor: 1 }]
+	private static readonly wildcard: Completion[] = [
+		{ value: "!", cursor: 1, suggestion: { value: "!", description: "not" } },
+	]
 	private static readonly completor: Completor<SType>[] = []
 	static add(...completor: Completor<SType>[]) {
 		this.completor.push(...completor)

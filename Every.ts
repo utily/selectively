@@ -52,6 +52,7 @@ function complete(tokens: Token[], type: Type.Array): Type.Completion[] | Type.C
 	return Completor.functions(tokens, arrayArgumentor, {
 		value: "every()",
 		cursor: 6,
+		suggestion: { value: "every()" },
 	})
 }
 

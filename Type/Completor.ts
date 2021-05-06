@@ -11,7 +11,7 @@ export namespace Completor {
 		completion: Completion
 	): Completion[] {
 		return tokens.length == 0
-			? [{ value: ":" }]
+			? [{ value: ":", suggestion: { value: ":" } }]
 			: tokens.length <= 3 &&
 			  tokens[0].value == ":" &&
 			  completion.value.startsWith(tokens[1]?.value ?? "") &&
@@ -45,7 +45,7 @@ export namespace Completor {
 		completion: Completion
 	): Completion[] {
 		return tokens.length == 0
-			? [{ value: ":" }]
+			? [{ value: ":", suggestion: { value: ":" } }]
 			: tokens[0].value != ":"
 			? []
 			: tokens.length == 1

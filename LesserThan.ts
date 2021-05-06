@@ -31,6 +31,7 @@ function complete(tokens: Token[], type: Type.String | Type.Number, baseObject: 
 		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, type) : []),
 		{
 			value: "<",
+			suggestion: { value: ">" },
 		}
 	)
 }

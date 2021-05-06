@@ -1,9 +1,9 @@
-import { Token, tokenize } from "../lexer"
 import { Array as TArray } from "./Array"
 import { Base } from "./Base"
 import { Boolean as TBoolean } from "./Boolean"
 import { Completion as TCompletion } from "./Completion"
 import { Completor as TCompletor } from "./Completor"
+import { Cursor } from "./Cursor"
 import { Number as TNumber } from "./Number"
 import { TObject } from "./Object"
 import { String as TString } from "./String"
@@ -11,44 +11,19 @@ import { Union as TUnion } from "./Union"
 
 export type Type = Base
 export namespace Type {
-	export function getSuggestion(completion: Completion, cursor: number): string | undefined {
-		const tokens: Token[] = tokenize(completion.value, undefined, [
-			"!",
-			"has()",
-			"every()",
-			"(",
-			")",
-			"[",
-			"]",
-			"|",
-			" | ",
-			"*",
-			":",
-			".",
-			"<=",
-			">=",
-			"<",
-			">",
-			" * ",
-			" + ",
-			"+",
-			" - ",
-			"-",
-			" / ",
-		])
-			.map(t => ({ value: t.value }))
-			.toArray()
-		let result: string | undefined
-		let position = 0
-		for (const token of tokens) {
-			if (position + token.value.length <= cursor)
-				position += token.value.length
-			else {
-				result = token.value
-				break
-			}
-		}
-		return result
+	export function complete(
+		template: Base,
+		input: string
+	): { full: string; cursor?: number | Cursor; addon?: string; description?: string }[] {
+		const completions = template.complete(input)
+		return completions
+			.filter(c => c.value != input)
+			.map(c => ({
+				full: c.value,
+				cursor: c?.cursor ?? c.value.length,
+				addon: c?.suggestion?.value,
+				description: c?.suggestion?.description,
+			}))
 	}
 	export function convert(value: any): Base {
 		let result: Base
