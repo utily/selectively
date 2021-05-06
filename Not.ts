@@ -30,7 +30,7 @@ function complete(
 	type?: Type.String | Type.Number | Type.Boolean | Type.Object,
 	baseObject?: Type.Object
 ): Type.Completion[] {
-	return type && baseObject
+	return type && type.class != "object" && baseObject
 		? Completor.expressions(
 				tokens,
 				(tokens: Token[]) => {
