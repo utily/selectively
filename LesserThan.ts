@@ -28,7 +28,7 @@ export function lesserThan(criteria: bigint | boolean | number | string, value?:
 function complete(tokens: Token[], type: Type.String | Type.Number, baseObject: Type.Object): Type.Completion[] {
 	return Type.Completor.operators(
 		tokens,
-		(tokens?: Token[]) => (tokens && type ? type?.complete(tokens, baseObject, type) : []),
+		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, type) : []),
 		{
 			value: "<",
 		}
