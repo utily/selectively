@@ -40,13 +40,12 @@ function complete(tokens: Token[], type: Type.String, baseObject?: Type): Type.C
 	return !type.value
 		? []
 		: tokens.length == 0
-		? [{ value: ":" }]
+		? [{ value: ":", suggestion: { value: ":" } }]
 		: tokens[0].value != ":"
 		? []
-		: tokens.length == 1 && tokens[0].value == ":"
-		? Type.Completion.prepend(":", { value: type.value })
-		: tokens.length == 2 && tokens[0].value == ":" && type?.value?.startsWith(tokens[1].value)
-		? Type.Completion.prepend(":", { value: type.value })
+		: (tokens.length == 1 && tokens[0].value == ":") ||
+		  (tokens.length == 2 && tokens[0].value == ":" && type?.value?.startsWith(tokens[1].value))
+		? Type.Completion.prepend(":", { value: type.value, suggestion: { value: type.value } })
 		: []
 }
 

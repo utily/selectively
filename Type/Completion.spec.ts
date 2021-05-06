@@ -136,61 +136,120 @@ describe("selectively.template", () => {
 			"authorization.verification:rejected_",
 		])
 	})
-	it("suggestions", () => {
-		const input1 = "authorization:has()"
-		const completion1 = template.complete(input1)
-		expect(completion1.map(c => selectively.Type.getSuggestion(c, input1.length))).toEqual([
-			"id",
-			"number",
-			"reference",
-			"amount",
-			"currency",
-			"card",
-			"descriptor",
-			"recurring",
-			"verification",
-			"captured",
-			"refunded",
-			"settled",
-			"voided",
-			"status",
-			"created",
-		])
-
-		const input2 = "authorization:has"
-		const completion2 = template.complete(input2)
-		expect(completion2.map(c => selectively.Type.getSuggestion(c, input2.length))).toEqual(["has()"])
-
-		const input = "authorization:ha"
-		const completion = template.complete(input)
-		expect(completion.map(c => selectively.Type.getSuggestion(c, input.length))).toEqual(["has()"])
-
-		const input3 = "authorization."
-		const completion3 = template.complete(input3)
-		expect(completion3.map(c => selectively.Type.getSuggestion(c, input3.length))).toEqual([
-			"id",
-			"number",
-			"reference",
-			"amount",
-			"currency",
-			"card",
-			"descriptor",
-			"recurring",
-			"verification",
-			"captured",
-			"refunded",
-			"settled",
-			"voided",
-			"status",
-			"created",
+	it("authorization:has()", () => {
+		const completion1 = selectively.Type.complete(template, "authorization:has()")
+		expect(completion1).toEqual([
+			{ full: "authorization:has(id)", cursor: 20, addon: "id" },
+			{ full: "authorization:has(number)", cursor: 24, addon: "number" },
+			{ full: "authorization:has(reference)", cursor: 27, addon: "reference" },
+			{ full: "authorization:has(amount)", cursor: 24, addon: "amount" },
+			{ full: "authorization:has(currency)", cursor: 26, addon: "currency" },
+			{ full: "authorization:has(card)", cursor: 22, addon: "card" },
+			{ full: "authorization:has(descriptor)", cursor: 28, addon: "descriptor" },
+			{ full: "authorization:has(recurring)", cursor: 27, addon: "recurring" },
+			{ full: "authorization:has(verification)", cursor: 30, addon: "verification" },
+			{ full: "authorization:has(captured)", cursor: 26, addon: "captured" },
+			{ full: "authorization:has(refunded)", cursor: 26, addon: "refunded" },
+			{ full: "authorization:has(settled)", cursor: 25, addon: "settled" },
+			{ full: "authorization:has(voided)", cursor: 24, addon: "voided" },
+			{ full: "authorization:has(status)", cursor: 24, addon: "status" },
+			{ full: "authorization:has(created)", cursor: 25, addon: "created" },
 		])
 
 		const input4 = "authorization:has(re)"
-		const completion4 = template.complete(input4)
-		expect(completion4.map(c => selectively.Type.getSuggestion(c, input4.length))).toEqual([
-			"reference",
-			"recurring",
-			"refunded",
+		const completion4 = selectively.Type.complete(template, input4)
+		expect(completion4).toEqual([
+			{ addon: "reference", cursor: 27, full: "authorization:has(reference)" },
+			{ addon: "recurring", cursor: 27, full: "authorization:has(recurring)" },
+			{ addon: "refunded", cursor: 26, full: "authorization:has(refunded)" },
 		])
+	})
+	it("suggestions strings", () => {
+		const completion1 = selectively.Type.complete(template, "authorization.reference:")
+		expect(completion1).toEqual([
+			{ cursor: 25, description: "endswith", addon: "*", full: "authorization.reference:*" },
+			{ cursor: 25, description: "includes", addon: "**", full: "authorization.reference:**" },
+			{ cursor: 25, description: "match", addon: "//", full: "authorization.reference://" },
+			{ cursor: 25, description: "not", addon: "!", full: "authorization.reference:!" },
+			{ cursor: 24, description: "startswith", addon: "*", full: "authorization.reference:*" },
+		])
+	})
+	it("merchant.name>authorization.", () => {
+		const input3 = "merchant.name>authorization."
+		const completion3 = selectively.Type.complete(template, input3)
+		expect(completion3).toEqual([
+			{ addon: "id", cursor: 30, full: "merchant.name>authorization.id" },
+			{ addon: "number", cursor: 34, full: "merchant.name>authorization.number" },
+			{ addon: "reference", cursor: 37, full: "merchant.name>authorization.reference" },
+			{ addon: "card.", cursor: 33, full: "merchant.name>authorization.card." },
+			{ addon: "descriptor", cursor: 38, full: "merchant.name>authorization.descriptor" },
+			{ addon: "captured.", cursor: 37, full: "merchant.name>authorization.captured." },
+			{ addon: "refunded.", cursor: 37, full: "merchant.name>authorization.refunded." },
+			{ addon: "settled.", cursor: 36, full: "merchant.name>authorization.settled." },
+			{ addon: "voided", cursor: 34, full: "merchant.name>authorization.voided" },
+			{ addon: "created", cursor: 35, full: "merchant.name>authorization.created" },
+		])
+	})
+	it("authorization", () => {
+		const completion3 = selectively.Type.complete(template, "authorization")
+		expect(completion3).toEqual([
+			{ addon: ".", cursor: 14, full: "authorization." },
+			{ addon: ":", cursor: 14, full: "authorization:" },
+		])
+	})
+	it("authorization.verification:", () => {
+		const completion3 = selectively.Type.complete(template, "authorization.verification:")
+		expect(completion3).toEqual([
+			{ addon: "*", cursor: 28, description: "endswith", full: "authorization.verification:*" },
+			{ addon: "**", cursor: 28, description: "includes", full: "authorization.verification:**" },
+			{ addon: "verified", cursor: 35, description: undefined, full: "authorization.verification:verified" },
+			{ addon: "//", cursor: 28, description: "match", full: "authorization.verification://" },
+			{ addon: "!", cursor: 28, description: "not", full: "authorization.verification:!" },
+			{ addon: "*", cursor: 27, description: "startswith", full: "authorization.verification:*" },
+			{ addon: "unavailable", cursor: 38, description: undefined, full: "authorization.verification:unavailable" },
+			{ addon: "rejected", cursor: 35, description: undefined, full: "authorization.verification:rejected" },
+		])
+	})
+	it("authorization.verification:**", () => {
+		const completion3 = selectively.Type.complete(template, "authorization.verification:**")
+		expect(completion3).toEqual([
+			{ addon: "verified", cursor: 36, description: undefined, full: "authorization.verification:*verified*" },
+			{ addon: "unavailable", cursor: 39, description: undefined, full: "authorization.verification:*unavailable*" },
+			{ addon: "rejected", cursor: 36, description: undefined, full: "authorization.verification:*rejected*" },
+		])
+	})
+	it("authorization.amount<", () => {
+		const completion3 = selectively.Type.complete(template, "authorization.amount<")
+		expect(completion3).toEqual([
+			{ addon: "merchant.", cursor: 30, description: undefined, full: "authorization.amount<merchant." },
+			{ addon: "authorization.", cursor: 35, description: undefined, full: "authorization.amount<authorization." },
+			{ addon: "<=", cursor: 22, description: undefined, full: "authorization.amount<=" },
+		])
+	})
+	it("authorization.amount<authorization.amount", () => {
+		const completion3 = selectively.Type.complete(template, "authorization.amount<authorization.amount")
+		expect(completion3).toEqual([
+			{
+				addon: "merchant",
+				cursor: 50,
+				description: undefined,
+				full: "authorization.amount<authorization.amount merchant",
+			},
+			{
+				addon: "authorization",
+				cursor: 55,
+				description: undefined,
+				full: "authorization.amount<authorization.amount authorization",
+			},
+			{ addon: "!", cursor: 43, description: "not", full: "authorization.amount<authorization.amount !" },
+			{ addon: "|", cursor: 44, description: "or", full: "authorization.amount<authorization.amount | " },
+			{ addon: " + ", cursor: 44, description: undefined, full: "authorization.amount<authorization.amount + " },
+			{ addon: " - ", cursor: 44, description: undefined, full: "authorization.amount<authorization.amount - " },
+			{ addon: " * ", cursor: 44, description: undefined, full: "authorization.amount<authorization.amount * " },
+		])
+	})
+	it("merchant:has(scheme)", () => {
+		const completion3 = selectively.Type.complete(template, "merchant:has(scheme)")
+		expect(completion3).toEqual([])
 	})
 })

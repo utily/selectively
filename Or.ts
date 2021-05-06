@@ -29,6 +29,7 @@ function complete(tokens: Token[], type?: Type, baseObject?: Type.Object): Type.
 		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, undefined) : []),
 		{
 			value: " | ",
+			suggestion: { value: "|", description: "or" },
 		}
 	)
 }

@@ -34,6 +34,7 @@ function complete(
 		(tokens?: Token[]) => (tokens && baseObject ? baseObject?.complete(tokens, undefined, type) : []),
 		{
 			value: ">",
+			suggestion: { value: ">" },
 		}
 	)
 }

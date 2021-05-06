@@ -76,7 +76,7 @@ export class InfixOperator extends Expression {
 
 function complete(tokens: Token[], type: Type.Number, baseObject: Type.Object): Type.Completion[] {
 	return [" + ", " - ", " * "]
-		.map<Type.Completion>(s => ({ value: s }))
+		.map<Type.Completion>(s => ({ value: s, suggestion: { value: s } }))
 		.map(c =>
 			Type.Completor.operators(
 				tokens,

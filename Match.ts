@@ -32,7 +32,7 @@ function complete(tokens: Token[], string: Type.String): Type.Completion[] | Typ
 				? [{ value: "//", cursor: 1 }]
 				: []
 		},
-		{ value: "//", cursor: 1 }
+		{ value: "//", cursor: 1, suggestion: { value: "//", description: "match" } }
 	)
 }
 

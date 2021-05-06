@@ -3,6 +3,7 @@ import { Cursor } from "./Cursor"
 export interface Completion {
 	readonly value: string
 	readonly cursor?: Cursor | number
+	suggestion?: { value: string; description?: string }
 }
 export namespace Completion {
 	export function stringify(completions: Completion[]): string[] {
@@ -29,6 +30,7 @@ export namespace Completion {
 							: Cursor.is(completion.cursor)
 							? { start: completion.cursor.start + prefix.length, end: completion.cursor.end + prefix.length }
 							: completion.value.length + prefix.length,
+					suggestion: completion.suggestion,
 			  }
 	}
 }

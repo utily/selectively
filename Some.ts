@@ -25,7 +25,7 @@ export function some(criteria: Criteria, value?: any): Some | boolean {
 
 function complete(tokens: Token[], type: Type.Array, baseObject?: Type): Type.Completion[] | Type.Completion {
 	return tokens.length == 0
-		? [{ value: ":" }]
+		? [{ value: ":", suggestion: { value: ":" } }]
 		: tokens[0].value != ":"
 		? []
 		: tokens.length == 1 && tokens[0].value == ":"
@@ -34,7 +34,7 @@ function complete(tokens: Token[], type: Type.Array, baseObject?: Type): Type.Co
 				type.array
 					.filter(Type.String.is)
 					.filter(e => e.value && e.value != "string")
-					.map(e => ({ value: e?.value ?? "" }))
+					.map(e => ({ value: e?.value ?? "", suggestion: { value: e?.value ?? "" } }))
 		  )
 		: tokens.length == 2 && tokens[0].value == ":"
 		? Type.Completion.prepend(
@@ -42,7 +42,7 @@ function complete(tokens: Token[], type: Type.Array, baseObject?: Type): Type.Co
 				type.array
 					.filter(Type.String.is)
 					.filter(e => e.value && e.value != "string" && e.value.startsWith(tokens[1].value))
-					.map(e => ({ value: e?.value ?? "" }))
+					.map(e => ({ value: e?.value ?? "", suggestion: { value: e?.value ?? "" } }))
 		  )
 		: []
 }
