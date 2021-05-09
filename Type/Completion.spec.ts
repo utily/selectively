@@ -190,13 +190,7 @@ describe("selectively.template", () => {
 			{ addon: "created", cursor: 35, full: "merchant.name>authorization.created" },
 		])
 	})
-	it("authorization", () => {
-		const completion3 = selectively.Type.complete(template, "authorization")
-		expect(completion3).toEqual([
-			{ addon: ".", cursor: 14, full: "authorization." },
-			{ addon: ":", cursor: 14, full: "authorization:" },
-		])
-	})
+
 	it("authorization.verification:", () => {
 		const completion3 = selectively.Type.complete(template, "authorization.verification:")
 		expect(completion3).toEqual([
@@ -249,7 +243,13 @@ describe("selectively.template", () => {
 		])
 	})
 	it("merchant:has(scheme)", () => {
-		const completion3 = selectively.Type.complete(template, "merchant:has(scheme)")
+		const completion3 = selectively.Type.complete(template, "merchant:has(scheme)   ")
 		expect(completion3).toEqual([])
+	})
+})
+describe("merchant.scheme:*amex*", () => {
+	it("merchant.scheme:*amex*", () => {
+		const completion = selectively.Type.complete(template, "merchant.scheme:*amex*")
+		expect(completion).toEqual([])
 	})
 })

@@ -17,7 +17,7 @@ export namespace Type {
 	): { full: string; cursor?: number | Cursor; addon?: string; description?: string }[] {
 		const completions = template.complete(input)
 		return completions
-			.filter(c => c.value != input)
+			.filter(c => !input.includes(c.value) && c.suggestion?.value)
 			.map(c => ({
 				full: c.value,
 				cursor: c?.cursor ?? c.value.length,

@@ -29,7 +29,10 @@ function complete(tokens: Token[], string: Type.String): Type.Completion[] | Typ
 		(tokens?: Token[]) => {
 			return !tokens ||
 				(tokens.length == 1 && tokens[0].value == "*") ||
-				(tokens.length == 2 && tokens[1].value == "*" && string.value && string.value.endsWith(tokens[0]?.value ?? ""))
+				(tokens.length == 2 &&
+					tokens[1].value == "*" &&
+					string.value &&
+					string.value.startsWith(tokens[0]?.value ?? ""))
 				? [Type.Completion.prepend("", { value: string?.value ?? "", suggestion: { value: string?.value ?? "" } }, "*")]
 				: []
 		},

@@ -41,6 +41,8 @@ export class TObject extends SType {
 						? [...this.addDot(filtered, type), ...(type?.class == "number" ? [] : TObject.wildcard)]
 						: tokens.length == 1 && (found = TObject.wildcard.find(w => w.value == tokens[0].value))
 						? Completion.prepend(found.value, this.completions, type ? "." : "")
+						: tokens.length >= 1 && (found = TObject.wildcard.find(w => w.value == tokens[0].value))
+						? Completion.prepend(found.value, this.complete(tokens.slice(1)))
 						: this.addDot(this.partial(tokens[0], filtered), type)
 			}
 		} else
