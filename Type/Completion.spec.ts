@@ -45,11 +45,7 @@ const Card = new selectively.Type.Object({
 	last4: new selectively.Type.String(),
 	expires: new selectively.Type.String(),
 	type: new selectively.Type.Union([new selectively.Type.String("debit"), new selectively.Type.String("credit")]),
-	csc: new selectively.Type.Union([
-		new selectively.Type.String("matched"),
-		new selectively.Type.String("matched"),
-		new selectively.Type.String("present"),
-	]),
+	csc: new selectively.Type.Union([new selectively.Type.String("matched"), new selectively.Type.String("present")]),
 })
 
 const template = new selectively.Type.Object({
