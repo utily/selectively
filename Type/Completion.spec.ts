@@ -49,6 +49,7 @@ const Card = new selectively.Type.Object({
 })
 
 const template = new selectively.Type.Object({
+	boolean: new selectively.Type.Boolean(),
 	merchant: merchant,
 	authorization: new selectively.Type.Object({
 		id: new selectively.Type.String(),
@@ -98,7 +99,7 @@ const template = new selectively.Type.Object({
 
 describe("selectively.template", () => {
 	it("template completions", () => {
-		expect(Completion.stringify(template.complete(""))).toEqual(["merchant_", "authorization_", "!_"])
+		expect(Completion.stringify(template.complete(""))).toEqual(["boolean_", "merchant_", "authorization_", "!_"])
 		expect(Completion.stringify(template.complete("autho"))).toEqual(["authorization_"])
 		expect(Completion.stringify(template.complete("authorization"))).toEqual(["authorization._", "authorization:_"])
 		expect(Completion.stringify(template.complete("authorization."))).toEqual([
@@ -122,9 +123,9 @@ describe("selectively.template", () => {
 			"authorization.verification:unavailable_",
 		])
 		expect(Completion.stringify(template.complete("authorization.verification:"))).toEqual([
+			"authorization.verification:verified_",
 			"authorization.verification:*_",
 			"authorization.verification:*_*",
-			"authorization.verification:verified_",
 			"authorization.verification:/_/",
 			"authorization.verification:!_",
 			"authorization.verification:_*",
@@ -190,9 +191,9 @@ describe("selectively.template", () => {
 	it("authorization.verification:", () => {
 		const completion3 = selectively.Type.complete(template, "authorization.verification:")
 		expect(completion3).toEqual([
+			{ addon: "verified", cursor: 35, description: undefined, full: "authorization.verification:verified" },
 			{ addon: "*", cursor: 28, description: "endswith", full: "authorization.verification:*" },
 			{ addon: "**", cursor: 28, description: "includes", full: "authorization.verification:**" },
-			{ addon: "verified", cursor: 35, description: undefined, full: "authorization.verification:verified" },
 			{ addon: "//", cursor: 28, description: "match", full: "authorization.verification://" },
 			{ addon: "!", cursor: 28, description: "not", full: "authorization.verification:!" },
 			{ addon: "*", cursor: 27, description: "startswith", full: "authorization.verification:*" },
@@ -219,6 +220,12 @@ describe("selectively.template", () => {
 	it("authorization.amount<authorization.amount", () => {
 		const completion3 = selectively.Type.complete(template, "authorization.amount<authorization.amount")
 		expect(completion3).toEqual([
+			{
+				addon: "boolean",
+				cursor: 49,
+				description: undefined,
+				full: "authorization.amount<authorization.amount boolean",
+			},
 			{
 				addon: "merchant",
 				cursor: 50,
@@ -247,5 +254,31 @@ describe("merchant.scheme:*amex*", () => {
 	it("merchant.scheme:*amex*", () => {
 		const completion = selectively.Type.complete(template, "merchant.scheme:*amex*")
 		expect(completion).toEqual([])
+	})
+})
+
+describe("boolean complete test", () => {
+	it("boolean complete test", () => {
+		const completion = selectively.Type.complete(template, "boolean")
+		expect(completion).toEqual([{ addon: ":", cursor: 8, description: undefined, full: "boolean:" }])
+	})
+	it("boolean complete test2", () => {
+		const completion = selectively.Type.complete(template, "boolean:")
+		expect(completion).toEqual([
+			{ addon: "true", cursor: 12, description: undefined, full: "boolean:true" },
+			{ addon: "false", cursor: 13, description: undefined, full: "boolean:false" },
+			{ addon: "!", cursor: 9, description: "not", full: "boolean:!" },
+		])
+	})
+	it("boolean complete test3", () => {
+		const completion = selectively.Type.complete(template, "boolean:tru")
+		expect(completion).toEqual([{ addon: "true", cursor: 12, description: undefined, full: "boolean:true" }])
+	})
+	it("boolean complete test4", () => {
+		const completion = selectively.Type.complete(template, "boolean:!")
+		expect(completion).toEqual([
+			{ addon: "true", cursor: 13, description: undefined, full: "boolean:!true" },
+			{ addon: "false", cursor: 14, description: undefined, full: "boolean:!false" },
+		])
 	})
 })

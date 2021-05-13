@@ -13,16 +13,31 @@ export class String extends SType {
 			this.value = input
 	}
 
-	complete(input: Token[] | string, baseObject?: SType): Completion[] {
+	complete(input: Token[] | string, baseObject?: SType, type?: SType): Completion[] {
 		const tokens = typeof input == "string" ? this.tokenize(input) : input
-		return String.completor
-			.map(p => p(tokens, this, baseObject))
-			.reduce<Completion[]>((result, element) => result.concat(element), [])
-			.reduce<Completion[]>(
-				(result, element) =>
-					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
-				[]
-			)
+		let result: Completion[] | undefined
+		if (type)
+			result = this.value?.startsWith(tokens[0]?.value ?? "")
+				? [{ value: this.value, suggestion: { value: this.value } }]
+				: undefined
+		else
+			result =
+				tokens.length == 0 || tokens[0].value != ":"
+					? undefined
+					: this.value?.startsWith(tokens[1]?.value ?? "")
+					? [Completion.prepend(":", { value: this.value, suggestion: { value: this.value } })]
+					: undefined
+		return [
+			...(result ?? []),
+			...(type ? [] : String.completor)
+				.map(p => p(tokens, this, baseObject))
+				.reduce<Completion[]>((result, element) => result.concat(element), [])
+				.reduce<Completion[]>(
+					(result, element) =>
+						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
+					[]
+				),
+		]
 	}
 	isType(value: any): boolean {
 		return false
