@@ -19,12 +19,7 @@ export class TObject extends SType {
 			const matched = tokens.length > 0 ? this.match(tokens[0], filtered) : undefined
 			if (matched)
 				result =
-					tokens.length == 1
-						? [
-								{ value: matched.value + ".", suggestion: { value: "." } },
-								...Completion.prepend(matched.value, this.complete(tokens.slice(1), this, type)),
-						  ]
-						: tokens.length > 1
+					tokens.length >= 1
 						? Completion.prepend(matched.value, this.properties[matched.value].complete(tokens.slice(1), this, type))
 						: []
 			else if (type && tokens.length > 2 && type.isType(tokens[0].value + tokens[1].value + tokens[2].value))
@@ -47,7 +42,9 @@ export class TObject extends SType {
 			}
 		} else
 			result =
-				tokens.length == 0 || tokens[0].value != "."
+				tokens.length == 0
+					? [{ value: ".", suggestion: { value: "." } }]
+					: tokens[0].value != "."
 					? []
 					: tokens.length == 1
 					? Completion.prepend(".", this.addDot(filtered, type))

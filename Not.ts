@@ -36,7 +36,7 @@ function complete(
 				(tokens: Token[]) => {
 					return tokens[0].value != "!"
 						? []
-						: Type.Completion.prepend("!", type.complete([{ value: "." }, ...(tokens.length > 1 ? tokens : [])]))
+						: Type.Completion.prepend("!", type.complete(tokens.slice(1), baseObject, type))
 				},
 				{ value: "!", cursor: 1, suggestion: { value: "!", description: "not" } }
 		  )
