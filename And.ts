@@ -1,6 +1,5 @@
 import { Any } from "./Any"
 import { Criteria } from "./Criteria"
-import { Property } from "./Property"
 import { create, Rule } from "./Rule"
 
 export class And extends Rule {
@@ -18,7 +17,7 @@ export class And extends Rule {
 		return this.rules.map(c => c.stringify(this.precedence)).join(" ")
 	}
 	generalize(): And {
-		return new And(this.rules.map(r => (r instanceof Property ? r : new Any(r))))
+		return new And(this.rules.map(r => (r.class == "Property" ? r : new Any(r))))
 	}
 }
 export function and(...criterias: Criteria[]): And {
