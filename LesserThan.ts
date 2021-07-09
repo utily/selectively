@@ -2,6 +2,7 @@ import { Expression } from "./Expression"
 import { Token } from "./lexer"
 import { Rule } from "./Rule"
 import { Type } from "./Type"
+import { Value } from "./Value"
 
 export class LesserThan extends Rule {
 	readonly precedence = 85
@@ -12,7 +13,13 @@ export class LesserThan extends Rule {
 	}
 	is(value: any): boolean
 	is(value: any, object?: any): boolean {
-		return (isNaN(+value) ? value : +value) < (typeof this.value == "object" ? this.value.evaluate(object) : this.value)
+		return (
+			(isNaN(+value) ? value : +value) <
+			((this.value instanceof Value && typeof this.value.value == "string" && this.value.value.includes("-")) ||
+			typeof this.value != "object"
+				? this.value
+				: this.value.evaluate(object))
+		)
 	}
 	toString(): string {
 		return this.value.toString()
