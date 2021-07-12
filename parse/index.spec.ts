@@ -118,4 +118,10 @@ describe("parse.group", () => {
 		expect(parsed.is({ authorization: { amount: 230, verification: "verified", recurring: "failing" } })).toEqual(false)
 		expect(parsed.is({ authorization: { amount: 230, verification: "verified", recurring: "failing" } })).toEqual(false)
 	})
+	it("authorization.card.expires>2012-01-26", () => {
+		const rule = "authorization.card.expires>2012-01-26"
+		const parsed = selectively.parse(rule)
+		expect(parsed.is({ authorization: { card: { expires: "2002-02-02" } } })).toBeFalsy()
+		expect(parsed.is({ authorization: { card: { expires: "2020-02-02" } } })).toBeTruthy()
+	})
 })
