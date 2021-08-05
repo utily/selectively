@@ -29,7 +29,7 @@ export class Source extends IO.BufferedReader implements Error.Handler {
 	peekIsSymbol(symbols?: string[]): number | false {
 		return (
 			this.peekIs(
-				symbols ?? ["!", "(", ")", "[", "]", "|", "*", ":", ".", "<=", ">=", "<", ">", " * ", " + ", " - ", " / "]
+				symbols ?? ["!", "(", ")", "[", "]", "|", "*", ":", ".", "<=", ">=", "<", ">", " * ", " + ", " - ", " / ", ","]
 			)?.length ?? false
 		)
 	}

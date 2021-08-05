@@ -1,3 +1,6 @@
-import { resolve } from "./resolve"
+export { resolve } from "./resolve"
 
-export { resolve }
+import "./And"
+import "./FunctionCall"
+import "./Property"
+import "./LesserThan"
