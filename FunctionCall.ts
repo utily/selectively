@@ -2,7 +2,7 @@ import { Expression } from "./Expression"
 import { Rule } from "./Rule"
 export class FunctionCall extends Rule {
 	readonly precedence = 85
-	readonly class = "functionCall"
+	readonly class = "FunctionCall"
 	constructor(
 		readonly identifier: string,
 		readonly argument: (bigint | boolean | number | string | Expression)[],
@@ -14,9 +14,9 @@ export class FunctionCall extends Rule {
 		return this.definition?.is(value) ?? true
 	}
 	toString(): string {
-		return `(${this.identifier}: ${this.definition})`
+		return `(${this.identifier}(${this.argument.join(", ")}))`
 	}
 }
 export function isType(value: any): value is FunctionCall {
-	return typeof value == "object" && value?.class == "functionCall"
+	return typeof value == "object" && value?.class == "FunctionCall"
 }
