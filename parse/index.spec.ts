@@ -124,4 +124,11 @@ describe("parse.group", () => {
 		expect(parsed.is({ authorization: { card: { expires: "2002-02-02" } } })).toBeFalsy()
 		expect(parsed.is({ authorization: { card: { expires: "2020-02-02" } } })).toBeTruthy()
 	})
+	it("authorization.has...", () => {
+		const rule = "authorization:has(currency)"
+		const parsed = selectively.parse(rule)
+		const failingValue = { authorization: { amount: 2 } }
+		expect(parsed.is(failingValue)).toBeFalsy()
+		expect(parsed.is(value)).toBeTruthy()
+	})
 })

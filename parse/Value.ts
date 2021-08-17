@@ -10,9 +10,12 @@ addExpression((source, previous) => {
 		fetchedArray.push(fetched[0].value)
 	let result: Expression | undefined
 	if (fetchedArray.length == 0) {
-		fetched = source.fetchIf("any", ".", "any") || source.fetchIf("any")
+		fetched = source.fetchIf("any", ".", "any") || source.fetchIf("any", ",", "any") || source.fetchIf("any")
 		result =
-			fetched && (Array.isArray(fetched) ? new Value(+fetched.map(t => t.value).join("")) : new Value(fetched.value))
+			fetched &&
+			(Array.isArray(fetched)
+				? new Value(+fetched.map(t => t.value.replace(",", ".")).join(""))
+				: new Value(fetched.value))
 	} else {
 		fetched = source.fetchIf("identifier")
 		const fetchedValue = new Value(fetched ? fetched.value : 0)
