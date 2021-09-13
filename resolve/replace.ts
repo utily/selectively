@@ -13,8 +13,9 @@ export namespace replace {
 			argument.identifier &&
 			argument?.input?.length > 0 &&
 			argument?.identifier?.length > 0 &&
-			(index = argument.identifier.indexOf(value.toString()))
+			argument.identifier.includes(value.value)
 		) {
+			index = argument.identifier.indexOf(value.value)
 			result = isNaN(+argument.input[index]) ? argument.input.splice(index, 1)[0] : +argument.input.splice(index, 1)[0]
 		}
 		return result

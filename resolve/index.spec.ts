@@ -25,7 +25,7 @@ describe("any", () => {
 			"ThreeD",
 			["threshold"],
 			selectively.parse(
-				"authorization.amount > thresholded !authorization.verification:verified !authorization.recurring:subsequent"
+				"authorization.amount > threshold !authorization.verification:verified !authorization.recurring:subsequent"
 			)
 		)
 		const resolved = resolve([definitions], parsed)
