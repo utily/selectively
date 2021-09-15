@@ -1,4 +1,5 @@
 import { Criteria } from "./Criteria"
+import { Expression } from "./Expression"
 import { Token } from "./lexer"
 import { create, Rule } from "./Rule"
 import { Type } from "./Type"
@@ -6,11 +7,14 @@ import { Type } from "./Type"
 export class Some extends Rule {
 	readonly precedence = 100
 	readonly class = "Some"
-	constructor(readonly criteria: Rule) {
+	constructor(readonly criteria: Rule | Expression) {
 		super()
 	}
-	is(value: any): boolean {
-		return Array.isArray(value) && value.some(v => this.criteria.is(v))
+	is(value: any, object): boolean {
+		return (
+			Array.isArray(value) &&
+			value.some(v => (this.criteria instanceof Expression ? this.criteria.evaluate(v) : this.criteria.is(v)))
+		)
 	}
 	toString() {
 		return `some(${this.criteria.toString()})`
