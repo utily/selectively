@@ -22,6 +22,7 @@ import { StartsWith, startsWith } from "./StartsWith"
 import { Tuple } from "./Tuple"
 import { Type as SType } from "./Type"
 import { Value } from "./Value"
+import { Within, within } from "./Within"
 
 function is(criteria: Criteria): Rule
 function is(criteria: Criteria, value?: any): boolean
@@ -57,6 +58,7 @@ export {
 	Tuple,
 	SType as Type,
 	Value,
+	Within,
 	any,
 	and,
 	create,
@@ -78,4 +80,5 @@ export {
 	property,
 	some,
 	startsWith,
+	within,
 }

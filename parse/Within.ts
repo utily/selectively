@@ -1,9 +1,8 @@
-import { FunctionCall } from "../FunctionCall"
+import { Within } from "../Within"
 import { add } from "./parse"
 
 add(source => {
-	const peek = source.peek(3)?.value
-	const fetched = [")", ",", "("].find(s => s == peek) ? source.fetchIf("identifier", "(") : undefined
+	const fetched = source.fetchIf(":", "within", "(")
 	let parameters: string[] | undefined
 	if (fetched && source.peek()) {
 		parameters = [source.fetch()?.value ?? ""]
@@ -12,5 +11,5 @@ add(source => {
 		if (!source.fetchIf(")"))
 			source.raise("Missing end of parenthesis.")
 	}
-	return fetched && parameters ? new FunctionCall(fetched[0].value, parameters) : undefined
+	return fetched && parameters ? new Within(parameters) : undefined
 })
