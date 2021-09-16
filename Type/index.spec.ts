@@ -61,6 +61,7 @@ describe("selectively.Type", () => {
 			"merchant.name:*_*",
 			"merchant.name:/_/",
 			"merchant.name:!_",
+			"merchant.name:within(_)",
 			"merchant.name:_*",
 		])
 	})
@@ -98,6 +99,7 @@ describe("selectively.Type", () => {
 			"merchant.captured:merchant._",
 			"merchant.captured:authorization._",
 			"merchant.captured:!_",
+			"merchant.captured:within(_)",
 		])
 		expect(Completion.stringify(testObject.complete("merchant.captured"))).toEqual([
 			"merchant.captured>_",

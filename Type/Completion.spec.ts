@@ -128,6 +128,7 @@ describe("selectively.template", () => {
 			"authorization.verification:*_*",
 			"authorization.verification:/_/",
 			"authorization.verification:!_",
+			"authorization.verification:within(_)",
 			"authorization.verification:_*",
 			"authorization.verification:unavailable_",
 			"authorization.verification:rejected_",
@@ -164,11 +165,12 @@ describe("selectively.template", () => {
 	it("suggestions strings", () => {
 		const completion1 = selectively.Type.complete(template, "authorization.reference:")
 		expect(completion1).toEqual([
-			{ cursor: 25, description: "endswith", addon: "*", full: "authorization.reference:*" },
-			{ cursor: 25, description: "includes", addon: "**", full: "authorization.reference:**" },
-			{ cursor: 25, description: "match", addon: "//", full: "authorization.reference://" },
-			{ cursor: 25, description: "not", addon: "!", full: "authorization.reference:!" },
-			{ cursor: 24, description: "startswith", addon: "*", full: "authorization.reference:*" },
+			{ addon: "*", cursor: 25, description: "endswith", full: "authorization.reference:*" },
+			{ addon: "**", cursor: 25, description: "includes", full: "authorization.reference:**" },
+			{ addon: "//", cursor: 25, description: "match", full: "authorization.reference://" },
+			{ addon: "!", cursor: 25, description: "not", full: "authorization.reference:!" },
+			{ addon: "within()", cursor: 31, description: undefined, full: "authorization.reference:within()" },
+			{ addon: "*", cursor: 24, description: "startswith", full: "authorization.reference:*" },
 		])
 	})
 	it("merchant.name>authorization.", () => {
@@ -196,6 +198,7 @@ describe("selectively.template", () => {
 			{ addon: "**", cursor: 28, description: "includes", full: "authorization.verification:**" },
 			{ addon: "//", cursor: 28, description: "match", full: "authorization.verification://" },
 			{ addon: "!", cursor: 28, description: "not", full: "authorization.verification:!" },
+			{ addon: "within()", cursor: 34, description: undefined, full: "authorization.verification:within()" },
 			{ addon: "*", cursor: 27, description: "startswith", full: "authorization.verification:*" },
 			{ addon: "unavailable", cursor: 38, description: undefined, full: "authorization.verification:unavailable" },
 			{ addon: "rejected", cursor: 35, description: undefined, full: "authorization.verification:rejected" },
