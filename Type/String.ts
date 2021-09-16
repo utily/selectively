@@ -40,7 +40,7 @@ export class String extends SType {
 		]
 	}
 	isType(value: any): boolean {
-		return typeof value == "string"
+		return typeof value.value == "string"
 	}
 	private static readonly completor: Completor<SType>[] = []
 	static add(...pattern: Completor<SType>[]) {
