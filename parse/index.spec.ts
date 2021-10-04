@@ -131,4 +131,56 @@ describe("parse.group", () => {
 		expect(parsed.is(failingValue)).toBeFalsy()
 		expect(parsed.is(value)).toBeTruthy()
 	})
+	it("asadasdasdasd", () => {
+		const a = selectively.parse("authorization.card.country:within(US)")
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+	})
+	it("asadasdasdasd", () => {
+		const a = selectively.parse("authorization.card.country:US")
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+	})
+
+	it("(!authorization:has(verification)) | (!authorization.card:has(country)) | (authorization.card.country:within(US, SE))", () => {
+		const a = selectively.parse(
+			"(!authorization:has(verification)) | (!authorization.card:has(country)) | (authorization.card.country:within(US, SE))"
+		)
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+		expect(a.is({ authorization: { verification: { country: "US" }, card: "" } })).toBeTruthy()
+	})
+	it("(!authorization:has(verification)) | (!authorization.card:has(amount)) | (authorization.card.amount.last1days>=200)", () => {
+		const a = selectively.parse(
+			"(!authorization:has(verification)) | (!authorization.card:has(amount)) | (authorization.card.amount.last1days>=200)"
+		)
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
+		expect(a.is({ authorization: { verification: { country: "US" }, card: "" } })).toBeTruthy()
+	})
+	it("(!authorization:has(verification)) | (!authorization:has(email)) | (authorization.email.amount.last1days>=200)", () => {
+		const a = selectively.parse(
+			"(!authorization:has(verification)) | (!authorization:has(email)) | (authorization.email.amount.last1days>=200)"
+		)
+		expect(a.is({ authorization: {} })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "" } })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "", email: { amount: { last1days: 100 } } } })).toBeFalsy()
+		expect(a.is({ authorization: { verification: "", email: { amount: { last1days: 300 } } } })).toBeTruthy()
+	})
+	it("(!authorization:has(verification)) |  (!authorization:has(email)) | (authorization.email.transaction.last1days>=3)", () => {
+		const a = selectively.parse(
+			"(!authorization:has(verification)) | (!authorization:has(email)) | (authorization.email.transaction.last1days>=3)"
+		)
+		expect(a.is({ authorization: {} })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "" } })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "", email: { transaction: { last1days: 2 } } } })).toBeFalsy()
+		expect(a.is({ authorization: { verification: "", email: { transaction: { last1days: 3 } } } })).toBeTruthy()
+	})
+	it("(!authorization:has(verification)) |  (!authorization:has(ip)) | (authorization.ip.email.last3days>=3)", () => {
+		const a = selectively.parse(
+			"(!authorization:has(verification)) | (!authorization:has(ip)) | (authorization.ip.email.last3days>=3)"
+		)
+		expect(a.is({ authorization: {} })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "" } })).toBeTruthy()
+		expect(a.is({ authorization: { verification: "", ip: { email: { last3days: 2 } } } })).toBeFalsy()
+		expect(a.is({ authorization: { verification: "", ip: { email: { last3days: 3 } } } })).toBeTruthy()
+	})
 })

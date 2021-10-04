@@ -10,14 +10,19 @@ export class Has extends Rule {
 		super()
 	}
 	is(value: any, property?: string): boolean {
-		return Object.entries(value).some(e => {
-			property = typeof property == "string" ? property : this.property
-			return e[0] == property
-				? true
-				: typeof e[1] == "object"
-				? this.is(e[1], property.includes(".") && property.split(".")[0] == e[0] ? property.split(".")[1] : undefined)
-				: false
-		})
+		return typeof value == "object"
+			? Object.entries(value).some(e => {
+					property = typeof property == "string" ? property : this.property
+					return e[0] == property
+						? true
+						: typeof e[1] == "object"
+						? this.is(
+								e[1],
+								property.includes(".") && property.split(".")[0] == e[0] ? property.split(".")[1] : undefined
+						  )
+						: false
+			  })
+			: false
 	}
 	toString(): string {
 		return `has(${this.property})`
