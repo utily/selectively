@@ -10,12 +10,12 @@ export class Has extends Rule {
 		super()
 	}
 	is(value: any, property?: string): boolean {
-		return typeof value == "object"
+		return typeof value == "object" && value
 			? Object.entries(value).some(e => {
 					property = typeof property == "string" ? property : this.property
 					return e[0] == property
 						? true
-						: typeof e[1] == "object"
+						: typeof e[1] == "object" && e[1]
 						? this.is(
 								e[1],
 								property.includes(".") && property.split(".")[0] == e[0] ? property.split(".")[1] : undefined

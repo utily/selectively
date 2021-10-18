@@ -131,11 +131,11 @@ describe("parse.group", () => {
 		expect(parsed.is(failingValue)).toBeFalsy()
 		expect(parsed.is(value)).toBeTruthy()
 	})
-	it("asadasdasdasd", () => {
+	it("authorization.card.country:within(US)", () => {
 		const a = selectively.parse("authorization.card.country:within(US)")
 		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
 	})
-	it("asadasdasdasd", () => {
+	it("authorization.card.country:US", () => {
 		const a = selectively.parse("authorization.card.country:US")
 		expect(a.is({ authorization: { card: { country: "US" } } })).toBeTruthy()
 	})
