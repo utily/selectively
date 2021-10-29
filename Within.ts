@@ -13,7 +13,7 @@ export class Within extends Rule {
 		return this.value.includes(value)
 	}
 	toString(): string {
-		return `within(${this.value})`
+		return `within(${this.value.join(", ")})`
 	}
 }
 export function within(criteria: string[]): Within

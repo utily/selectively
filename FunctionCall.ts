@@ -14,7 +14,7 @@ export class FunctionCall extends Rule {
 		return this.definition?.is(value) ?? true
 	}
 	toString(): string {
-		return `(${this.identifier}(${this.argument.join(", ")}))`
+		return `${this.identifier}(${this.argument.join(", ")})`
 	}
 }
 export function isType(value: any): value is FunctionCall {
