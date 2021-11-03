@@ -160,6 +160,9 @@ describe("parse.group", () => {
 		const a = selectively.parse(
 			"(!authorization:has(verification)) | (!authorization:has(email)) | (authorization.email.amount.last1days>=200)"
 		)
+		expect(a.toString()).toEqual(
+			"!(authorization:has(verification)) | !(authorization:has(email)) | authorization.email.amount.last1days>=200"
+		)
 		expect(a.is({ authorization: {} })).toBeTruthy()
 		expect(a.is({ authorization: { verification: "" } })).toBeTruthy()
 		expect(a.is({ authorization: { verification: "", email: { amount: { last1days: 100 } } } })).toBeFalsy()
@@ -182,5 +185,13 @@ describe("parse.group", () => {
 		expect(a.is({ authorization: { verification: "" } })).toBeTruthy()
 		expect(a.is({ authorization: { verification: "", ip: { email: { last3days: 2 } } } })).toBeFalsy()
 		expect(a.is({ authorization: { verification: "", ip: { email: { last3days: 3 } } } })).toBeTruthy()
+	})
+	it("authorization.amount>=max | !authorization.currency:currency | authorization.card.amount.last1Days>amount", () => {
+		const parsed = selectively.parse(
+			"authorization.amount>=max | !authorization.currency:currency | authorization.card.amount.last1Days>amount"
+		)
+		expect(parsed.toString()).toEqual(
+			"authorization.amount>=max | !(authorization.currency:currency) | authorization.card.amount.last1Days>amount"
+		)
 	})
 })

@@ -2,6 +2,7 @@
 import { Error } from "@cogneco/mend"
 import { And } from "../And"
 import * as lexer from "../lexer"
+import { Or } from "../Or"
 import { Rule } from "../Rule"
 import { Source } from "./Source"
 
@@ -15,8 +16,12 @@ export function parse(source: string | Source, handler?: Error.Handler): Rule {
 	}
 	handler = handler instanceof Rule ? handler : undefined
 	const result: Rule[] = []
-	while (source.peek())
-		result.push(parseNext(0, source))
+	while (source.peek()) {
+		if (source.fetchIf("|"))
+			result[result.length - 1] = new Or([result[result.length - 1], parseNext(0, source)])
+		else
+			result.push(parseNext(0, source))
+	}
 	return result.length == 1 ? result[0] : new And(result)
 }
 export function parseNext(previous: Rule | number, source: Source): Rule {
