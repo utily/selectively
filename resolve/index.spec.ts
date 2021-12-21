@@ -21,14 +21,14 @@ describe("any", () => {
 			identifier: "ThreeD",
 			precedence: 85,
 		})
-		const definitions = new Definition(
-			"ThreeD",
-			["threshold"],
-			selectively.parse(
-				"authorization.amount > threshold !authorization.verification:verified !authorization.recurring:subsequent"
-			)
-		)
-		const resolved = resolve([definitions], parsed)
+		const definitions: Record<string, Definition> = {
+			ThreeD: {
+				arguments: ["limit"],
+				definition:
+					"authorization.amount>limit !(authorization.verification:verified) !(authorization.recurring:subsequent)",
+			},
+		}
+		const resolved = resolve(definitions, parsed)
 		expect(resolved.is({ authorization: { amount: 300, verification: "verified", recurring: "false" } })).toEqual(false)
 		expect(resolved.is({ authorization: { amount: 300, verification: "false", recurring: "subsequent" } })).toEqual(
 			false
@@ -43,14 +43,14 @@ describe("any", () => {
 	it("without function", () => {
 		const testString = "amount > 10"
 		const parsed = selectively.parse(testString)
-		const definitions = new Definition(
-			"ThreeD",
-			["limit"],
-			selectively.parse(
-				"authorization.amount>limit !(authorization.verification:verified) !(authorization.recurring:subsequent)"
-			)
-		)
-		const resolved = resolve([definitions], parsed)
+		const definitions: Record<string, Definition> = {
+			ThreeD: {
+				arguments: ["limit"],
+				definition:
+					"authorization.amount>limit !(authorization.verification:verified) !(authorization.recurring:subsequent)",
+			},
+		}
+		const resolved = resolve(definitions, parsed)
 		expect(resolved.is({ amount: 9 })).toEqual(false)
 		expect(resolved.is({ amount: 10 })).toEqual(false)
 		expect(resolved.is({ amount: 11 })).toEqual(true)
@@ -66,8 +66,13 @@ describe("any", () => {
 			identifier: "inbetween",
 			precedence: 85,
 		})
-		const definitions = new Definition("inbetween", ["min", "amount"], selectively.parse("amount>min amount<amount"))
-		const resolved = resolve([definitions], parsed)
+		const definitions: Record<string, Definition> = {
+			inbetween: {
+				arguments: ["min", "amount"],
+				definition: "amount>min amount<amount",
+			},
+		}
+		const resolved = resolve(definitions, parsed)
 		expect(resolved).toEqual({
 			argument: ["2", "10"],
 			class: "FunctionCall",
@@ -108,8 +113,13 @@ describe("any", () => {
 			identifier: "currency",
 			precedence: 85,
 		})
-		const definitions = new Definition("currency", ["currency"], selectively.parse("authorization.currency:currency"))
-		const resolved = resolve([definitions], parsed)
+		const definitions: Record<string, Definition> = {
+			currency: {
+				arguments: ["currency"],
+				definition: "authorization.currency:currency",
+			},
+		}
+		const resolved = resolve(definitions, parsed)
 		expect(resolved).toEqual({
 			argument: ["SEK"],
 			class: "FunctionCall",
