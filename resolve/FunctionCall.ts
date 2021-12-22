@@ -8,7 +8,7 @@ add<FunctionCall>("FunctionCall", (definitions, rule, argument) => {
 	const definitionRule: Rule | undefined = definition ? parse(definition.definition) : undefined
 	const property = resolve(definitions, definitionRule ?? rule, {
 		input: argument?.input?.concat(rule.argument),
-		identifier: argument?.input?.concat(definition?.arguments),
+		identifier: argument?.identifier?.concat(definition?.arguments),
 	})
 	return new FunctionCall(rule.identifier, rule.argument, property)
 })
