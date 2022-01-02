@@ -2,8 +2,10 @@ import "./Always"
 import { And, and } from "./And"
 import { Any, any } from "./Any"
 import { Criteria } from "./Criteria"
+import { Definition } from "./Definition"
 import { EndsWith, endsWith } from "./EndsWith"
 import { Every, every } from "./Every"
+import { FunctionCall } from "./FunctionCall"
 import { GreaterThan, greaterThan } from "./GreaterThan"
 import { GreaterThanOrEqual, greaterThanOrEqual } from "./GreaterThanOrEqual"
 import { Has, has } from "./Has"
@@ -16,6 +18,7 @@ import { Not, not } from "./Not"
 import { Or, or } from "./Or"
 import { parse, parseExpression } from "./parse"
 import { Property, property } from "./Property"
+import { resolve } from "./resolve"
 import { create, Rule } from "./Rule"
 import { Some, some } from "./Some"
 import { StartsWith, startsWith } from "./StartsWith"
@@ -39,8 +42,10 @@ export {
 	And,
 	Any,
 	Criteria,
+	Definition,
 	EndsWith,
 	Every,
+	FunctionCall,
 	Has,
 	GreaterThan,
 	GreaterThanOrEqual,
@@ -78,6 +83,7 @@ export {
 	parse,
 	parseExpression,
 	property,
+	resolve,
 	some,
 	startsWith,
 	within,
