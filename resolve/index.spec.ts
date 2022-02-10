@@ -103,11 +103,11 @@ describe("any", () => {
 		expect(resolved.is({ amount: 5 })).toEqual(true)
 		expect(resolved.is({ amount: 11 })).toEqual(false)
 	})
-	it("several arguments", () => {
-		const testString = "currency(SEK)"
+	it("no argument", () => {
+		const testString = "currency()"
 		const parsed = selectively.parse(testString)
 		expect(parsed).toEqual({
-			argument: ["SEK"],
+			argument: [""],
 			class: "FunctionCall",
 			definition: undefined,
 			identifier: "currency",
@@ -115,13 +115,13 @@ describe("any", () => {
 		})
 		const definitions: Record<string, Definition> = {
 			currency: {
-				arguments: ["currency"],
-				definition: "authorization.currency:currency",
+				arguments: [""],
+				definition: "authorization.currency:SEK",
 			},
 		}
 		const resolved = resolve(definitions, parsed)
 		expect(resolved).toEqual({
-			argument: ["SEK"],
+			argument: [""],
 			class: "FunctionCall",
 			definition: {
 				class: "Property",
@@ -142,5 +142,26 @@ describe("any", () => {
 		expect(resolved.is({ authorization: { currency: "SEK" } })).toEqual(true)
 		expect(resolved.is({ authorization: { currency: "NOK" } })).toEqual(false)
 		expect(resolved.is({ authorization: { amount: 3 } })).toEqual(false)
+	})
+	it("function not found", () => {
+		const testString = "notDefined()"
+		const parsed = selectively.parse(testString)
+		const definitions: Record<string, Definition> = {
+			currency: {
+				arguments: [""],
+				definition: "authorization.currency:SEK",
+			},
+		}
+		const resolved = resolve(definitions, parsed)
+		expect(resolved).toEqual({
+			argument: [""],
+			class: "FunctionCall",
+			definition: undefined,
+			identifier: "notDefined",
+			precedence: 85,
+		})
+		expect(resolved.is({ authorization: { currency: "SEK" } })).toEqual(true)
+		expect(resolved.is({ authorization: { currency: "NOK" } })).toEqual(true)
+		expect(resolved.is({ authorization: { amount: 3 } })).toEqual(true)
 	})
 })

@@ -3,12 +3,13 @@ import { add } from "./parse"
 
 add(source => {
 	const peek = source.peek(3)?.value
-	const fetched = [")", ",", "("].find(s => s == peek) ? source.fetchIf("identifier", "(") : undefined
+	const fetched =
+		[")", ",", "("].find(s => s == peek) || source.peek(2)?.value == ")" ? source.fetchIf("identifier", "(") : undefined
 	let parameters: string[] | undefined
 	if (fetched && source.peek()) {
-		parameters = [source.fetch()?.value ?? ""]
+		parameters = [source.fetchIf(/[A-Za-z0-9_]+/)?.value ?? ""]
 		while (source.fetchIf(","))
-			parameters.push(source.fetchIf("any")?.value ?? "")
+			parameters.push(source.fetchIf(/[A-Za-z0-9_]+/)?.value ?? "")
 		if (!source.fetchIf(")"))
 			source.raise("Missing end of parenthesis.")
 	}

@@ -1,6 +1,15 @@
 import * as selectively from "../index"
 
 describe("parse.FunctionCall", () => {
+	it("amount()", () => {
+		expect(selectively.parse("amount()")).toEqual({
+			argument: [""],
+			class: "FunctionCall",
+			definition: undefined,
+			identifier: "amount",
+			precedence: 85,
+		})
+	})
 	it("amount(5)", () => {
 		expect(selectively.parse("amount(5)")).toEqual({
 			argument: ["5"],
