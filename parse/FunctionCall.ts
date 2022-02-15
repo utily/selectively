@@ -7,9 +7,11 @@ add(source => {
 		[")", ",", "("].find(s => s == peek) || source.peek(2)?.value == ")" ? source.fetchIf("identifier", "(") : undefined
 	let parameters: string[] | undefined
 	if (fetched && source.peek()) {
-		parameters = [source.fetchIf(/[A-Za-z0-9_]+/)?.value ?? ""]
+		// eslint-disable-next-line no-useless-escape
+		parameters = [source.fetchIf(/[A-Za-z0-9_\.\-]+/)?.value ?? ""]
 		while (source.fetchIf(","))
-			parameters.push(source.fetchIf(/[A-Za-z0-9_]+/)?.value ?? "")
+			// eslint-disable-next-line no-useless-escape
+			parameters.push(source.fetchIf(/[A-Za-z0-9_\.\-]+/)?.value ?? "")
 		if (!source.fetchIf(")"))
 			source.raise("Missing end of parenthesis.")
 	}

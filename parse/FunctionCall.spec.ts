@@ -28,4 +28,13 @@ describe("parse.FunctionCall", () => {
 			precedence: 85,
 		})
 	})
+	it("amount(2022-02-22)", () => {
+		expect(selectively.parse("amount(2022-02-22)")).toEqual({
+			argument: ["2022-02-22"],
+			class: "FunctionCall",
+			definition: undefined,
+			identifier: "amount",
+			precedence: 85,
+		})
+	})
 })
