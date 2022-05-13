@@ -22,8 +22,7 @@ export class Number extends SType {
 				? Completion.prepend(" ", baseObject?.complete(tokens, undefined, undefined))
 				: []),
 			...(type ? Number.completorArgument : Number.completor)
-				.map(p => p(tokens, this, baseObject))
-				.reduce<Completion[]>((result, element) => result.concat(element), [])
+				.flatMap(p => p(tokens, this, baseObject))
 				.reduce<Completion[]>(
 					(result, element) =>
 						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],

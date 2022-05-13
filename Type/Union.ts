@@ -10,11 +10,7 @@ export class Union extends SType {
 
 	complete(input: Token[] | string, baseObject?: SType, type?: SType): Completion[] {
 		const tokens = typeof input == "string" ? this.tokenize(input) : input
-		return this.type
-			? this.type
-					?.map(t => t?.complete(tokens, baseObject, type) ?? [])
-					.reduce<Completion[]>((result, element) => result.concat(element), [])
-			: []
+		return this.type ? this.type?.flatMap(t => t?.complete(tokens, baseObject, type) ?? []) : []
 	}
 	isType(value: any): boolean {
 		return value instanceof Union
