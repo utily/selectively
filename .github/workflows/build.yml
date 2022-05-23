@@ -20,7 +20,7 @@ jobs:
           key: ${{ runner.os }}-cache
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '16.x'
       - run: npm install
       - run: npm run build
       - run: npm run lint

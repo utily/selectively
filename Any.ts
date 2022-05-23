@@ -18,9 +18,9 @@ export class Any extends Rule {
 		return this.criteria.stringify(this.precedence)
 	}
 }
-export function any<T>(criteria: Criteria): Rule
-export function any<T>(criteria: Criteria, value: any): boolean
-export function any<T>(criteria: Criteria, value?: any): Rule | boolean {
+export function any(criteria: Criteria): Rule
+export function any(criteria: Criteria, value: any): boolean
+export function any(criteria: Criteria, value?: any): Rule | boolean {
 	const result = new Any(create(criteria))
 	return value ? result.is(value) : result
 }
