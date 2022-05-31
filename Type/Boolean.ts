@@ -25,8 +25,7 @@ export class Boolean extends SType {
 		return [
 			...(result ?? []),
 			...(type ? [] : Boolean.completor)
-				.map(p => p(tokens, this, baseObject))
-				.reduce<Completion[]>((result, element) => result.concat(element), [])
+				.flatMap(p => p(tokens, this, baseObject))
 				.reduce<Completion[]>(
 					(result, element) =>
 						result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],

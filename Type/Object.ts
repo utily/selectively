@@ -60,9 +60,7 @@ export class TObject extends SType {
 					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
 				[]
 			),
-			...TObject.completor
-				.map(p => p(tokens, this, baseObject))
-				.reduce<Completion[]>((r, element) => r.concat(element), []),
+			...TObject.completor.flatMap(p => p(tokens, this, baseObject)),
 		]
 	}
 	filterByType(type?: SType): Completion[] {

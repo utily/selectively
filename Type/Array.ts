@@ -14,8 +14,7 @@ export class Array extends Base {
 	complete(input: Token[] | string, baseObject?: Base, type?: Base): Completion[] {
 		const tokens = typeof input == "string" ? this.tokenize(input) : input
 		return Array.completor
-			.map(p => p(tokens, this, baseObject))
-			.reduce<Completion[]>((result, element) => result.concat(element), [])
+			.flatMap(p => p(tokens, this, baseObject))
 			.reduce<Completion[]>(
 				(result, element) =>
 					result.some(p => p.value == element.value && p.cursor == element.cursor) ? result : [...result, element],
