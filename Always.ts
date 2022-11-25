@@ -9,6 +9,9 @@ export class Always extends Rule {
 	is(value: any): boolean {
 		return true
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString(): string {
 		return ""
 	}

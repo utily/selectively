@@ -12,6 +12,9 @@ export class Some extends Rule {
 	is(value: any): boolean {
 		return Array.isArray(value) && value.some(v => this.criteria.is(v))
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString() {
 		return `some(${this.criteria.toString()})`
 	}

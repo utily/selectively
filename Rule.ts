@@ -16,6 +16,7 @@ export abstract class Rule {
 			result = "(" + result + ")"
 		return result
 	}
+	abstract get(path: string[]): Rule | undefined
 }
 const creators: ((criteria: Criteria) => Rule | undefined)[] = [
 	criteria => (criteria instanceof Rule ? criteria : undefined),

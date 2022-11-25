@@ -12,6 +12,9 @@ export class Includes extends Rule {
 	is(value: any): boolean {
 		return typeof value == "string" && value.includes(this.needle)
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString() {
 		return `*${this.needle}*`
 	}

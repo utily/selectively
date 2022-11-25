@@ -27,6 +27,9 @@ export class Has extends Rule {
 	toString(): string {
 		return `has(${this.property})`
 	}
+	get(path: string[]): Rule | undefined {
+		return
+	}
 }
 export function has(criteria: string): Has
 export function has(criteria: string, value?: any): boolean

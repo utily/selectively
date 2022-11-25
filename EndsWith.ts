@@ -1,9 +1,9 @@
+import { Leaf } from "./Leaf"
 import { Token } from "./lexer"
-import { Rule } from "./Rule"
 import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
-export class EndsWith extends Rule {
+export class EndsWith extends Leaf {
 	readonly precedence = Number.MAX_SAFE_INTEGER
 	readonly class = "EndsWith"
 	constructor(readonly needle: string) {

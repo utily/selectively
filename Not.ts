@@ -13,6 +13,9 @@ export class Not extends Rule {
 	is(value: any): boolean {
 		return !this.criteria.is(value)
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString(): string {
 		return `!${this.criteria.stringify(this.precedence)}`
 	}

@@ -21,6 +21,9 @@ export class LesserThanOrEqual extends Rule {
 				: this.value.evaluate(object))
 		)
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString(): string {
 		return this.value.toString()
 	}

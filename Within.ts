@@ -1,9 +1,9 @@
+import { Leaf } from "./Leaf"
 import { Token } from "./lexer"
-import { Rule } from "./Rule"
 import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
-export class Within extends Rule {
+export class Within extends Leaf {
 	readonly precedence = 85
 	readonly class = "Within"
 	constructor(readonly value: (string | number)[]) {

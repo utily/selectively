@@ -9,6 +9,9 @@ export class Tuple extends Rule {
 	is(value: any): boolean {
 		return this.criteria.length == value.length && this.criteria.every((c, index) => c.is(value[index]))
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString() {
 		return `[${this.criteria.map(c => c.toString()).join(", ")}]`
 	}

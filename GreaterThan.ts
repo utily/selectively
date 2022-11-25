@@ -1,10 +1,10 @@
 import { Expression } from "./Expression"
+import { Leaf } from "./Leaf"
 import { Token } from "./lexer"
-import { Rule } from "./Rule"
 import { Type } from "./Type"
 import { Value } from "./Value"
 
-export class GreaterThan extends Rule {
+export class GreaterThan extends Leaf {
 	readonly precedence = 85
 	readonly class = "GreaterThan"
 	readonly symbol = ">"

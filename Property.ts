@@ -14,6 +14,9 @@ export class Property extends Rule {
 	is(value: any, object?: any): boolean {
 		return typeof value == "object" && this.criteria.is(value[this.name], object ?? value)
 	}
+	get([head, ...tail]: string[]): Rule | undefined {
+		return head == this.name ? this.criteria.get(tail) : undefined
+	}
 	toString(): string {
 		return `${this.name}${this.criteria.symbol ?? ":"}${this.criteria.stringify(this.precedence)}`
 	}

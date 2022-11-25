@@ -13,6 +13,9 @@ export class And extends Rule {
 	is(value: any): boolean {
 		return this.rules.every(c => c.is(value))
 	}
+	get(path: string[]): Rule | undefined {
+		return this.rules.reduce((result, rule) => result ?? rule.get(path), undefined)
+	}
 	toString() {
 		return this.rules.map(c => c.stringify(this.precedence)).join(" ")
 	}

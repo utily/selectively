@@ -13,6 +13,9 @@ export class FunctionCall extends Rule {
 	is(value: any): boolean {
 		return this.definition?.is(value) ?? true
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString(): string {
 		return `${this.identifier}(${this.argument.join(", ")})`
 	}

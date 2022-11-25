@@ -13,6 +13,9 @@ export class Every extends Rule {
 	is(value: any): boolean {
 		return Array.isArray(value) && value.every(v => this.criteria.is(v))
 	}
+	get(_: string[]): Rule | undefined {
+		return undefined
+	}
 	toString() {
 		return `every(${this.criteria.toString()})`
 	}

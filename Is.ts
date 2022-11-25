@@ -19,6 +19,9 @@ export class Is extends Rule {
 	toString(): string {
 		return this.value.toString()
 	}
+	get(path: string[]): Rule | undefined {
+		return path.length == 0 ? this : undefined
+	}
 }
 export function is(criteria: bigint | boolean | number | string | Expression): Is
 export function is(criteria: bigint | boolean | number | string | Expression, value?: any): boolean
