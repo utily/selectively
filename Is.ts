@@ -14,7 +14,8 @@ export class Is extends Rule {
 	is(value: any, object?: any): boolean {
 		return Array.isArray(value) && isCriteria(this.value)
 			? some(this.value, value)
-			: (isNaN(+value) ? value : +value) == (typeof this.value == "object" ? this.value.evaluate(object) : this.value)
+			: (typeof value == "boolean" ? value.toString() : isNaN(+value) ? value : +value) ==
+					(typeof this.value == "object" ? this.value.evaluate(object) : this.value)
 	}
 	toString(): string {
 		return this.value.toString()
