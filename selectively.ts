@@ -37,7 +37,7 @@ function filter<T>(criteria: Criteria, value: T[]): T[] {
 	const c = create(criteria)
 	return c.filter(value)
 }
-export * as selectively from "./selectively"
+
 export {
 	And,
 	Any,

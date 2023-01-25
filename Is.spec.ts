@@ -1,4 +1,4 @@
-import * as selectively from "./index"
+import { selectively } from "./index"
 
 describe("is", () => {
 	it("simple", () => expect(selectively.is({ class: "test" }, { id: "axb", class: "test" })).toBeTruthy())
@@ -7,6 +7,10 @@ describe("is", () => {
 		expect(
 			selectively.is({ class: { name: "test" } }, { id: "axb", class: { name: "test", type: "type" } })
 		).toBeTruthy())
+	it("boolean", () => {
+		const expression = selectively.parse("happy: true")
+		console.log(expression.is({ happy: true }))
+	})
 })
 describe("filter", () => {
 	it("simple.filter", () =>
