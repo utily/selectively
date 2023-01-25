@@ -8,5 +8,7 @@ describe("Criteria", () => {
 		expect(selectively.Criteria.is({ prop: "value" }, true)).toEqual(true)
 		expect(selectively.Criteria.is({ prop: { prop: "value" } }, true)).toEqual(true)
 		expect(selectively.Criteria.is({ prop: { prop: ["value", selectively.parse("value")] } }, true)).toEqual(true)
+		expect(selectively.Criteria.is(true)).toEqual(false)
+		expect(selectively.Criteria.is({ prop: { prop: ["value", false] } })).toEqual(false)
 	})
 })
