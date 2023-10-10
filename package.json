@@ -1,6 +1,6 @@
 {
   "name": "selectively",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Create selection by filtering a collection.",
   "author": "PayFunc",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "private": false,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-	"type": "module",
+  "type": "module",
   "git": {
     "tagName": "v${version}"
   },
