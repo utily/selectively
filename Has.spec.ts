@@ -11,6 +11,13 @@ describe("has", () => {
 	})
 	it("object", () =>
 		expect(selectively.has("name1", { id: "axb", class: { name1: { test: "test" }, type: "type" } })).toBeTruthy())
+	it("array", () => {
+		expect(selectively.has("class", [{ class: "value" }])).toBeTruthy()
+		expect(selectively.has("class", [{ class: "value" }, { notClass: "value" }])).toBeTruthy()
+		expect(selectively.has("class2", [{ class: "value" }])).toBeFalsy()
+		expect(selectively.has("class.value", [{ class: { value: "test" } }, { notClass: "value" }])).toBeTruthy()
+		expect(selectively.has("class.value", [{ notClass: { value: "test" } }, { notClass: "value" }])).toBeFalsy()
+	})
 })
 describe("filter", () => {
 	it("simple", () =>
