@@ -2,6 +2,7 @@ import * as selectively from "../index"
 
 describe("parse.group", () => {
 	it("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()", () => {
+		// Throws "Critical: grammatical error."
 		const parsed = selectively
 			.parse("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()")
 			.toString()
@@ -193,5 +194,14 @@ describe("parse.group", () => {
 		expect(parsed.toString()).toEqual(
 			"authorization.amount>=max | !(authorization.currency:currency) | authorization.card.amount.last1Days>amount"
 		)
+	})
+	it("!data.merchant.known:some(authorization.merchant.name)", () => {
+		const data = { merchant: { known: ["IKEA"] } }
+		const known = { authorization: { merchant: { name: "IKEA" } }, data }
+		const unknown = { authorization: { merchant: { name: "JYSK" } }, data }
+		const parsed = selectively.parse("!data.merchant.known:some(authorization.merchant.name)")
+		expect(parsed.toString()).toEqual("!(data.merchant.known:some(authorization.merchant.name))")
+		expect(parsed.is(unknown)).toBeTruthy()
+		expect(parsed.is(known)).toBeFalsy()
 	})
 })

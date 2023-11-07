@@ -9,8 +9,8 @@ export class Some extends Rule {
 	constructor(readonly criteria: Rule) {
 		super()
 	}
-	is(value: any): boolean {
-		return Array.isArray(value) && value.some(v => this.criteria.is(v))
+	is(value: any, object?: any): boolean {
+		return Array.isArray(value) && value.some(v => this.criteria.is(v, object))
 	}
 	toString() {
 		return `some(${this.criteria.toString()})`
