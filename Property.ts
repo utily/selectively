@@ -9,13 +9,12 @@ export class Property extends Rule {
 	constructor(readonly name: string, readonly criteria?: Rule) {
 		super()
 	}
-
-	is(value: any): boolean
 	is(value: any, object?: any): boolean {
-		return typeof value == "object" && !!this.criteria?.is(value[this.name], object ?? value)
-	}
-	resolve(value: any): any {
-		return this.criteria instanceof Property ? this.criteria.resolve(value[this.name]) : value[this.name]
+		return !this.criteria
+			? value == object?.[this.name]
+			: typeof value == "object"
+			? this.criteria.is(value[this.name], object ?? value)
+			: this.criteria.is(value, object?.[this.name])
 	}
 	toString(): string {
 		return `${this.name}${this.criteria ? this.criteria.symbol ?? ":" : ""}${

@@ -1,6 +1,5 @@
 import { Criteria } from "./Criteria"
 import { Token } from "./lexer"
-import { Property } from "./Property"
 import { create, Rule } from "./Rule"
 import { Type } from "./Type"
 
@@ -11,12 +10,7 @@ export class Some extends Rule {
 		super()
 	}
 	is(value: any, object?: any): boolean {
-		return (
-			Array.isArray(value) &&
-			value.some(v =>
-				this.criteria instanceof Property ? v == this.criteria.resolve(object) : this.criteria.is(v, object)
-			)
-		)
+		return Array.isArray(value) && value.some(v => this.criteria.is(v, object))
 	}
 	toString() {
 		return `some(${this.criteria.toString()})`

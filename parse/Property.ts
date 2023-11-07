@@ -13,12 +13,9 @@ add(source => {
 	return result.length > 0
 		? result.reduceRight(
 				(r, name) => new Property(name, r),
-				(source.peekIs("identifier") &&
-					!source.peek(1) &&
-					result.length > 0 &&
-					(fetched = source.fetchIf("identifier")) &&
-					new Property(fetched.value)) ||
-					parseNext(Property.precedence, source)
+				source.peekIs("identifier") && (fetched = source.fetchIf("identifier"))
+					? new Property(fetched.value)
+					: parseNext(Property.precedence, source)
 		  )
 		: undefined
 })
