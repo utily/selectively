@@ -2,6 +2,7 @@ import * as selectively from "../index"
 
 describe("parse.group", () => {
 	it("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()", () => {
+		// Throws "Critical: grammatical error."
 		const parsed = selectively
 			.parse("status:some(created | charged | paid | pending | deferred | ordered | denied) created:()")
 			.toString()
