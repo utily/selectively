@@ -11,6 +11,14 @@ add(source => {
 	if (source.peekIs("identifier", Source.comparator) && (fetched = source.fetchIf("identifier")))
 		result.push(fetched.value)
 	return result.length > 0
-		? result.reduceRight((r, name) => new Property(name, r), parseNext(Property.precedence, source))
+		? result.reduceRight(
+				(r, name) => new Property(name, r),
+				(source.peekIs("identifier") &&
+					!source.peek(1) &&
+					result.length > 0 &&
+					(fetched = source.fetchIf("identifier")) &&
+					new Property(fetched.value)) ||
+					parseNext(Property.precedence, source)
+		  )
 		: undefined
 })

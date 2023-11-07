@@ -6,16 +6,21 @@ export class Property extends Rule {
 	readonly precedence = Property.precedence
 	readonly class = "Property"
 	readonly symbol = "."
-	constructor(readonly name: string, readonly criteria: Rule) {
+	constructor(readonly name: string, readonly criteria?: Rule) {
 		super()
 	}
 
 	is(value: any): boolean
 	is(value: any, object?: any): boolean {
-		return typeof value == "object" && this.criteria.is(value[this.name], object ?? value)
+		return typeof value == "object" && !!this.criteria?.is(value[this.name], object ?? value)
+	}
+	resolve(value: any): any {
+		return this.criteria instanceof Property ? this.criteria.resolve(value[this.name]) : value[this.name]
 	}
 	toString(): string {
-		return `${this.name}${this.criteria.symbol ?? ":"}${this.criteria.stringify(this.precedence)}`
+		return `${this.name}${this.criteria ? this.criteria.symbol ?? ":" : ""}${
+			this.criteria?.stringify(this.precedence) ?? ""
+		}`
 	}
 	static readonly precedence = 80
 }
