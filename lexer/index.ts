@@ -16,7 +16,11 @@ function tokenize(
 				source.read()
 			if ((peekSymbolLength = source.peekIsSymbol(symbols)))
 				result = { value: source.read(peekSymbolLength) || "", region: source.mark() }
-			else {
+			else if (source.readIf('"')) {
+				const value = source.till('"').readAll() ?? ""
+				source.readIf('"')
+				result = { value, region: source.mark() }
+			} else {
 				let value = ""
 				while (!source.isEmpty && !source.peekIsWhitespace() && !source.peekIsSymbol(symbols))
 					value += source.read()

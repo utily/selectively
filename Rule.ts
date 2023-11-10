@@ -16,6 +16,9 @@ export abstract class Rule {
 			result = "(" + result + ")"
 		return result
 	}
+	escape(value: string): string {
+		return value.includes(".") ? `"${value.replace('"', '\\"')}"` : value
+	}
 }
 const creators: ((criteria: Criteria) => Rule | undefined)[] = [
 	criteria => (criteria instanceof Rule ? criteria : undefined),

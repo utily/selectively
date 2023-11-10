@@ -18,7 +18,7 @@ export class Is extends Rule {
 					(typeof this.value == "object" ? this.value.evaluate(object) : this.value)
 	}
 	toString(): string {
-		return this.value.toString()
+		return this.escape(this.value.toString())
 	}
 }
 export function is(criteria: bigint | boolean | number | string | Expression): Is
