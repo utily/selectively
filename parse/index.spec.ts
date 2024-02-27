@@ -204,4 +204,37 @@ describe("parse.group", () => {
 		expect(parsed.is(unknown)).toBeTruthy()
 		expect(parsed.is(known)).toBeFalsy()
 	})
+	it("Array.length & some", () => {
+		const parsed = selectively.parse("card.known.merchants.length>0 !card.known.merchants:some(authorization.value)")
+		expect(parsed.is({ card: { known: { merchants: ["a", "b"] } }, authorization: { value: "d" } })).toBeTruthy()
+		expect(parsed.is({ card: { known: { merchants: ["a", "b"] } } })).toBeTruthy()
+		expect(parsed.is({ card: { known: { merchants: [] } } })).toBeFalsy()
+		expect(parsed.is({ card: { known: { merchants: ["a", "b"] } }, authorization: { value: "a" } })).toBeFalsy()
+		expect(parsed.is({ card: { known: { merchants: [] } }, authorization: { value: "a" } })).toBeFalsy()
+	})
+	it("amount< - 1000", () => {
+		const smaller = { amount: -2000 }
+		const bigger = { amount: -200 }
+		const parsed = selectively.parse("amount<0 - 1000")
+		expect(parsed).toEqual({
+			class: "Property",
+			criteria: {
+				class: "LesserThan",
+				precedence: 85,
+				symbol: "<",
+				value: {
+					class: "InfixOperator",
+					left: { class: "Value", name: undefined, precedence: 19, value: 0 },
+					precedence: 15,
+					right: { class: "Value", name: undefined, precedence: 19, value: 1000 },
+					symbol: "-",
+				},
+			},
+			name: "amount",
+			precedence: 80,
+			symbol: ".",
+		})
+		expect(parsed.is(smaller)).toBeTruthy()
+		expect(parsed.is(bigger)).toBeFalsy()
+	})
 })
