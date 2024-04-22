@@ -32,6 +32,17 @@ const testing = {
 const testObject = selectively.Type.convert(testing)
 
 describe("selectively.Type", () => {
+	it("array complete", () => {
+		expect(Completion.stringify(testObject.complete("merchant.scheme:"))).toEqual([
+			"merchant.scheme:every(_)",
+			"merchant.scheme:visa_",
+			"merchant.scheme:mastercard_",
+			"merchant.scheme:contains(_)",
+		])
+	})
+	it("array complete 2", () => {
+		expect(Completion.stringify(testObject.complete("merchant.scheme:c"))).toEqual(["merchant.scheme:contains(_)"])
+	})
 	it("complete", () => {
 		expect(Completion.stringify(testObject.complete(""))).toEqual(["merchant_", "authorization_", "!_"])
 		expect(Completion.stringify(testObject.complete("merc"))).toEqual(["merchant_"])

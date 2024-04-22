@@ -12,4 +12,25 @@ describe("parse.Some", () => {
 		expect(selectively.is(selectively.parse(":some(1)"), [2, "not value", "value", "other"])).toEqual(false)
 		expect(selectively.is(selectively.parse(":some(value)"), ["other word", "3rd word", "other"])).toEqual(false)
 	})
+
+	it("rule argument", () => {
+		expect(
+			selectively.is(selectively.parse("people:some(name:bill)"), {
+				people: [
+					{ name: "bill", color: "blue", age: 5 },
+					{ name: "carson", color: "cyan", age: 55 },
+					{ name: "agna", color: "argent", age: 555 },
+				],
+			})
+		).toEqual(true)
+		expect(
+			selectively.is(selectively.parse("people:some(name:olle)"), {
+				people: [
+					{ name: "bill", color: "blue", age: 5 },
+					{ name: "carson", color: "cyan", age: 55 },
+					{ name: "agna", color: "argent", age: 555 },
+				],
+			})
+		).toEqual(false)
+	})
 })
