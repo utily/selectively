@@ -1,6 +1,7 @@
 import "./Always"
 import { And, and } from "./And"
 import { Any, any } from "./Any"
+import { Contains, contains } from "./Contains"
 import { Criteria } from "./Criteria"
 import { Definition } from "./Definition"
 import { EndsWith, endsWith } from "./EndsWith"
@@ -42,6 +43,7 @@ export {
 	And,
 	Any,
 	Criteria,
+	Contains,
 	Definition,
 	EndsWith,
 	Every,
@@ -67,6 +69,7 @@ export {
 	any,
 	and,
 	create,
+	contains,
 	endsWith,
 	every,
 	has,
