@@ -21,9 +21,6 @@ describe("parse.Contains", () => {
 		})
 	})
 	it("contains(charged, ordered)", () => {
-		const a = { values: ["aaa", "bbb"] }
-		const parsed = selectively.parse("values:contains(aaa, bbb)")
-		console.log("within parsed: ", parsed)
-		expect(selectively.is(parsed, a)).toEqual(true)
+		expect(selectively.is(selectively.parse("values:contains(aaa, bbb)"), { values: ["aaa", "bbb"] })).toEqual(true)
 	})
 })

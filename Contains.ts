@@ -22,7 +22,6 @@ export function contains(criteria: (string | number)[], value?: any): Contains |
 	const result = new Contains(criteria)
 	return value ? result.is(value) : result
 }
-
 function complete(tokens: Token[], type: Type.Array, baseObject?: Type): Type.Completion[] | Type.Completion {
 	// TODO: add arguments function
 	return Completor.functions(tokens, () => [], {

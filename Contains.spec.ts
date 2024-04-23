@@ -6,10 +6,12 @@ describe("Contains", () => {
 			selectively.is({ status: selectively.contains(["approved"]) }, { id: "axb", status: ["denied", "approved"] })
 		).toBeTruthy())
 	it("simple 2", () => {
-		const status = selectively.contains(["approved", "accepted"])
-		console.log("simple 2: ", status.toString())
-
-		expect(selectively.is({ status }, { id: "axb", status: ["accepted", "approved"] })).toBeTruthy()
+		expect(
+			selectively.is(
+				{ status: selectively.contains(["approved", "accepted"]) },
+				{ id: "axb", status: ["accepted", "approved"] }
+			)
+		).toBeTruthy()
 	})
 	it("negative", () =>
 		expect(
