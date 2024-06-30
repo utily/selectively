@@ -2,16 +2,16 @@
   "name": "selectively",
   "version": "2.0.11",
   "description": "Create selection by filtering a collection.",
-  "author": "PayFunc",
+  "author": "Utily",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/payfunc/selectively"
+    "url": "git+https://github.com/utily/selectively"
   },
   "bugs": {
-    "url": "https://github.com/payfunc/selectively/issues"
+    "url": "https://github.com/utily/selectively/issues"
   },
-  "homepage": "https://payfunc.com/open-source/selectively",
+  "homepage": "https://github.com/utily/selectively",
   "private": false,
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
