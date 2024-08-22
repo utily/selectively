@@ -34,7 +34,7 @@ export class Transformer extends isly.Transformer<Base> {
 	protected onString(type: isly.Type<string>): Base | undefined {
 		let result: Base | undefined
 		if (typeof type.condition == "string")
-			result = new TUnion(type.condition.split(" | ").flatMap(condition => new TString(condition)))
+			result = new TUnion(type.condition.split(" | ").flatMap(condition => new TString(condition.replace(/"/g, ""))))
 		else
 			result = new TString()
 		return result

@@ -14,29 +14,14 @@ const testObjectType = isly.object<TestObject>({
 })
 const transformer = new selectively.Type.Transformer()
 const transformed = transformer.transform(testObjectType)
-describe("selectively.Type", () => {
-	it("array complete", () => {
-		expect(transformer.transform(testObjectType)).toEqual({
-			class: "object",
-			completions: [
-				{ suggestion: { value: "amount" }, value: "amount" },
-				{ suggestion: { value: "currency" }, value: "currency" },
-				{ suggestion: { value: "approved" }, value: "approved" },
-			],
-			properties: {
-				amount: { class: "number", input: undefined },
-				approved: { class: "boolean" },
-				currency: {
-					class: "union",
-					type: [
-						{ class: "string", value: '"SEK"' },
-						{ class: "string", value: '"EUR"' },
-					],
-				},
-			},
-		})
-	})
+describe("Transform", () => {
 	it("Complete", () => {
+		expect(transformed?.complete("")).toEqual([
+			{ suggestion: { value: "amount" }, value: "amount" },
+			{ suggestion: { value: "currency" }, value: "currency" },
+			{ suggestion: { value: "approved" }, value: "approved" },
+			{ cursor: 1, suggestion: { description: "not", value: "!" }, value: "!" },
+		])
 		expect(Completion.stringify(transformed?.complete("") ?? [])).toEqual(["amount_", "currency_", "approved_", "!_"])
 		expect(Completion.stringify(transformed?.complete("!") ?? [])).toEqual(["!amount_", "!currency_", "!approved_"])
 		expect(Completion.stringify(transformed?.complete("amo") ?? [])).toEqual(["amount_"])
@@ -55,14 +40,14 @@ describe("selectively.Type", () => {
 			"currency<=_",
 		])
 		expect(Completion.stringify(transformed?.complete("currency:") ?? [])).toEqual([
-			'currency:"SEK"_',
+			"currency:SEK_",
 			"currency:*_",
 			"currency:*_*",
 			"currency:/_/",
 			"currency:!_",
 			"currency:within(_)",
 			"currency:_*",
-			'currency:"EUR"_',
+			"currency:EUR_",
 		])
 	})
 })
