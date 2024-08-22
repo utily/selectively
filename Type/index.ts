@@ -7,6 +7,7 @@ import { Cursor } from "./Cursor"
 import { Number as TNumber } from "./Number"
 import { TObject } from "./Object"
 import { String as TString } from "./String"
+import { Transformer as TTransformer } from "./Transformer"
 import { Union as TUnion } from "./Union"
 
 export type Type = Base
@@ -61,4 +62,6 @@ export namespace Type {
 	export type Union = TUnion
 	export const Union = TUnion
 	export const Completor = TCompletor
+	export type Transformer = TTransformer
+	export const Transformer = TTransformer
 }
