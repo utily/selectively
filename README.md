@@ -1,5 +1,5 @@
-# template-library
-Template for NPM library.
+# selectively
+Create selection by filtering a collection.
 
 # Selectively Grammar
 ## Symbols
