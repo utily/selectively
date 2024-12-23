@@ -44,15 +44,19 @@
 	"cSpell.words": [
 		"authly",
 		"cloudly",
+		"cogneco",
 		"Completor",
+		"criterias",
 		"cryptly",
 		"flagly",
 		"gracely",
 		"isly",
 		"isoly",
 		"langly",
+		"nand",
 		"paramly",
 		"persistly",
+		"prettierx",
 		"Renamer",
 		"selectivly",
 		"servly",
@@ -61,7 +65,8 @@
 		"tidily",
 		"transactly",
 		"typedly",
-		"uply"
+		"uply",
+		"Utily"
 	],
 	"typescript.tsdk": "node_modules/typescript/lib"
 }
