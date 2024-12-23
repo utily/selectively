@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { Token } from "../lexer"
 import { Base as SType } from "./Base"
 import { Completion } from "./Completion"
@@ -43,6 +42,6 @@ export class Number extends SType {
 		this.completorArgument.push(...pattern)
 	}
 	static is(value: any | Number): value is Number {
-		return value instanceof Number || !global.Number.isNaN(value)
+		return value instanceof Number || !globalThis.Number.isNaN(value)
 	}
 }

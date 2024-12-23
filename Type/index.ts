@@ -30,10 +30,10 @@ export namespace Type {
 		let result: Base
 		switch (typeof value) {
 			case "object":
-				result = global.Array.isArray(value)
+				result = globalThis.Array.isArray(value)
 					? new TArray(value.map(e => convert(e)))
 					: new TObject(
-							global.Object.entries(value).reduce((r, c) => {
+							globalThis.Object.entries(value).reduce((r, c) => {
 								return { ...r, [c[0]]: convert(c[1]) }
 							}, {})
 					  )

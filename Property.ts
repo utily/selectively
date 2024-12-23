@@ -3,6 +3,7 @@ import { Criteria } from "./Criteria"
 import { add, create, Rule } from "./Rule"
 
 export class Property extends Rule {
+	static readonly precedence = 80
 	readonly precedence = Property.precedence
 	readonly class = "Property"
 	readonly symbol = "."
@@ -21,7 +22,6 @@ export class Property extends Rule {
 			this.criteria?.stringify(this.precedence) ?? ""
 		}`
 	}
-	static readonly precedence = 80
 }
 export function property(name: string | string[], criteria: Criteria): Property
 export function property(name: string | string[], criteria: Criteria, value: any): boolean

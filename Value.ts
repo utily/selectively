@@ -1,6 +1,7 @@
 import { Expression } from "./Expression"
 
 export class Value extends Expression {
+	static readonly precedence = 19
 	readonly precedence = Value.precedence
 	readonly class = "Value"
 	readonly value: Value | string | number
@@ -11,7 +12,6 @@ export class Value extends Expression {
 		else
 			this.value = value
 	}
-	static readonly precedence = 19
 	toString(): string {
 		return this.name ? `${this.name?.toString()}.` + this.value.toString() : this.value.toString()
 	}
