@@ -22,39 +22,16 @@ describe("and", () => {
 		expect(selectively.and("test", { type: "type" })).toMatchObject({
 			class: "And",
 			rules: [
-				{
-					class: "Is",
-					value: "test",
-				},
-				{
-					class: "Property",
-					criteria: {
-						class: "Is",
-						value: "type",
-					},
-					name: "type",
-				},
+				{ class: "Is", value: "test" },
+				{ class: "Property", criteria: { class: "Is", value: "type" }, name: "type" },
 			],
 		}))
 	it("generalize", () =>
 		expect(selectively.and("test", { type: "type" }).generalize()).toMatchObject({
 			class: "And",
 			rules: [
-				{
-					class: "Any",
-					criteria: {
-						class: "Is",
-						value: "test",
-					},
-				},
-				{
-					class: "Property",
-					criteria: {
-						class: "Is",
-						value: "type",
-					},
-					name: "type",
-				},
+				{ class: "Any", criteria: { class: "Is", value: "test" } },
+				{ class: "Property", criteria: { class: "Is", value: "type" }, name: "type" },
 			],
 		}))
 })

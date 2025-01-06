@@ -4,6 +4,7 @@ import { create, Rule } from "./Rule"
 import { Type } from "./Type"
 
 export class Or extends Rule {
+	static readonly precedence = 30
 	readonly precedence = Or.precedence
 	readonly class = "Or"
 	readonly criteria: Rule[]
@@ -17,7 +18,6 @@ export class Or extends Rule {
 	toString() {
 		return this.criteria.map(c => c.stringify(this.precedence)).join(" | ")
 	}
-	static readonly precedence = 30
 }
 export function or(...criterias: Criteria[]): Or {
 	return new Or(criterias.map(create))

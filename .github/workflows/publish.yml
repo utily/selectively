@@ -6,7 +6,7 @@ on:
       - "release-*"
 jobs:
   publish:
-    name: "Publish"
+    name: "Publish from master"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -17,10 +17,8 @@ jobs:
         with:
           node-version: current
           cache: 'npm'
-      - uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: node_modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Update NPM
+        run: npm install -g npm
       - name: Install
         run: npm install
       - name: Build

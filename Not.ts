@@ -5,6 +5,7 @@ import { Type } from "./Type"
 import { Completor } from "./Type/Completor"
 
 export class Not extends Rule {
+	static readonly precedence = 90
 	readonly precedence = Not.precedence
 	readonly class = "Not"
 	constructor(readonly criteria: Rule) {
@@ -16,7 +17,6 @@ export class Not extends Rule {
 	toString(): string {
 		return `!${this.criteria.stringify(this.precedence)}`
 	}
-	static readonly precedence = 90
 }
 export function not(criteria: Criteria): Not
 export function not(criteria: Criteria, value: any): boolean

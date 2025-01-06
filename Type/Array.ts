@@ -23,7 +23,7 @@ export class Array extends Base {
 	}
 
 	isType(value: any): boolean {
-		return global.Array.isArray(value)
+		return globalThis.Array.isArray(value)
 	}
 	private static readonly completor: Completor<Base>[] = []
 	static add(...pattern: Completor<Base>[]) {
